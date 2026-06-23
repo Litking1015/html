@@ -1,0 +1,2017 @@
+<!--
+================================================================================
+================================================================================
+||                                                                            ||
+||   !  تـحـذيـر :  هـذا الـكـود مـحـمـي وذو مـلـكـيـة خـاصـة  !              ||
+||                                                                            ||
+||   هذا الملف ومحتوياته هي ملكية فكرية حصرية لـ LitKingLTK.                  ||
+||   صاحب المشروع: أسامة بوعزاتي.                                             ||
+||                                                                            ||
+||   يُمنع منعاً باتاً نسخ، تعديل، أو توزيع هذا الملف أو أي جزء منه           ||
+||   بدون إذن خطي وصريح من المالك.                                           ||
+||                                                                            ||
+||   فقط المالك المصرح له يمتلك صلاحية التعديل على هذا الكود. أي محاولة        ||
+||   للعبث أو التغيير غير المصرح به ستعتبر انتهاكاً لحقوق الملكية.             ||
+||                                                                            ||
+================================================================================
+================================================================================
+-->
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- ========================================================
+         وسوم Open Graph لتحسين مشاركة الموقع على وسائل التواصل
+         ======================================================== -->
+    <meta property="og:title" content="LitKingLTK Studio | صناعة المحتوى السينمائي" />
+    <meta property="og:description" content="استوديو متخصص في المونتاج، تصوير الدرون، والإخراج الفني بجودة سينمائية." />
+    <meta property="og:image" content="https://img.youtube.com/vi/QBYhDwN2Ky0/maxresdefault.jpg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://litkingltk.com" /> <!-- ضع هنا رابط موقعك الرسمي عند إطلاقه -->
+    <title>LitKingLTK | صناعة محتوى ومونتاج احترافي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.150.1/three.min.js"></script>
+    <!-- أيقونة الموقع الاحترافية (Favicon) -->
+    <link rel="icon" href="https://i.ibb.co/6n2x1d8/Lit-King-LTK-icon.png" type="image/png">
+    <style>
+      /* ========================================================
+   كود التجاوب المخصص للهواتف والأجهزة الذكية فقط (Media Queries)
+   لا يغير أي شيء في مظهر الحاسوب، فقط ينسق الهواتف بشكل احترافي
+   ======================================================== */
+@media screen and (max-width: 768px) {
+    /* تعديل الهيدر وقائمة التنقل */
+    /* تعديل الهيدر وقائمة التنقل في الهاتف ليصبح نحيفاً ومثالياً */
+    header {
+        padding: 10px 4%; /* تقليل الحشو لجعله نحيفاً */
+        flex-direction: row !important; /* جعل الشعار والزر بجانب بعضهما أفقياً */
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    /* تصغير حجم الشعار ليناسب شاشة الهاتف */
+    .logo {
+        font-size: 20px !important;
+    }
+    
+    /* جعل أزرار التنقل صغيرة ومصطفة بشكل لا يأخذ مساحة كبيرة */
+    nav {
+        display: flex;
+        flex-direction: row !important;
+        gap: 8px;
+    }
+    
+    nav a {
+        margin: 0 4px !important;
+        font-size: 0.75rem !important; /* تصغير الخط */
+        display: none; /* (اختياري) يمكنك تفعيلها إذا كنت تريد إخفاء الروابط والاعتماد على زر الواتساب فقط */
+    }
+    
+    /* تنسيق زر الاتصال في الهيدر ليكون متناسقاً ونحيفاً */
+    .btn-phone-header {
+        padding: 6px 12px !important;
+        font-size: 0.8rem !important;
+        margin-top: 0 !important;
+    }
+}
+      .contact { padding: 100px 8%; background: radial-gradient(circle at center, #141414 0%, #050505 100%); text-align: center; position: relative; overflow: hidden; border-top: 1px solid #161616; }
+.cta-glow-blur { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: #ff4a1c; filter: blur(140px); opacity: 0.12; pointer-events: none; z-index: 1; }
+.contact-methods { display: flex; justify-content: center; gap: 25px; margin-bottom: 45px; flex-wrap: wrap; position: relative; z-index: 2; }
+.contact-item { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); padding: 14px 28px; border-radius: 16px; display: inline-flex; align-items: center; gap: 15px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.contact-item:hover { border-color: rgba(255, 255, 255, 0.15); background: rgba(255, 255, 255, 0.05); transform: translateY(-3px); }
+.contact-item.whatsapp-box-premium:hover { border-color: #25d366; background: rgba(37, 211, 102, 0.03); }
+.contact-item.mail-box-premium:hover { border-color: #ff4a1c; background: rgba(255, 74, 28, 0.03); }
+.icon-wrap { padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.03); }
+.whatsapp-svg, .btn-whatsapp-svg { width: 22px; height: 22px; fill: #25d366; }
+.email-svg { width: 22px; height: 22px; fill: #ff4a1c; }
+.method-details { display: flex; flex-direction: column; text-align: right; }
+.method-details span { font-size: 0.8rem; color: #666; font-weight: 500; margin-bottom: 2px; }
+.method-link { color: #fff; text-decoration: none; font-weight: 700; font-size: 1rem; transition: color 0.3s; }
+.whatsapp-color-text { color: #25d366; }
+form { max-width: 620px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; background: linear-gradient(135deg, rgba(20, 20, 20, 0.6) 0%, rgba(10, 10, 10, 0.8) 100%); padding: 45px; border-radius: 24px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.04); box-shadow: 0 25px 50px rgba(0,0,0,0.4); position: relative; z-index: 2; }
+.form-top-line { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 70px; height: 3px; background: #ff4a1c; border-radius: 0 0 4px 4px; opacity: 0.6; }
+.input-error { border-color: #ff3333 !important; box-shadow: 0 0 12px rgba(255, 51, 51, 0.25) !important; background-color: #160a0a !important; }
+.btn-submit-container { display: flex; gap: 15px; width: 100%; margin-top: 8px; }
+.btn-whatsapp-premium { flex: 1.4; background: linear-gradient(135deg, #25d366, #1a9f4c); color: white; padding: 16px 25px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: inline-flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(37, 211, 102, 0.2); }
+.btn-whatsapp-premium:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(37, 211, 102, 0.4); }
+.btn-whatsapp-premium .btn-whatsapp-svg { fill: white; width: 20px; height: 20px; }
+.btn-email-secondary { flex: 0.8; background: rgba(255,255,255,0.03); color: white; border: 1px solid #333; padding: 16px 25px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; }
+.btn-email-secondary:hover { background: rgba(255,255,255,0.07); border-color: #ff4a1c; color: #ff4a1c; }
+footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; border-top: 1px solid #111; background-color: #030303; }
+
+/* ستايل الشات الفخم */
+.ai-chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 9999; direction: rtl; }
+.ai-chat-trigger { width: 60px; height: 60px; background: #ff4a1c; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(255, 74, 28, 0.4); position: relative; transition: transform 0.3s ease; }
+.ai-chat-trigger:hover { transform: scale(1.08); }
+.ai-chat-trigger svg { width: 26px; height: 26px; fill: white; }
+.pulse-ring { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 2px solid #ff4a1c; animation: chatPulse 2s infinite; }
+@keyframes chatPulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+.ai-chat-window { position: absolute; bottom: 80px; right: 0; width: 360px; height: 480px; background: #0f0f0f; border: 1px solid #222; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); display: flex; flex-direction: column; overflow: hidden; opacity: 0; transform: translateY(20px); pointer-events: none; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.ai-chat-window.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.ai-chat-header { background: #161616; padding: 15px; border-bottom: 1px solid #222; display: flex; align-items: center; gap: 12px; }
+.ai-avatar { width: 40px; height: 40px; background: linear-gradient(135deg, #ff4a1c, #b32e0b); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; }
+.ai-status-info { flex: 1; text-align: right; }
+.ai-status-info h4 { margin: 0; font-size: 0.95rem; color: white; }
+.ai-status-info p { margin: 0; font-size: 0.75rem; color: #25d366; }
+.close-chat-btn { background: none; border: none; color: #666; font-size: 24px; cursor: pointer; }
+.ai-chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #0a0a0a; }
+.msg { max-width: 80%; padding: 12px 16px; font-size: 0.9rem; line-height: 1.5; border-radius: 14px; text-align: right; }
+.bot-msg { background: #1a1a1a; color: #ddd; border-bottom-right-radius: 2px; align-self: flex-start; border: 1px solid #262626; }
+.user-msg { background: #ff4a1c; color: white; border-bottom-left-radius: 2px; align-self: flex-end; }
+.ai-chat-input-area { padding: 12px; background: #121212; border-top: 1px solid #222; display: flex; gap: 8px; }
+.ai-chat-input-area input { flex: 1; padding: 12px; background: #1a1a1a; border: 1px solid #262626; color: white; border-radius: 10px; }
+.ai-chat-input-area button { background: #ff4a1c; border: none; width: 42px; height: 42px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.ai-chat-input-area button svg { width: 18px; height: 18px; fill: white; transform: scaleX(-1); }
+@media (max-width: 480px) { .ai-chat-window { width: 300px; height: 420px; right: -10px; } }
+      
+      .cta-section {
+    padding: 100px 8%;
+    text-align: center;
+    background: linear-gradient(-45deg, #0f0f0f, #1a1a1a, #0f0f0f, var(--accent-color));
+    background-size: 400% 400%;
+    animation: gradientFlow 10s ease infinite;
+    border-top: 1px solid #333;
+}
+
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.cta-content {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    padding: 60px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-content h2 { font-size: 3rem; color: #fff; margin-bottom: 20px; }
+.cta-content p { color: #ccc; font-size: 1.2rem; margin-bottom: 40px; }
+
+.cta-btn {
+    padding: 20px 50px;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: 0.4s;
+    display: inline-block;
+}
+
+.cta-btn:hover {
+    background: var(--accent-color);
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 0 30px var(--accent-color);
+}
+   
+      /* تنسيق قسم شركاء النجاح */
+      .partners-section { padding: 80px 8%; background-color: #080808; text-align: center; }
+      .partners-grid {
+          display: flex;
+          justify-content: center;
+          gap: 30px;
+          flex-wrap: wrap;
+          margin-top: 40px;
+      }
+      .partner-card {
+          padding: 20px 40px;
+          border: 1px solid #333;
+          border-radius: 10px;
+          color: #fff;
+          font-weight: 700;
+          font-size: 1.2rem;
+          background: #161616;
+          transition: all 0.4s ease;
+      }
+      .partner-card:hover {
+          border-color: var(--accent-color);
+          color: var(--accent-color);
+          transform: translateY(-10px);
+      }
+
+
+
+      .partner-card:hover { border-color: var(--accent-color); color: var(--accent-color); }
+      
+              /* تنسيقات قسم لماذا نحن الجديد */
+          .why-us { padding: 100px 8%; background-color: #0d0d0d; text-align: center; }
+          .why-us-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 50px; }
+          .why-card { background: #161616; padding: 40px 30px; border-radius: 15px; border: 1px solid #222; transition: all 0.4s ease; }
+          .why-card:hover { border-color: var(--accent-color); transform: translateY(-10px); box-shadow: 0 10px 30px rgba(255, 74, 28, 0.15); }
+          .why-card .icon { font-size: 3rem; margin-bottom: 20px; display: block; }
+          .why-card h3 { color: white; margin-bottom: 15px; font-size: 1.4rem; }
+          .why-card p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; }
+              /* إعدادات الألوان والهوية البصرية السينمائية */
+/* ========================================================
+   قسم شهادات العملاء الجذاب (Testimonials Section) - تصميم محدث
+   ======================================================== */
+.testimonials {
+  padding: 100px 8%;
+  background: linear-gradient(180deg, #0a0a0a 0%, #101010 100%);
+  text-align: center;
+  border-top: 1px solid #1a1a1a;
+  position: relative;
+  overflow: hidden;
+}
+.section-subtitle {
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: -30px auto 50px auto;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+.testimonial-card {
+  background: linear-gradient(145deg, #1a1a1a, #121212);
+  padding: 35px;
+  border-radius: 20px;
+  border: 1px solid #252525;
+  text-align: right;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+.testimonial-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--accent-color);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 0 4px rgba(255, 74, 28, 0.1);
+}
+.testimonial-card::before {
+  content: "“";
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  font-size: 10rem;
+  font-family: Georgia, serif;
+  color: rgba(255, 74, 28, 0.05);
+  z-index: 1;
+  line-height: 1;
+  transition: color 0.4s;
+}
+.testimonial-card:hover::before {
+    color: rgba(255, 74, 28, 0.08);
+}
+
+              :root {
+                  --bg-color: #0d0d0d;
+                  --card-bg: #161616;
+                  --accent-color: #ff4a1c; /* برتقالي ناري يناسب اسم Lit */
+                  --text-color: #ffffff;
+                  --text-muted: #a0a0a0;
+                  --whatsapp-color: #25D366;
+
+                  /* ألوان البرامج والخدمات الخاصة للاستخدام التفاعلي */
+                  --premiere-color: #ea16e3;
+                  --davinci-color: #00a2ff;
+                  --aftereffects-color: #9000ff;
+                  --drone-color: #00ffcc;
+              }
+
+              * {
+                  box-sizing: border-box;
+                  margin: 0;
+                  padding: 0;
+                  scroll-behavior: smooth;
+              }
+
+              body {
+                  background-color: var(--bg-color);
+                  color: var(--text-color);
+                  font-family: 'Cairo', sans-serif;
+                  overflow-x: hidden;
+              }
+
+              /* ========================================================
+                 تأثير الشاشة الترحيبية الاحترافية (Cinematic Preloader)
+                 ======================================================== */
+              #preloader {
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100vh;
+                  background-color: #050505;
+                  z-index: 99999;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  transition: opacity 0.8s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.8s;
+              }
+
+              .loader-logo {
+                  font-family: 'Syne', sans-serif;
+                  font-size: 3.5rem;
+                  font-weight: 800;
+                  color: var(--text-color);
+                  opacity: 0;
+                  transform: scale(0.8) translateZ(0);
+                  animation: logoIntro 1.8s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+                  text-shadow: 0 0 30px rgba(255, 74, 28, 0);
+              }
+
+              .loader-logo span {
+                  color: var(--accent-color);
+              }
+
+              @keyframes logoIntro {
+                  0% {
+                      opacity: 0;
+                      transform: scale(0.85);
+                      filter: blur(10px);
+                  }
+                  50% {
+                      opacity: 1;
+                      transform: scale(1.05);
+                      filter: blur(0);
+                      text-shadow: 0 0 40px rgba(255, 74, 28, 0.6);
+                  }
+                  100% {
+                      opacity: 1;
+                      transform: scale(1);
+                      text-shadow: 0 0 20px rgba(255, 74, 28, 0.3);
+                  }
+              }
+
+              /* إخفاء الشاشة بعد انتهاء التحميل */
+              #preloader.loaded {
+                  opacity: 0;
+                  visibility: hidden;
+                  pointer-events: none;
+              }
+
+              /* ========================================================
+                 تثبيت لوحة الخلفية التفاعلية الحية (Interactive Canvas Background)
+                 ======================================================== */
+              #bg-canvas {
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  z-index: -1; /* خلف كافة العناصر دائمًا */
+                  pointer-events: none; /* السماح بالضغط على العناصر فوقها */
+              }
+
+              /* جعل الأقسام شفافة قليلاً لرؤية تفاعل الجزيئات خلفها */
+              section {
+                  position: relative;
+                  z-index: 10;
+              }
+
+              /* الهيدر وقائمة التنقل */
+              header {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  padding: 20px 8%;
+                  background-color: rgba(13, 13, 13, 0.75);
+                  backdrop-filter: blur(12px);
+                  -webkit-backdrop-filter: blur(12px);
+                  position: fixed;
+                  width: 100%;
+                  top: 0;
+                  z-index: 1000;
+                  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+                  perspective: 1000px;
+              }
+
+              /* هندسة شعار الـ 3D Perspective المطور */
+              .logo-container {
+                  perspective: 500px;
+                  display: inline-block;
+              }
+
+              .logo {
+                  font-family: 'Syne', sans-serif;
+                  font-size: 26px;
+                  font-weight: 800;
+                  letter-spacing: 1px;
+                  color: var(--text-color);
+                  text-decoration: none;
+                  display: inline-block;
+                  position: relative;
+                  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), text-shadow 0.5s ease;
+                  transform-style: preserve-3d;
+                  will-change: transform;
+                  cursor: pointer;
+              }
+
+              .logo span {
+                  color: var(--accent-color);
+                  display: inline-block;
+                  transform: translateZ(10px);
+              }
+
+              .logo:hover {
+                  text-shadow: 0 5px 15px rgba(255, 74, 28, 0.4);
+              }
+
+              nav { display: flex; align-items: center; }
+              nav a { color: var(--text-color); text-decoration: none; margin-left: 20px; font-weight: 700; transition: color 0.3s; font-size: 0.95rem; }
+              nav a:hover { color: var(--accent-color); }
+
+              /* زر الواتساب الاحترافي السريع في الهيدر */
+              .btn-phone-header {
+                  background-color: transparent;
+                  color: var(--text-color);
+                  border: 1px solid var(--whatsapp-color);
+                  padding: 8px 18px;
+                  border-radius: 5px;
+                  font-size: 0.95rem;
+                  font-weight: 700;
+                  text-decoration: none;
+                  transition: all 0.3s ease;
+                  direction: ltr;
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 8px;
+              }
+              .btn-phone-header svg { width: 16px; height: 16px; fill: var(--whatsapp-color); transition: fill 0.3s; }
+              .btn-phone-header:hover {
+                  background-color: var(--whatsapp-color);
+                  color: white;
+                  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+              }
+              .btn-phone-header:hover svg { fill: white; }
+
+              /* القسم الرئيسي */
+              .hero {
+                  height: 100vh;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  text-align: center;
+                  padding: 0 20px;
+                  background: linear-gradient(to bottom, rgba(13, 13, 13, 0.4), var(--bg-color)), url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2071&auto=format&fit=crop') center/cover no-repeat;
+                  position: relative;
+              }
+
+              .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; line-height: 1.3; text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6); }
+              .hero h1 span { color: var(--accent-color); font-family: 'Syne', sans-serif; }
+              .hero p { font-size: 1.3rem; color: var(--text-muted); max-width: 700px; margin-bottom: 40px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); }
+
+              .btn {
+                  background-color: var(--accent-color);
+                  color: white;
+                  padding: 15px 35px;
+                  border: none;
+                  border-radius: 5px;
+                  font-size: 1.1rem;
+                  font-weight: 700;
+                  cursor: pointer;
+                  text-decoration: none;
+                  transition: transform 0.3s, box-shadow 0.3s;
+                  box-shadow: 0 4px 15px rgba(255, 74, 28, 0.4);
+                  display: inline-block;
+              }
+              .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255, 74, 28, 0.6); }
+
+              /* عني */
+              .about { padding: 100px 8%; background-color: rgba(22, 22, 22, 0.85); text-align: center; backdrop-filter: blur(5px); }
+              .section-title { font-size: 2.5rem; margin-bottom: 50px; position: relative; display: inline-block; }
+              .section-title::after { content: ''; width: 50%; height: 4px; background-color: var(--accent-color); position: absolute; bottom: -10px; left: 25%; border-radius: 2px; }
+              .about p { font-size: 1.2rem; color: var(--text-muted); max-width: 900px; margin: 0 auto; line-height: 1.8; }
+
+              /* قسم الخدمات والتجهيزات التفاعلي */
+              .software-section { padding: 100px 8%; background-color: rgba(9, 9, 9, 0.8); text-align: center; }
+              .software-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; margin-top: 50px; }
+              .software-card { background-color: var(--card-bg); border: 1px solid #222; border-radius: 12px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; }
+              .software-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: transparent; transition: background-color 0.3s; }
+              .software-card::after {
+                  content: '';
+                  position: absolute;
+                  inset: 0;
+                  border-radius: 12px;
+                  background: radial-gradient(circle at center, var(--glow-color, transparent) 0%, transparent 70%);
+                  opacity: 0;
+                  transition: opacity 0.4s ease;
+                  z-index: -1;
+              }
+
+              .software-card:hover { transform: translateY(-8px); }
+              .software-card:hover .software-icon { transform: translateY(-4px) scale(1.05) rotate(-2deg); }
+              .software-card:hover::after { opacity: 0.15; }
+
+              .software-card.pr:hover { border-color: var(--premiere-color); box-shadow: 0 10px 30px rgba(234, 22, 227, 0.15); --glow-color: var(--premiere-color); }
+              .software-card.pr::before { background-color: var(--premiere-color); }
+
+              .software-card.dr:hover { border-color: var(--davinci-color); box-shadow: 0 10px 30px rgba(0, 162, 255, 0.15); --glow-color: var(--davinci-color); }
+              .software-card.dr::before { background-color: var(--davinci-color); }
+
+              .software-card.ae:hover { border-color: var(--aftereffects-color); box-shadow: 0 10px 30px rgba(144, 0, 255, 0.15); --glow-color: var(--aftereffects-color); }
+              .software-card.ae::before { background-color: var(--aftereffects-color); }
+
+              .software-card.drone:hover { border-color: var(--drone-color); box-shadow: 0 10px 30px rgba(0, 255, 204, 0.15); --glow-color: var(--drone-color); }
+              .software-card.drone::before { background-color: var(--drone-color); }
+
+              .software-icon { font-size: 3rem; font-weight: 900; margin-bottom: 15px; font-family: 'Syne', sans-serif; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+              .pr .software-icon { color: var(--premiere-color); }
+              .dr .software-icon { color: var(--davinci-color); }
+              .ae .software-icon { color: var(--aftereffects-color); }
+              .drone .software-icon { color: var(--drone-color); font-size: 2.8rem; }
+
+              .software-card h3 { font-size: 1.3rem; margin-bottom: 15px; font-family: 'Cairo', sans-serif; font-weight: 700; position: relative; z-index: 2; }
+              .software-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+              .skill-bar-container { background-color: #222; border-radius: 10px; height: 6px; width: 100%; position: relative; overflow: hidden; }
+              .skill-bar { height: 100%; border-radius: 10px; width: 0; transition: width 1.5s ease-in-out; }
+
+              .pr .skill-bar { background-color: var(--premiere-color); width: 95%; }
+              .dr .skill-bar { background-color: var(--davinci-color); width: 90%; }
+              .ae .skill-bar { background-color: var(--aftereffects-color); width: 85%; }
+              .drone .skill-bar { background-color: var(--drone-color); width: 95%; }
+              .skill-percentage { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px; font-weight: 700; }
+
+              /* قسم خطوات سير العمل الاحترافي التفاعلي */
+              .process-section { padding: 100px 8%; background-color: transparent; text-align: center; overflow: hidden;}
+              .process-container { position: relative; margin-top: 80px; display: block; }
+
+              .process-line {
+                  position: absolute;
+                  top: 40px;
+                  left: 0;
+                  width: 100%;
+                  height: 2px;
+                  background: linear-gradient(90deg, transparent 0%, rgba(255, 74, 28, 0.2) 20%, rgba(255, 74, 28, 0.8) 50%, rgba(255, 74, 28, 0.2) 80%, transparent 100%);
+                  z-index: 1;
+              }
+
+              .process-grid-interactive {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                  gap: 30px;
+                  position: relative;
+                  z-index: 2;
+              }
+
+              .process-card-premium {
+                  background-color: var(--card-bg);
+                  border: 1px solid #1c1c1c;
+                  border-radius: 16px;
+                  padding: 45px 25px 35px 25px;
+                  position: relative;
+                  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+                  cursor: pointer;
+                  text-align: right;
+              }
+
+              .process-card-premium::after {
+                  content: '';
+                  position: absolute;
+                  inset: 0;
+                  border-radius: 16px;
+                  background: radial-gradient(circle at center, rgba(255, 74, 28, 0.08) 0%, transparent 70%);
+                  opacity: 0;
+                  transition: opacity 0.4s ease;
+                  z-index: -1;
+              }
+
+              .process-badge-circle {
+                  position: absolute;
+                  top: -30px;
+                  right: 25px;
+                  width: 55px;
+                  height: 55px;
+                  background-color: #0d0d0d;
+                  border: 2px solid #2a2a2a;
+                  color: #777;
+                  font-family: 'Syne', sans-serif;
+                  font-size: 1.4rem;
+                  font-weight: 800;
+                  border-radius: 50%;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+              }
+
+              .card-top-indicator {
+                  position: absolute;
+                  top: 0;
+                  right: 90px;
+                  left: 25px;
+                  height: 2px;
+                  background: transparent;
+                  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+              }
+
+              .process-card-premium h3 { font-size: 1.3rem; margin-bottom: 12px; font-weight: 700; color: #f0f0f0; transition: color 0.3s ease; }
+              .process-card-premium p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; transition: color 0.3s ease; }
+
+              .process-card-premium:hover {
+                  transform: translateY(-10px);
+                  border-color: rgba(255, 74, 28, 0.4);
+                  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 74, 28, 0.05);
+              }
+              .process-card-premium:hover::after { opacity: 1; }
+              .process-card-premium:hover .process-badge-circle { background-color: var(--accent-color); border-color: var(--accent-color); color: white; transform: scale(1.1) rotate(5deg); box-shadow: 0 0 20px rgba(255, 74, 28, 0.5); }
+              .process-card-premium:hover .card-top-indicator { background-color: var(--accent-color); box-shadow: 0 0 10px rgba(255, 74, 28, 0.5); }
+              .process-card-premium:hover h3 { color: white; }
+              .process-card-premium:hover p { color: #e2e2e2; }
+
+              /* قسم باقات الأسعار المحدثة والمرنة */
+              .pricing { padding: 100px 8%; background-color: rgba(9, 9, 9, 0.7); text-align: center; }
+              .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; align-items: center; }
+
+              .price-card { background-color: var(--card-bg); border: 1px solid #222; border-radius: 15px; padding: 40px 30px; transition: all 0.3s ease; position: relative; }
+              .price-card:hover { transform: translateY(-10px); border-color: #444; }
+
+              .price-card.popular {
+                  border-color: var(--accent-color);
+                  transform: scale(1.05);
+                  box-shadow: 0 10px 40px rgba(255, 74, 28, 0.15);
+                  z-index: 2;
+                  background: linear-gradient(180deg, #1a1a1a 0%, var(--card-bg) 100%);
+              }
+              .price-card.popular:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 15px 50px rgba(255, 74, 28, 0.25); }
+
+              .popular-badge {
+                  position: absolute;
+                  top: -15px;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  background-color: var(--accent-color);
+                  color: white;
+                  padding: 5px 20px;
+                  border-radius: 20px;
+                  font-size: 0.85rem;
+                  font-weight: 700;
+                  letter-spacing: 1px;
+                  box-shadow: 0 4px 10px rgba(255, 74, 28, 0.4);
+              }
+
+              .price-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+              .price-card p.subtitle { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; line-height: 1.4; }
+
+              .price-label { font-size: 0.9rem; color: var(--accent-color); font-weight: 700; display: block; margin-bottom: -5px; }
+              .price { font-size: 2.2rem; font-weight: 900; color: white; margin-bottom: 30px; font-family: 'Syne', sans-serif; display: flex; justify-content: center; align-items: baseline; gap: 5px; }
+              .price span { font-size: 1rem; color: var(--text-muted); font-family: 'Cairo', sans-serif; font-weight: 400; }
+
+              .features-list { list-style: none; text-align: right; margin-bottom: 35px; }
+              .features-list li { margin-bottom: 15px; color: #ddd; font-size: 0.95rem; display: flex; align-items: center; gap: 10px; }
+              .features-list li::before { content: '✔'; color: var(--accent-color); font-weight: 900; font-size: 1.1rem; }
+              .features-list li.disabled { color: #555; }
+              .features-list li.disabled::before { content: '✖'; color: #555; }
+
+              .btn-price { display: block; width: 100%; padding: 15px; border-radius: 8px; font-weight: 700; text-decoration: none; transition: all 0.3s ease; font-size: 1.05rem; }
+              .btn-outline { background-color: transparent; border: 1px solid #444; color: white; }
+              .btn-outline:hover { background-color: #222; border-color: white; }
+              .btn-filled { background-color: var(--accent-color); color: white; border: none; box-shadow: 0 4px 15px rgba(255, 74, 28, 0.3); }
+              .btn-filled:hover { background-color: #e63e15; box-shadow: 0 6px 20px rgba(255, 74, 28, 0.5); transform: translateY(-2px); }
+
+              /* معرض الأعمال الاحترافي */
+              .portfolio { padding: 100px 8%; background-color: rgba(22, 22, 22, 0.85); backdrop-filter: blur(5px); }
+              .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px; }
+
+              .portfolio-card {
+                  background-color: var(--bg-color);
+                  border-radius: 10px;
+                  overflow: hidden;
+                  border: 1px solid #222;
+                  transition: transform 0.3s, border-color 0.3s;
+                  text-decoration: none;
+                  color: inherit;
+                  display: block;
+              }
+              .portfolio-card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
+
+              .thumbnail-container { position: relative; padding-bottom: 56.25%; background-color: #000; overflow: hidden; }
+              .thumbnail-container img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; opacity: 0.8; }
+              .portfolio-card:hover .thumbnail-container img { transform: scale(1.05); opacity: 0.9; }
+
+              .play-overlay {
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  width: 60px;
+                  height: 60px;
+                  background-color: rgba(255, 74, 28, 0.9);
+                  border-radius: 50%;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  font-size: 1.5rem;
+                  color: white;
+                  box-shadow: 0 4px 15px rgba(255, 74, 28, 0.4);
+                  transition: all 0.3s ease;
+                  z-index: 2;
+              }
+              .portfolio-card:hover .play-overlay { background-color: #ffffff; color: var(--accent-color); transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4); }
+
+              .card-info { padding: 20px; }
+              .card-info h3 { font-size: 1.15rem; margin-top: 5px; margin-bottom: 10px; line-height: 1.4; }
+              .card-info span { background-color: rgba(255, 74, 28, 0.1); color: var(--accent-color); font-size: 0.8rem; font-weight: 700; padding: 4px 10px; border-radius: 4px; display: inline-block; }
+
+              /* صفحة التواصل والنموذج المربوط */
+              .contact { padding: 100px 8%; background-color: rgba(13, 13, 13, 0.8); text-align: center; border-top: 1px solid #1a1a1a;}
+              .contact-methods { display: flex; justify-content: center; gap: 30px; margin-top: 25px; flex-wrap: wrap; }
+              .contact-item { font-size: 1.1rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+              .contact-item a { color: var(--text-color); text-decoration: none; font-weight: 700; transition: color 0.3s; }
+              .contact-item a:hover { color: var(--accent-color); }
+
+              form { max-width: 600px; margin: 40px auto 0 auto; display: flex; flex-direction: column; gap: 20px; }
+              input, textarea, select { width: 100%; padding: 15px; background-color: var(--bg-color); border: 1px solid #333; border-radius: 5px; color: white; font-family: 'Cairo', sans-serif; font-size: 1rem; transition: all 0.3s ease; }
+              input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent-color); box-shadow: 0 0 10px rgba(255, 74, 28, 0.2); }
+
+              .input-error { border-color: #ff3333 !important; box-shadow: 0 0 10px rgba(255, 51, 51, 0.3) !important; background-color: #1a0d0d; }
+
+              .btn-submit-container { display: flex; gap: 15px; width: 100%; flex-wrap: wrap; margin-top: 10px; }
+
+              .btn-whatsapp-premium {
+                  flex: 1.2;
+                  min-width: 240px;
+                  background-color: var(--whatsapp-color);
+                  color: white;
+                  padding: 16px 32px;
+                  border: none;
+                  border-radius: 6px;
+                  font-size: 1.1rem;
+                  font-weight: 700;
+                  font-family: 'Cairo', sans-serif;
+                  cursor: pointer;
+                  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+                  display: inline-flex;
+                  justify-content: center;
+                  align-items: center;
+                  gap: 12px;
+                  position: relative;
+                  overflow: hidden;
+                  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.25);
+                  animation: pulseWhatsApp 2.5s infinite;
+              }
+
+              .btn-whatsapp-premium .whatsapp-svg { width: 24px; height: 24px; fill: white; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+              .btn-whatsapp-premium:hover { transform: translateY(-4px); background-color: #20ba5a; box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5), 0 0 15px rgba(37, 211, 102, 0.3); }
+              .btn-whatsapp-premium:hover .whatsapp-svg { transform: scale(1.15) rotate(-10deg); }
+
+              .btn-email-secondary { flex: 0.8; min-width: 180px; background-color: transparent; color: var(--text-color); border: 1px solid #444; padding: 16px 32px; border-radius: 6px; font-size: 1.1rem; font-weight: 700; font-family: 'Cairo', sans-serif; cursor: pointer; transition: all 0.3s ease; }
+              .btn-email-secondary:hover { background-color: rgba(255,255,255,0.04); border-color: var(--accent-color); color: var(--accent-color); }
+
+              @keyframes pulseWhatsApp {
+                  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+                  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+                  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+              }
+
+              .spinner { width: 22px; height: 22px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: white; animation: spin 0.8s linear infinite; display: none; }
+              @keyframes spin { to { transform: rotate(360deg); } }
+
+              footer { text-align: center; padding: 40px; font-size: 0.9rem; color: var(--text-muted); border-top: 1px solid #222; background-color: #080808; }
+
+              @media (max-width: 900px) {
+                  .price-card.popular { transform: scale(1); }
+                  .price-card.popular:hover { transform: scale(1) translateY(-5px); }
+              }
+
+              @media (max-width: 768px) {
+                  header { padding: 20px 5%; flex-direction: column; gap: 15px; text-align: center; }
+                  nav { margin-bottom: 5px; flex-wrap: wrap; justify-content: center; gap: 10px; } nav a { margin: 0 5px; }
+                  .hero h1 { font-size: 2.2rem; }
+                  .portfolio-grid { grid-template-columns: 1fr; }
+                  .contact-methods { flex-direction: column; gap: 15px; }
+                  .software-grid { grid-template-columns: 1fr; }
+                  .btn-submit-container { flex-direction: column; }
+                  .process-line { display: none; }
+                  .process-grid-interactive { grid-template-columns: 1fr; gap: 45px; }
+                  .process-card-premium { text-align: center; padding-top: 40px; }
+                  .process-badge-circle { right: 50%; transform: translateX(50%); top: -28px; }
+                  .process-card-premium:hover .process-badge-circle { transform: translateX(50%) scale(1.1); }
+                  .card-top-indicator { left: 15px; right: 15px; }
+                  .pricing-grid { grid-template-columns: 1fr; }
+              }
+    </style>
+    
+  </head>
+  <body>
+    <!-- ========================================================
+         شاشة وضع الصيانة الاحترافية (Maintenance Mode)
+         ======================================================== -->
+    <div id="maintenance-overlay" style="display: none;">
+        <div class="maintenance-content">
+            <div class="maintenance-logo">LitKing<span>LTK</span></div>
+            <h2 class="maintenance-title">الموقع قيد الصيانة حالياً</h2>
+            <p class="maintenance-text">
+                نحن نقوم ببعض التحديثات والتحسينات الرائعة لجعل تجربتكم أفضل.
+                <br>
+                سنعود للعمل بكامل طاقتنا قريباً جداً. شكراً لصبركم!
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         شاشة حجب الموقع عن متصفح Safari على أجهزة iOS
+         ======================================================== -->
+    <div id="safari-blocker" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #0d0d0d; z-index: 999999; color: white; text-align: center; flex-direction: column; justify-content: center; align-items: center; padding: 20px; font-family: 'Cairo', sans-serif;">
+        <h2 style="font-family: 'Syne', sans-serif; font-size: 2rem; color: var(--accent-color); margin-bottom: 20px;">عذراً، الموقع غير متاح على متصفح Safari</h2>
+        <p style="font-size: 1.1rem; max-width: 500px; line-height: 1.7; color: var(--text-muted);">
+            لأفضل تجربة تصفح وأداء، نوصي باستخدام متصفح آخر مثل Google Chrome أو Firefox على جهازك.
+            <br><br>
+            نحن نعمل على تحسين التوافق مع جميع المتصفحات قريباً. شكراً لتفهمك.
+        </p>
+    </div>
+
+    <!-- ========================================================
+         شريط التقدم التفاعلي عند التمرير (Scroll Progress Bar)
+         ======================================================== -->
+    <div id="scroll-progress-bar"></div>
+
+    <div id="preloader">
+      <div class="loader-logo">LitKing<span>LTK</span></div>
+    </div>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <header>
+<style>
+/* ========================================================
+   تنسيقات شاشة وضع الصيانة الاحترافية
+   ======================================================== */
+#maintenance-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a url('https://www.transparenttextures.com/patterns/dark-denim-3.png');
+    z-index: 9999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Cairo', sans-serif;
+    color: white;
+    padding: 20px;
+    flex-direction: column;
+}
+.maintenance-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--text-color);
+    margin-bottom: 25px;
+    text-shadow: 0 0 20px rgba(255, 74, 28, 0.3);
+}
+.maintenance-logo span {
+    color: var(--accent-color);
+}
+.maintenance-title {
+    font-size: 2.2rem;
+    color: #fff;
+    margin-bottom: 15px;
+}
+.maintenance-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 550px;
+    line-height: 1.8;
+}
+</style>
+      <div class="logo-container">
+        <a href="#" class="logo" id="dynamicLogo">LitKing<span>LTK</span></a>
+      </div>
+      <nav>
+        <a href="#">الرئيسية</a>
+        <a href="#about">عني</a>
+        <a href="#tools">الخدمات</a>
+        <a href="#testimonials">الآراء</a>
+        <a href="#process">سير العمل</a>
+        <a href="#pricing">الأسعار</a>
+        <a href="#portfolio">أعمالي</a>
+        <a href="#contact">التواصل</a>
+      </nav>
+      <a
+        href="https://wa.me/212629703283"
+        target="_blank"
+        class="btn-phone-header"
+      >
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.4.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.734-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.863-9.755.002-2.609-1.012-5.062-2.859-6.91-1.847-1.848-4.301-2.86-6.911-2.861-5.442 0-9.866 4.372-9.869 9.756-.002 1.763.473 3.486 1.378 5.022l-.998 3.645 3.738-.97-.164.218z"
+          />
+        </svg>
+        <span>+212 629-703283</span>
+      </a>
+    </header>
+
+    <section class="hero">
+      <h1>
+        <span>LitKingLTK</span> — نُحوّل الأفكار إلى قصص بصرية تأسر الأنظار
+      </h1>
+      <p>
+        صناعة محتوى إبداعي، تغطيات تجارية، تصوير جوي بالدرون، ومونتاج سينمائي
+        مخصص للشركات وصُنّاع المحتوى الباحثين عن التميّز الفائق.
+      </p>
+      <a href="#portfolio" class="btn">شاهد أعمالي</a>
+    </section>
+
+    <section class="about" id="about">
+      <h2 class="section-title">من أنا؟</h2>
+      <p>
+        أنا صانع محتوى، مصور فيديو، ومونتير محترف. أمتلك خبرة واسعة في تحويل
+        اللقطات الخام إلى أعمال بصرية متكاملة تنبض بالحياة، مستخدماً أحدث تقنيات
+        المونتاج والإخراج الفني. تتركز خدماتي الإبداعية على إنتاج الإعلانات
+        التجارية للشركات والمحلات، تغطية الافتتاحات الإبداعية، وصناعة الفيديوهات
+        العقارية والتسويقية الاحترافية بجودة تضمن لعملائي تحقيق أهدافهم وبناء
+        هوية بصرية قوية.
+      </p>
+    </section>
+    <section class="why-us" id="why-us">
+      <h2 class="section-title">لماذا نحن؟</h2>
+      <div class="why-us-grid">
+        <div class="why-card">
+          <div class="icon">🚀</div>
+          <h3>جودة سينمائية</h3>
+          <p>
+            نستخدم أحدث تقنيات التصوير والمونتاج لنضمن لك جودة 4K تبهر جمهورك
+            وتضعك في القمة.
+          </p>
+        </div>
+
+        <div class="why-card">
+          <div class="icon">⏱️</div>
+          <h3>التزام بالمواعيد</h3>
+          <p>
+            نحن نقدر قيمة وقتك؛ لذا نلتزم بتسليم المشاريع في المواعيد المتفق
+            عليها دون أي تأخير.
+          </p>
+        </div>
+
+        <div class="why-card">
+          <div class="icon">💡</div>
+          <h3>إبداع بلا حدود</h3>
+          <p>
+            لا نكتفي بالمونتاج التقليدي، بل نضيف لمسات إبداعية ومؤثرات بصرية
+            تحول الفيديو الخاص بك لقصة مشوقة.
+          </p>
+        </div>
+
+        <div class="why-card">
+          <div class="icon">🤝</div>
+          <h3>شراكة مستمرة</h3>
+          <p>
+            هدفنا ليس مجرد تسليم فيديو، بل بناء علاقة عمل طويلة الأمد تساهم في
+            نمو مشروعك ونجاحه.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="testimonials" id="testimonials">
+      <h2 class="section-title">ماذا يقول عملاؤنا؟</h2>
+      <p class="section-subtitle">
+        آراء وشهادات من شركاء النجاح الذين وثقوا بنا لتحويل رؤيتهم إلى واقع
+        بصري مبهر.
+      </p>
+      <div class="testimonials-grid">
+        <!-- شهادة 1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img
+              src="https://img.youtube.com/vi/QBYhDwN2Ky0/maxresdefault.jpg"
+              alt="شعار العميل"
+              class="client-avatar"
+            />
+            <div class="client-info">
+              <h3>Red Med Cars</h3>
+              <span>وكالة كراء سيارات</span>
+            </div>
+          </div>
+          <p class="testimonial-quote">
+            "الاحترافية والجودة كانت فوق التوقعات. الفيديو الإعلاني الذي أنتجه
+            الفريق ساهم بشكل مباشر في زيادة حجوزاتنا. عمل سينمائي بكل معنى
+            الكلمة."
+          </p>
+          <div class="stars">★★★★★</div>
+        </div>
+
+        <!-- شهادة 2 -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img
+              src="https://img.youtube.com/vi/Vr5n4iYUlRc/maxresdefault.jpg"
+              alt="شعار العميل"
+              class="client-avatar"
+            />
+            <div class="client-info">
+              <h3>BRICO MIM</h3>
+              <span>شركة مواد بناء</span>
+            </div>
+          </div>
+          <p class="testimonial-quote">
+            "تغطية الافتتاح كانت مذهلة، واللقطات الجوية بالدرون أضافت فخامة
+            للمشروع. سرعة في الإنجاز والتزام بالمواعيد، سنعتمد عليهم في كل
+            مشاريعنا القادمة."
+          </p>
+          <div class="stars">★★★★★</div>
+        </div>
+
+        <!-- شهادة 3 -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img
+              src="https://img.youtube.com/vi/uV1oAnJbJ-8/maxresdefault.jpg"
+              alt="شعار العميل"
+              class="client-avatar"
+            />
+            <div class="client-info">
+              <h3>Gift House</h3>
+              <span>محل هدايا</span>
+            </div>
+          </div>
+          <p class="testimonial-quote">
+            "فهموا رؤيتنا بسرعة وحولوها لفيديو جذاب انتشر بقوة على وسائل التواصل
+            الاجتماعي. لمسة إبداعية واضحة في المونتاج واختيار الموسيقى."
+          </p>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
+    </section>
+<style>
+.testimonial-header { /* CSS for testimonial header */
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+.client-avatar { /* CSS for client avatar */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #333;
+  object-fit: cover;
+  transition: border-color 0.4s;
+}
+.testimonial-card:hover .client-avatar {
+    border-color: var(--accent-color);
+}
+.client-info h3 { /* CSS for client info heading */
+  margin: 0;
+  color: #fff;
+  font-size: 1.2rem;
+}
+.client-info span { /* CSS for client info span */
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.testimonial-quote { /* CSS for testimonial quote */
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #ccc;
+  margin-bottom: 25px;
+  position: relative;
+  z-index: 2;
+}
+.stars { /* CSS for stars */
+  font-size: 1.2rem;
+  color: #ffc107;
+  text-align: left;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+}
+</style>
+
+    <section class="software-section" id="tools">
+      <h2 class="section-title">بيئة العمل والخدمات الإبداعية</h2>
+      <p
+        style="
+          color: var(--text-muted);
+          max-width: 600px;
+          margin: 0 auto;
+          margin-top: -30px;
+          font-size: 1.1rem;
+        "
+      >
+        أعتمد على أقوى المعدات والبرامج القياسية لضمان أعلى جودة وإخراج بصري
+        مذهل ومثالي:
+      </p>
+
+      <div class="software-grid">
+        <div class="software-card pr">
+          <div class="software-icon">Pr</div>
+          <h3>Adobe Premiere Pro</h3>
+          <p>
+            البرنامج الأساسي في سرد القصص وهيكلة المونتاج الاحترافي، والقص
+            متناغم مع الإيقاع الصوتي والسينمائي للإعلانات.
+          </p>
+          <div class="skill-percentage">
+            <span>الكفاءة والسرعة</span><span>95%</span>
+          </div>
+          <div class="skill-bar-container"><div class="skill-bar"></div></div>
+        </div>
+
+        <div class="software-card dr">
+          <div class="software-icon">Dr</div>
+          <h3>DaVinci Resolve</h3>
+          <p>
+            الأداة الأقوى عالمياً في التلوين السينمائي (Color Grading)، وتصحيح
+            الإضاءة، وضبط التوازن اللوني لتبدو اللقطات مذهلة وفخمة.
+          </p>
+          <div class="skill-percentage">
+            <span>التلوين والهندسة</span><span>90%</span>
+          </div>
+          <div class="skill-bar-container"><div class="skill-bar"></div></div>
+        </div>
+
+        <div class="software-card drone">
+          <div class="software-icon">🛸</div>
+          <h3>التصوير الجوي (Drone)</h3>
+          <p>
+            توفير لقطات سينمائية جوية مذهلة وحصرية للمشاريع العقارية،
+            الافتتاحيات الكبرى، والمقاطع Tرويجية بدقة فائقة الجودة تجذب الأنظار.
+          </p>
+          <div class="skill-percentage">
+            <span>التحكم وجودة اللقطات الجوية</span><span>95%</span>
+          </div>
+          <div class="skill-bar-container"><div class="skill-bar"></div></div>
+        </div>
+
+        <div class="software-card ae">
+          <div class="software-icon">Ae</div>
+          <h3>Adobe After Effects</h3>
+          <p>
+            صناعة الخدع البصرية، والمؤثرات الخاصة، والموشن جرافيك (Motion
+            Graphics) المتقدم لإضافة حيوية واحترافية مطلقة على الفيديوهات
+            الإعلانية.
+          </p>
+          <div class="skill-percentage">
+            <span>المؤثرات والموشن</span><span>85%</span>
+          </div>
+          <div class="skill-bar-container"><div class="skill-bar"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="process-section" id="process">
+      <h2 class="section-title">رحلة صناعة مشروعك الإبداعي</h2>
+      <p
+        style="
+          color: var(--text-muted);
+          max-width: 600px;
+          margin: 0 auto;
+          margin-top: -30px;
+          font-size: 1.1rem;
+          margin-bottom: 20px;
+        "
+      >
+        خطوات متسلسلة تتفاعل وتستجيب معك لضمان تحويل الفكرة البسيطة إلى إنتاج
+        سينمائي ضخم وعالي المبيعات:
+      </p>
+
+      <div class="process-container">
+        <div class="process-line"></div>
+
+        <div class="process-grid-interactive">
+          <div class="process-card-premium">
+            <div class="card-top-indicator"></div>
+            <div class="process-badge-circle">01</div>
+            <h3>التخطيط والسكريبت</h3>
+            <p>
+              ندرس فكرة إعلانك أو مشروعك بعناية، نحدد الأهداف التسويقية ونكتب
+              سيناريو (Script) مشوق يضمن توصيل رسالتك بأقوى طريقة.
+            </p>
+          </div>
+
+          <div class="process-card-premium">
+            <div class="card-top-indicator"></div>
+            <div class="process-badge-circle">02</div>
+            <h3>الإنتاج والتصوير الحي</h3>
+            <p>
+              ننزل إلى الميدان مجهزين بأحدث أدوات التصوير الأرضي، بالإضافة إلى
+              كاميرات الدرون (Drone) لالتقاط مشاهد جوية ساحرة وفخمة تفوق
+              التوقعات.
+            </p>
+          </div>
+
+          <div class="process-card-premium">
+            <div class="card-top-indicator"></div>
+            <div class="process-badge-circle">03</div>
+            <h3>المونتاج والتلوين</h3>
+            <p>
+              هنا السحر! نقوم بقص اللقطات على Premiere Pro ومزامنتها على الإيقاع
+              الموسيقي والصوتي، ثم ننتقل لـ DaVinciResolve للتلوين السينمائي
+              الاحترافي.
+            </p>
+          </div>
+
+          <div class="process-card-premium">
+            <div class="card-top-indicator"></div>
+            <div class="process-badge-circle">04</div>
+            <h3>المراجعة والتسليم</h3>
+            <p>
+              نستعرض النسخة الأولى معاً لإجراء اللمسات الأخيرة المرجوة، ثم تسليم
+              الفيديو النهائي بأعلى دقة ليكون جاهزاً للنشر وجلب المبيعات.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    </section>
+    <section class="pricing" id="pricing">
+      <h2 class="section-title">باقات الاستثمار المرئي</h2>
+      <p
+        style="
+          color: var(--text-muted);
+          max-width: 600px;
+          margin: 0 auto;
+          margin-top: -30px;
+          font-size: 1.1rem;
+        "
+      >
+        اختر نوع العتاد المناسب لميزانية مشروعك، وسنقوم بتخصيص السعر النهائي حسب
+        احتياجك بدقة:
+      </p>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>باقة التصوير السريع</h3>
+          <p class="subtitle">
+            اقتصادية وممتازة لصفحات السوشيال ميديا اليومية والسريعة
+          </p>
+          <span class="price-label">تبدأ من</span>
+          <div class="price">500 <span>درهم مغربي</span></div>
+          <ul class="features-list">
+            <li>تصوير ميداني بهاتف ذكي قوي ومتطور</li>
+            <li>مونتاج واقتصاص احترافي وديناميكي</li>
+            <li>إضافة نصوص ومؤثرات صوتية جذابة</li>
+            <li class="disabled">بدون طائرة درون (Drone)</li>
+            <li class="disabled">بدون تلوين سينمائي معقد</li>
+            <li class="disabled">بدون معدات إضاءة وكاميرات ضخمة</li>
+          </ul>
+          <a
+            href="#contact"
+            onclick="
+              document.getElementById('projectType').value =
+                'مونتاج وإخراج فني خاص'
+            "
+            class="btn-price btn-outline"
+            >اطلب الباقة الآن</a
+          >
+        </div>
+
+        <div class="price-card popular">
+          <div class="popular-badge">الأكثر طلباً 🔥</div>
+          <h3>إعلان تجاري متوسط</h3>
+          <p class="subtitle">
+            التوازن المثالي بين القيمة والجودة الاحترافية المتكاملة
+          </p>
+          <span class="price-label">حسب المتطلبات</span>
+          <div class="price">1000 - 1500 <span>درهم</span></div>
+          <ul class="features-list">
+            <li>تصوير أرضي بكاميرا احترافية قوية</li>
+            <li>تغطية جوية ساحرة باستخدام الدرون (Drone)</li>
+            <li>مونتاج قوي، سريع، ومتناسق مع السكريبت</li>
+            <li>تلوين وتحسين ألوان الفيديو الأساسي</li>
+            <li>معدات إضاءة وصوت مخصصة للموقع</li>
+          </ul>
+          <a
+            href="#contact"
+            onclick="
+              document.getElementById('projectType').value =
+                'فيديو إعلاني / افتتاح تجاري'
+            "
+            class="btn-price btn-filled"
+            >اطلب العرض المتوسط</a
+          >
+        </div>
+
+        <div class="price-card">
+          <h3>الباقة السينمائية الشاملة</h3>
+          <p class="subtitle">
+            إنتاج سينمائي فاخر بدون أي تنازلات لأصحاب المشاريع الفخمة
+          </p>
+          <span class="price-label">حسب حجم المشروع</span>
+          <div class="price">2000 - 3000 <span>درهم</span></div>
+          <ul class="features-list">
+            <li>تتضمن كل شيء تقريباً (تغطية شاملة ومفتوحة)</li>
+            <li>أعلى دقة تصوير سينمائي أرضي وجوي (4K Drone)</li>
+            <li>تلوين سينمائي دقيق جداً (Advanced Color Grading)</li>
+            <li>مونتاج سينمائي معقد وهندسة صوتية متكاملة</li>
+            <li>تعديلات مرنة ومفتوحة لضمان الرضا المطلق</li>
+          </ul>
+          <a
+            href="#contact"
+            onclick="
+              document.getElementById('projectType').value =
+                'تصوير وعرض عقاري وسكني'
+            "
+            class="btn-price btn-outline"
+            >اطلب الباقة السينمائية</a
+          >
+        </div>
+    </section>
+
+</section>
+
+    <section class="portfolio" id="portfolio">
+      <center><h2 class="section-title">معرض الأعمال الاحترافي</h2></center>
+
+      <div class="portfolio-grid">
+        <a
+          href="http://www.youtube.com/watch?v=QBYhDwN2Ky0"
+          target="_blank"
+          class="portfolio-card"
+        >
+          <div class="thumbnail-container">
+            <div class="play-overlay">▶</div>
+            <img
+              src="https://img.youtube.com/vi/QBYhDwN2Ky0/maxresdefault.jpg"
+              alt="إعلانات تجارية وسيارات"
+            />
+          </div>
+          <div class="card-info">
+            <span>إعلانات تجارية وسيارات</span>
+            <h3>
+              فيديو إعلاني لوكالة "Red Med Cars" لكراء السيارات بمكناس والدريوش
+            </h3>
+          </div>
+        </a>
+
+        <a
+          href="https://www.youtube.com/watch?v=wegLioS0g6Q"
+          target="_blank"
+          class="portfolio-card"
+        >
+          <div class="thumbnail-container">
+            <div class="play-overlay">▶</div>
+            <img
+              src="https://img.youtube.com/vi/wegLioS0g6Q/maxresdefault.jpg"
+              alt="تصوير ومونتاج عقاري"
+            />
+          </div>
+          <div class="card-info">
+            <span>تصوير ومونتاج عقاري</span>
+            <h3>فيديو ترويجي لعرض عقاري استراتيجي بجماعة امطالسا</h3>
+          </div>
+        </a>
+
+        <a
+          href="https://www.youtube.com/watch?v=uV1oAnJbJ-8"
+          target="_blank"
+          class="portfolio-card"
+        >
+          <div class="thumbnail-container">
+            <div class="play-overlay">▶</div>
+            <img
+              src="https://img.youtube.com/vi/uV1oAnJbJ-8/maxresdefault.jpg"
+              alt="تغطية تجارية وإعلانية"
+            />
+          </div>
+          <div class="card-info">
+            <span>تغطية تجارية وإعلانية</span>
+            <h3>فيديو افتتاح محل "بيت الهدايا - Gift House" بالدريوش</h3>
+          </div>
+        </a>
+
+        <a
+          href="https://www.youtube.com/watch?v=Vr5n4iYUlRc"
+          target="_blank"
+          class="portfolio-card"
+        >
+          <div class="thumbnail-container">
+            <div class="play-overlay">▶</div>
+            <img
+              src="https://img.youtube.com/vi/Vr5n4iYUlRc/maxresdefault.jpg"
+              alt="إنتاج مرئي وإعلانات الشركات"
+            />
+          </div>
+          <div class="card-info">
+            <span>إنتاج مرئي وإعلانات الشركات</span>
+            <h3>فيديو ترويجي لافتتاح فرع شركة BRICO MIM بالدريوش</h3>
+          </div>
+        </a>
+
+        <a
+          href="https://youtu.be/BrkKEQtdX_U"
+          target="_blank"
+          class="portfolio-card"
+        >
+          <div class="thumbnail-container">
+            <div class="play-overlay">▶</div>
+            <img
+              src="https://i.ytimg.com/vi/BrkKEQtdX_U/maxresdefault.jpg"
+              alt="إنتاج مرئي وإعلانات الشركات"
+            />
+          </div>
+          <div class="card-info">
+            <span>تغطية إعلامية</span>
+            <h3>بوتيك جمال المرأة بالدريوش</h3>
+          </div>
+        </a>
+      </div>
+    </section>
+
+<section class="contact" id="contactSection">
+    <div class="cta-glow-blur"></div>
+    
+    <div class="contact-methods">
+        <div class="contact-item whatsapp-box-premium">
+            <div class="icon-wrap whatsapp-icon-bg">
+                <svg class="whatsapp-svg" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.6 9.1 31.6 11.6 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+                </svg>
+            </div>
+            <div class="method-details">
+                <span>الواتساب المباشر</span>
+                <a href="https://wa.me/212629703283" target="_blank" class="method-link whatsapp-color-text" style="direction: ltr;">+212 629-703283</a>
+            </div>
+        </div>
+        <div class="contact-item mail-box-premium">
+            <div class="icon-wrap mail-icon-bg">
+                <svg class="email-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+            </div>
+            <div class="method-details">
+                <span>البريد الإلكتروني</span>
+                <a href="mailto:oussamabouazzati14@gmail.com" class="method-link">راسلنا مباشرة</a>
+            </div>
+        </div>
+    </div>
+
+    <form onsubmit="return false;" id="orderForm">
+        <div class="form-top-line"></div>
+        
+        <div style="display:none !important; visibility:hidden !important;" aria-hidden="true">
+            <input type="text" id="security_honeypot" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <input type="text" id="clientName" placeholder="الاسم الكريم" oninput="this.classList.remove('input-error')" />
+        <input type="email" id="clientEmail" placeholder="البريد الإلكتروني" oninput="this.classList.remove('input-error')" />
+
+        <select id="projectType" onchange="this.classList.remove('input-error')">
+            <option value="" disabled selected>نوع المشروع المطلوب...</option>
+            <option value="فيديو إعلاني / افتتاح تجاري">فيديو إعلاني / افتتاح تجاري</option>
+            <option value="تصوير جوي احترافي بالدرون (Drone)">تصوير جوي احترافي بالدرون (Drone) 🛸</option>
+            <option value="تصوير وعرض عقاري وسكني">تصوير وعرض عقاري وسكني</option>
+            <option value="مونتاج وإخراج فني خاص">مونتاج وإخراج فني خاص</option>
+            <option value="تغطية اعلامية">تغطية اعلامية</option>
+        </select>
+
+        <textarea id="projectDetails" rows="5" placeholder="تفاصيل المشروع وفكرتك وجدول التصوير..." oninput="this.classList.remove('input-error')"></textarea>
+
+        <div class="btn-submit-container">
+            <button type="button" id="submitWpBtn" onclick="sendToWhatsApp()" class="btn-whatsapp-premium">
+                <svg class="btn-whatsapp-svg" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.6 9.1 31.6 11.6 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+                </svg>
+                <span id="wpText">تأكيد وتحميل الفاتورة عبر واتساب</span>
+            </button>
+            <button type="button" id="submitEmailBtn" onclick="sendToEmail()" class="btn-email-secondary">
+                إرسال عبر البريد
+            </button>
+        </div>
+    </form>
+</section>
+
+<div class="ai-chat-widget">
+    <button class="ai-chat-trigger" onclick="toggleChatWindow()">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/>
+        </svg>
+        <span class="pulse-ring"></span>
+    </button>
+
+    <div class="ai-chat-window" id="aiChatWindow">
+        <div class="ai-chat-header">
+            <div class="ai-avatar">LTK</div>
+            <div class="ai-status-info">
+                <h4>مساعد LitKingLTK الذكي</h4>
+                <p>متصل ومستعد لأسئلتك ⚡</p>
+            </div>
+            <button class="close-chat-btn" onclick="toggleChatWindow()">×</button>
+        </div>
+        <div class="ai-chat-messages" id="chatMessages">
+            <div class="msg bot-msg">أهلاً بك في استوديو LitKingLTK! أنا مساعدك الرقمي، كيف يمكنني مساعدتك في مشروعك الإبداعي اليوم؟ 🎥🛸</div>
+        </div>
+        <div class="ai-chat-input-area">
+            <input type="text" id="chatInput" placeholder="اكتب سؤالك هنا..." onkeypress="handleChatKey(event)">
+            <button onclick="sendChatMessage()">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>
+        جميع الحقوق محفوظة © 2026 | LitKingLTK
+        <br><br>
+        <a href="privacy-policy.html" style="color: #777; text-decoration: none; margin: 0 10px;">سياسة الخصوصية</a> | 
+        <a href="terms-of-use.html" style="color: #777; text-decoration: none; margin: 0 10px;">شروط الاستخدام</a>
+    </p>
+</footer>
+
+<style>
+.contact { padding: 100px 8%; background: radial-gradient(circle at center, #141414 0%, #050505 100%); text-align: center; position: relative; overflow: hidden; border-top: 1px solid #161616; font-family: 'Cairo', sans-serif; }
+.cta-glow-blur { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: #ff4a1c; filter: blur(140px); opacity: 0.12; pointer-events: none; z-index: 1; }
+.contact-methods { display: flex; justify-content: center; gap: 25px; margin-bottom: 45px; flex-wrap: wrap; position: relative; z-index: 2; }
+.contact-item { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); padding: 14px 28px; border-radius: 16px; display: inline-flex; align-items: center; gap: 15px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.contact-item:hover { border-color: rgba(255, 255, 255, 0.15); background: rgba(255, 255, 255, 0.05); transform: translateY(-3px); }
+.contact-item.whatsapp-box-premium:hover { border-color: #25d366; background: rgba(37, 211, 102, 0.03); }
+.contact-item.mail-box-premium:hover { border-color: #ff4a1c; background: rgba(255, 74, 28, 0.03); }
+.icon-wrap { padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.03); }
+.whatsapp-svg, .btn-whatsapp-svg { width: 22px; height: 22px; fill: #25d366; }
+.email-svg { width: 22px; height: 22px; fill: #ff4a1c; }
+.method-details { display: flex; flex-direction: column; text-align: right; }
+.method-details span { font-size: 0.8rem; color: #666; font-weight: 500; margin-bottom: 2px; }
+.method-link { color: #fff; text-decoration: none; font-weight: 700; font-size: 1rem; transition: color 0.3s; }
+.whatsapp-color-text { color: #25d366; }
+#orderForm { max-width: 620px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; background: linear-gradient(135deg, rgba(20, 20, 20, 0.6) 0%, rgba(10, 10, 10, 0.8) 100%); padding: 45px; border-radius: 24px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.04); box-shadow: 0 25px 50px rgba(0,0,0,0.4); position: relative; z-index: 2; }
+.form-top-line { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 70px; height: 3px; background: #ff4a1c; border-radius: 0 0 4px 4px; opacity: 0.6; }
+#orderForm input, #orderForm textarea, #orderForm select { width: 100%; padding: 16px; background: rgba(0, 0, 0, 0.25); border: 1px solid #262626; border-radius: 12px; color: white; font-family: 'Cairo', sans-serif; font-size: 0.95rem; transition: all 0.35s ease; box-sizing: border-box; }
+#orderForm input:focus, #orderForm textarea:focus, #orderForm select:focus { border-color: #ff4a1c; background: rgba(0,0,0,0.4); outline: none; box-shadow: 0 0 15px rgba(255, 74, 28, 0.12); }
+.input-error { border-color: #ff3333 !important; box-shadow: 0 0 12px rgba(255, 51, 51, 0.25) !important; background-color: #160a0a !important; }
+.btn-submit-container { display: flex; gap: 15px; width: 100%; margin-top: 8px; }
+.btn-whatsapp-premium { flex: 1.4; background: linear-gradient(135deg, #25d366, #1a9f4c); color: white; padding: 16px 25px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: inline-flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(37, 211, 102, 0.2); font-family: 'Cairo', sans-serif; }
+.btn-whatsapp-premium:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(37, 211, 102, 0.4); }
+.btn-whatsapp-premium .btn-whatsapp-svg { fill: white; width: 20px; height: 20px; }
+.btn-email-secondary { flex: 0.8; background: rgba(255,255,255,0.03); color: white; border: 1px solid #333; padding: 16px 25px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; font-family: 'Cairo', sans-serif; }
+.btn-email-secondary:hover { background: rgba(255,255,255,0.07); border-color: #ff4a1c; color: #ff4a1c; }
+footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; border-top: 1px solid #111; background-color: #030303; font-family: 'Cairo', sans-serif; }
+
+/* ستايل الشات */
+.ai-chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 9999; direction: rtl; }
+.ai-chat-trigger { width: 60px; height: 60px; background: #ff4a1c; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(255, 74, 28, 0.4); position: relative; transition: transform 0.3s ease; }
+.ai-chat-trigger svg { width: 26px; height: 26px; fill: white; }
+.pulse-ring { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 2px solid #ff4a1c; animation: chatPulse 2s infinite; }
+@keyframes chatPulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+.ai-chat-window { position: absolute; bottom: 80px; right: 0; width: 360px; height: 480px; background: #0f0f0f; border: 1px solid #222; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); display: flex; flex-direction: column; overflow: hidden; opacity: 0; transform: translateY(20px); pointer-events: none; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.ai-chat-window.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.ai-chat-header { background: #161616; padding: 15px; border-bottom: 1px solid #222; display: flex; align-items: center; gap: 12px; }
+.ai-avatar { width: 40px; height: 40px; background: linear-gradient(135deg, #ff4a1c, #b32e0b); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; }
+.ai-status-info { flex: 1; text-align: right; }
+.ai-status-info h4 { margin: 0; font-size: 0.95rem; color: white; }
+.ai-status-info p { margin: 0; font-size: 0.75rem; color: #25d366; }
+.close-chat-btn { background: none; border: none; color: #666; font-size: 24px; cursor: pointer; }
+.ai-chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #0a0a0a; }
+.msg { max-width: 80%; padding: 12px 16px; font-size: 0.9rem; line-height: 1.5; border-radius: 14px; text-align: right; }
+.bot-msg { background: #1a1a1a; color: #ddd; border-bottom-right-radius: 2px; align-self: flex-start; border: 1px solid #262626; }
+.user-msg { background: #ff4a1c; color: white; border-bottom-left-radius: 2px; align-self: flex-end; }
+.ai-chat-input-area { padding: 12px; background: #121212; border-top: 1px solid #222; display: flex; gap: 8px; }
+.ai-chat-input-area input { flex: 1; padding: 12px; background: #1a1a1a; border: 1px solid #262626; color: white; border-radius: 10px; font-family: 'Cairo', sans-serif; }
+.ai-chat-input-area button { background: #ff4a1c; border: none; width: 42px; height: 42px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.ai-chat-input-area button svg { width: 18px; height: 18px; fill: white; transform: scaleX(-1); }
+@media (max-width: 480px) { .ai-chat-window { width: 300px; height: 420px; right: -10px; } }
+</style>
+
+<script>
+// ========================================================
+// مساعد LitKingLTK الذكي - نسخة مطورة وأكثر قوة
+// ========================================================
+
+// ========================================================
+// نظام وضع الصيانة الذكي (Maintenance Mode System)
+// ========================================================
+//-- غير القيمة إلى 'true' لتفعيل وضع الصيانة --//
+const MAINTENANCE_MODE_ENABLED = false;
+
+(function() {
+    // تحقق من وجود مفتاح الوصول الخاص بالمالك في الرابط
+    const urlParams = new URLSearchParams(window.location.search);
+    const canAccess = urlParams.get('access') === 'owner';
+
+    // إذا كان وضع الصيانة مفعلاً والزائر ليس المالك
+    if (MAINTENANCE_MODE_ENABLED && !canAccess) {
+        const maintenanceScreen = document.getElementById('maintenance-overlay');
+        if (maintenanceScreen) {
+            maintenanceScreen.style.display = 'flex'; // إظهار شاشة الصيانة
+            document.body.style.overflow = 'hidden'; // منع التمرير
+        }
+    }
+})();
+
+
+// 1. تحميل مكتبة PDF ديناميكياً لتجنب أي تعارض
+if (typeof window.jspdf === "undefined") {
+    const script = document.createElement('script');
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+    document.head.appendChild(script);
+}
+
+// 2. متغيرات حالة الشات لتتبع سياق الحوار
+var chatState = {
+    selectedPack: null,
+    packPrice: 0,
+    waitingForDuration: false
+};
+
+// 3. قاعدة المعرفة الداخلية حول قوة الإعلانات (جديد)
+const advertisingKnowledgeBase = {
+    'video_impact': [
+        "هل تعلم أن 90% من المستهلكين يقولون إن مقاطع الفيديو تساعدهم في اتخاذ قرارات الشراء؟",
+        "الإعلانات المرئية على وسائل التواصل الاجتماعي تولد تفاعلاً يزيد عن 1200% مقارنة بالصور والنصوص مجتمعة.",
+        "العملاء الذين يشاهدون فيديو عن منتج هم أكثر عرضة لشرائه بنسبة 85%.",
+        "تضمين فيديو في صفحة هبوط يمكن أن يزيد من معدلات التحويل (Conversion Rates) بنسبة تصل إلى 80%.",
+        "يتذكر المستخدمون 95% من الرسالة عند مشاهدتها في فيديو، مقارنة بـ 10% عند قراءتها في نص."
+    ],
+    'stats': [
+        "وفقاً لـ HubSpot، يفضل 72% من العملاء التعرف على منتج أو خدمة من خلال الفيديو.",
+        "من المتوقع أن يشكل الفيديو أكثر من 82% من إجمالي حركة الإنترنت بحلول نهاية هذا العام.",
+        "يشارك مستخدمو تويتر مقاطع الفيديو 6 مرات أكثر من الصور و 3 مرات أكثر من صور GIF.",
+        "إضافة كلمة 'فيديو' في سطر موضوع البريد الإلكتروني تزيد من معدلات الفتح بنسبة 19%."
+    ]
+};
+
+// 3. دالة فتح وإغلاق نافذة الشات
+function toggleChatWindow() {
+    var chatWin = document.getElementById('aiChatWindow');
+    if (chatWin) chatWin.classList.toggle('open');
+}
+
+// 4. دالة الترحيب الذكي حسب الوقت عند تحميل الصفحة
+window.addEventListener('load', function() {
+    var msgContainer = document.getElementById('chatMessages');
+    if (!msgContainer) return;
+    
+    var hour = new Date().getHours();
+    var greetingText = "أهلاً بك في استوديو LitKingLTK! ";
+    if (hour >= 5 && hour < 12) greetingText = "صباح الإنتاج والنشاط ☀️ ";
+    else if (hour >= 12 && hour < 18) greetingText = "يومك سعيد ومُبدع ✨ ";
+    else greetingText = "مساء الإبداع والسينما 🌌 ";
+
+    msgContainer.innerHTML = '<div class="msg bot-msg">' + greetingText + 'مرحباً بك في استوديو LitKingLTK! أنا مستشارك الرقمي، كيف يمكنني مساعدتك في مشروعك الإبداعي اليوم؟ 🎥🛸<br><br>اكتب <b>"باقات"</b> لعرض الأسعار وحساب ميزانيتك فوراً!</div>';
+});
+
+// 5. دالة إرسال الرسالة عند الضغط على زر "Enter"
+function handleChatKey(event) {
+    if (event.key === 'Enter') sendChatMessage();
+}
+
+// 6. دالة إنشاء مؤشر "جاري الكتابة..." المتحرك
+function createTypingIndicator() {
+    var div = document.createElement('div');
+    div.className = 'msg bot-msg typing-indicator-box';
+    div.id = 'botTypingIndicator';
+    div.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+    
+    // إضافة الستايل الخاص بالمؤشر مرة واحدة فقط
+    if (!document.getElementById('typingStyle')) {
+        var style = document.createElement('style');
+        style.id = 'typingStyle';
+        style.innerHTML = `
+            .typing-indicator-box { display: flex; gap: 4px; align-items: center; padding: 12px 20px; }
+            .typing-indicator-box .dot { width: 7px; height: 7px; background: #888; border-radius: 50%; animation: wave 1.3s infinite ease-in-out; }
+            .typing-indicator-box .dot:nth-child(2) { animation-delay: -1.1s; }
+            .typing-indicator-box .dot:nth-child(3) { animation-delay: -0.9s; }
+            @keyframes wave { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-7px); background: var(--accent-color); } }
+        `;
+        document.head.appendChild(style);
+    }
+    return div;
+}
+
+// 7. دالة عرض أزرار الباقات التفاعلية لبدء حساب التكلفة
+function sendBotResponseWithPacks(msgContainer) {
+    var botMsg = document.createElement('div');
+    botMsg.className = 'msg bot-msg';
+    botMsg.innerHTML = "بالتأكيد! نوفر 4 باقات أساسية مرنة. اختر الباقة التي تود <b>حساب تكلفتها التقريبية</b> الآن:";
+    msgContainer.appendChild(botMsg);
+
+    var buttonsContainer = document.createElement('div');
+    buttonsContainer.style.cssText = 'display:flex; flex-direction:column; gap:8px; margin-top:12px; width:100%;';
+
+    var packs = [
+        { name: "🛸 باقة الدرون والسينما الجوية", value: "drone", basePrice: 1500, formValue: "تصوير جوي احترافي بالدرون (Drone) 🛸" },
+        { name: "💼 باقة الفيديو الإعلاني والشركات", value: "video", basePrice: 1200, formValue: "فيديو إعلاني / افتتاح تجاري" },
+        { name: "🎬 باقة المونتاج والإخراج الفني", value: "editing", basePrice: 500, formValue: "مونتاج وإخراج فني خاص" },
+        { name: "📰 باقة التغطية الإعلامية", value: "media", basePrice: 900, formValue: "تغطية اعلامية" }
+    ];
+
+    packs.forEach(function(pack) {
+        var btn = document.createElement('button');
+        btn.innerText = pack.name;
+        btn.style.cssText = 'background:#222; color:#fff; border:1px solid #333; padding:10px; border-radius:8px; cursor:pointer; text-align:right; font-family:"Cairo", sans-serif; font-size:0.85rem; transition:all 0.3s;';
+        
+        btn.onmouseover = function() { btn.style.background = 'var(--accent-color)'; btn.style.borderColor = 'var(--accent-color)'; };
+        btn.onmouseout = function() { btn.style.background = '#222'; btn.style.borderColor = '#333'; };
+        
+        btn.onclick = function() {
+            chatState.selectedPack = pack.value;
+            chatState.packPrice = pack.basePrice;
+            chatState.formValue = pack.formValue;
+            chatState.waitingForDuration = true;
+            
+            var userChoice = document.createElement('div');
+            userChoice.className = 'msg user-msg';
+            userChoice.innerText = pack.name;
+            msgContainer.appendChild(userChoice);
+            
+            var askDuration = document.createElement('div');
+            askDuration.className = 'msg bot-msg';
+            askDuration.style.marginTop = '10px';
+            askDuration.innerHTML = "اختيار رائع! كم <b>عدد أيام العمل</b> المتوقعة لمشروعك؟<br>(اكتب رقم فقط، مثلاً: 1 أو 2)";
+            msgContainer.appendChild(askDuration);
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+        };
+        buttonsContainer.appendChild(btn);
+    });
+
+    msgContainer.appendChild(buttonsContainer);
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+}
+
+// 8. الدالة الرئيسية المنظمة لعمل الشات
+function sendChatMessage() {
+    var input = document.getElementById('chatInput');
+    var msgContainer = document.getElementById('chatMessages');
+    if (!input || !msgContainer || input.value.trim() === '') return;
+
+    var userRawText = input.value.trim();
+    var userDiv = document.createElement('div');
+    userDiv.className = 'msg user-msg';
+    userDiv.innerText = userRawText;
+    msgContainer.appendChild(userDiv);
+    input.value = '';
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+
+    // -- الحالة الأولى: المساعد ينتظر رقم (مدة العمل) لحساب السعر --
+    if (chatState.waitingForDuration) {
+        var duration = parseInt(userRawText.replace(/[^0-9]/g, ''));
+        if (isNaN(duration) || duration <= 0) {
+            var errorDiv = document.createElement('div');
+            errorDiv.className = 'msg bot-msg';
+            errorDiv.innerHTML = "عذراً، لم أتعرف على الرقم. يرجى إدخال <b>رقم صحيح</b> (مثل: 1 أو 2) لنتمكن من حساب الميزانية بدقة.";
+            msgContainer.appendChild(errorDiv);
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+            return;
+        }
+
+        var typingIndicator = createTypingIndicator();
+        msgContainer.appendChild(typingIndicator);
+        msgContainer.scrollTop = msgContainer.scrollHeight;
+
+        // محاكاة التفكير قبل عرض النتيجة
+        setTimeout(function() {
+            msgContainer.removeChild(typingIndicator);
+            
+            var finalPrice = chatState.packPrice * duration;
+            var projectSelect = document.getElementById('projectType');
+            if (projectSelect && chatState.formValue) projectSelect.value = chatState.formValue;
+
+            var resultDiv = document.createElement('div');
+            resultDiv.className = 'msg bot-msg';
+            resultDiv.style.borderColor = '#25d366';
+            resultDiv.innerHTML = `📊 <b>كشف الميزانية التقريبي:</b><br>
+            التكلفة المتوقعة لمشروعك هي حوالي: <b>${finalPrice} درهم مغربي</b> شاملة الأدوات والمعدات.<br><br>
+            🎯 <b>تم تحديد الخدمة في استمارة الموقع بنجاح.</b> املأ اسمك وتفاصيلك واضغط <b>"تأكيد وتحميل الفاتورة"</b> للحصول على PDF وتأكيد الطلب على واتساب!`;
+            
+            msgContainer.appendChild(resultDiv);
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+            
+            // إعادة تعيين حالة الشات
+            chatState.waitingForDuration = false;
+            chatState.selectedPack = null;
+        }, 1200);
+        return;
+    }
+
+    // -- الحالة الثانية: حوار عادي مع تحليل الكلمات المفتاحية --
+    var typingIndicatorNormal = createTypingIndicator();
+    msgContainer.appendChild(typingIndicatorNormal);
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+
+    // محاكاة التفكير قبل الرد
+    setTimeout(function() {
+        msgContainer.removeChild(typingIndicatorNormal);
+
+        var userText = userRawText.toLowerCase();
+        var check = function(words) {
+            return words.some(function(word) { return userText.includes(word); });
+        };
+
+        // توسيع قاعدة الكلمات المفتاحية
+        var keysPrice = ['ثمن', 'سعر', 'بكم', 'تكلفة', 'باقة', 'ميزانية', 'الأسعار', 'باقات', 'cost', 'price'];
+        var keysAbout = ['ماذا', 'من انتم', 'ماهو', 'شنو هذا', 'خدمات', 'موقعك', 'عملكم', 'about'];
+        var keysGreeting = ['سلام', 'مرحبا', 'الو', 'هلا', 'hi', 'hello', 'مرحب', 'اهلان', 'hey'];
+        var keysPortfolio = ['أعمال', 'أعمالكم', 'سابق', 'portfolio', 'work'];
+        var keysProcess = ['خطوات', 'سير العمل', 'كيف تعملون', 'طريقة', 'process', 'workflow'];
+        var keysKnowledge = ['قوة', 'تأثير', 'احصائيات', 'لماذا', 'أهمية', 'فائدة', 'دليل', 'power', 'impact', 'stats'];
+        
+        var responseText = "";
+
+        if (check(keysPrice)) {
+            sendBotResponseWithPacks(msgContainer);
+            return; // إنهاء الدالة لأن دالة الباقات ستتولى الباقي
+        } else if (check(keysAbout)) {
+            responseText = "نحن استوديو LitKingLTK للإنتاج الرقمي والسينمائي 🎥 نوفر خدمات متكاملة تشمل تصوير الفيديو الإعلاني، التصوير الجوي بالدرون (Drone)، والمونتاج الاحترافي وتصحيح الألوان. اكتب كلمة <b>'باقات'</b> لحساب تكلفة مشروعك فوراً.";
+        } else if (check(keysPortfolio)) {
+            responseText = `بالتأكيد! يمكنك تصفح معرض أعمالنا الاحترافي بالضغط على رابط <a href="#portfolio" onclick="toggleChatWindow()">أعمالي</a> في القائمة العلوية، أو سأقوم بتمريرك للقسم مباشرة.`;
+            document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
+        } else if (check(keysProcess)) {
+            responseText = `نتبع منهجية عمل احترافية من 4 خطوات تبدأ من التخطيط وتنتهي بالتسليم. سأقوم بتمريرك الآن إلى قسم "رحلة صناعة مشروعك" لتتعرف عليها بالتفصيل.`;
+            document.getElementById('process').scrollIntoView({ behavior: 'smooth' });
+        } else if (check(keysKnowledge)) {
+            // سحب معلومة عشوائية من قاعدة المعرفة
+            const randomFact = advertisingKnowledgeBase.video_impact[Math.floor(Math.random() * advertisingKnowledgeBase.video_impact.length)];
+            responseText = `💡 <b> معلومة تسويقية: </b><br>${randomFact}<br><br>هذا يوضح القوة الهائلة للفيديو في تحقيق النتائج. هل تود حساب تكلفة مشروعك الآن؟ اكتب <b>'باقات'</b>.`;
+
+        } else if (check(keysGreeting)) {
+            responseText = "أهلاً بك مجدداً! ✨ يسعدني تواصلك معنا. هل تود رؤية باقات الأسعار وحساب تكلفة مشروعك تلقائياً؟ فقط اكتب كلمة <b>'باقات'</b>!";
+        } else {
+            responseText = "فهمت طلبك. نحن في استوديو LitKingLTK نضمن لك إنتاجاً بصرياً فخماً. لحساب ميزانية مشروعك واختيار الباقة المناسبة تفاعلياً، اكتب كلمة <b>'باقات'</b> وسأتولى الحساب فوراً.";
+        }
+
+        var replyDiv = document.createElement('div');
+        replyDiv.className = 'msg bot-msg';
+        replyDiv.innerHTML = responseText;
+        msgContainer.appendChild(replyDiv);
+        msgContainer.scrollTop = msgContainer.scrollHeight;
+
+    }, 1200);
+}
+
+var isCooldownActive = false; // متغير لمنع الإرسال المتكرر
+
+function startCooldown() {
+    isCooldownActive = true;
+    setTimeout(function() {
+        isCooldownActive = false;
+    }, 60000); // دقيقة واحدة للانتظار بين الطلبات
+}
+
+// دالة التحقق من الحقول الفارغة + نظام الحماية
+function validateForm() {
+  const trapField = document.getElementById('security_honeypot');
+  if (trapField && trapField.value !== "") return false; // فخ بوتات السبام
+  if (isCooldownActive) { alert("تجنباً للإرسال العشوائي، يرجى الانتظار دقيقة بين الطلبات."); return false; }
+
+  const fields = ["clientName", "clientEmail", "projectType", "projectDetails"];
+  let isValid = true;
+  fields.forEach((fieldId) => {
+    const element = document.getElementById(fieldId);
+    if (element) {
+      if (!element.value || element.value.trim() === "") { 
+          element.classList.add("input-error"); 
+          isValid = false; 
+      } else { 
+          element.classList.remove("input-error"); 
+      }
+    }
+  });
+  return isValid;
+
+}
+
+// دالة توليد وتحميل فاتورة PDF احترافية
+function downloadInvoicePDF(name, email, selectIndex, details) {
+  if (typeof window.jspdf === "undefined" && typeof window.window.jspdf === "undefined") return;
+  try {
+    const targetjsPDF = window.jspdf ? window.jspdf.jsPDF : window.window.jspdf.jsPDF;
+    const doc = new targetjsPDF({ orientation: "p", unit: "mm", format: "a4" });
+    
+    doc.setFillColor(20, 20, 20); doc.rect(0, 0, 210, 45, "F");
+    doc.setFillColor(255, 74, 28); doc.rect(0, 45, 210, 2, "F");
+    doc.setTextColor(255, 74, 28); doc.setFontSize(24); doc.setFont("helvetica", "bold"); doc.text("LitKingLTK STUDIO", 15, 25);
+    doc.setTextColor(160, 160, 160); doc.setFontSize(9); doc.setFont("helvetica", "normal"); doc.text("PREMIUM DIGITAL PRODUCTION", 15, 32);
+    doc.setTextColor(255, 255, 255); doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.text("OFFICIAL RECEIPT", 140, 20);
+    
+    const invoiceNum = "LTK-" + Math.floor(100000 + Math.random() * 900000);
+    const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    doc.setFontSize(9); doc.setFont("helvetica", "normal"); doc.text("Receipt No: " + invoiceNum, 140, 28); doc.text("Date: " + currentDate, 140, 34);
+    
+    let y = 65; doc.setTextColor(20, 20, 20); doc.setFontSize(11); doc.setFont("helvetica", "bold"); doc.text("PREPARED FOR:", 15, y); doc.setDrawColor(230, 230, 230); doc.line(15, y + 2, 195, y + 2);
+    y += 10; doc.setFontSize(10); doc.setFont("helvetica", "bold"); doc.text("Client Name: ", 15, y); doc.setFont("helvetica", "normal"); doc.text(name, 40, y);
+    y += 7; doc.setFont("helvetica", "bold"); doc.text("Email: ", 15, y); doc.setFont("helvetica", "normal"); doc.text(email || "N/A", 40, y);
+    
+    y += 15; doc.setFillColor(20, 20, 20); doc.rect(15, y, 180, 8, "F"); doc.setTextColor(255, 255, 255); doc.setFontSize(9); doc.setFont("helvetica", "bold"); doc.text("REQUESTED SERVICE / PACK TYPE", 20, y + 5.5); doc.text("STATUS", 165, y + 5.5);
+    y += 8; doc.setFillColor(248, 249, 250); doc.rect(15, y, 180, 12, "F"); doc.setTextColor(40, 40, 40); doc.setFontSize(10);
+    
+    let pdfPackName = "Premium Creative Production Pack";
+    if (selectIndex === 1) pdfPackName = "Commercial Video Advertising Pack";
+    else if (selectIndex === 2) pdfPackName = "Professional Aerial Drone Cinematic Pack";
+    else if (selectIndex === 3) pdfPackName = "Real Estate Showcase & Housing Pack";
+    else if (selectIndex === 4) pdfPackName = "Artistic Post-Production & Editing Pack";
+    else if (selectIndex === 5) pdfPackName = "Premium Media Coverage Service";
+    
+    doc.text(pdfPackName, 20, y + 7.5); doc.setTextColor(255, 74, 28); doc.text("PROCESSED", 165, y + 7.5);
+    y += 22; doc.setTextColor(20, 20, 20); doc.setFontSize(11); doc.setFont("helvetica", "bold"); doc.text("PROJECT SPECIFICATIONS & SCOPE:", 15, y); doc.line(15, y + 2, 195, y + 2);
+    y += 10; doc.setFillColor(248, 249, 250); doc.rect(15, y, 180, 45, "F"); doc.setDrawColor(220, 222, 225); doc.rect(15, y, 180, 45, "S");
+    
+    doc.setTextColor(40, 40, 40); doc.setFontSize(9.5); doc.setFont("helvetica", "normal");
+    const cleanDetails = details.replace(/[\u0600-\u06FF]/g, '').trim();
+    const finalText = cleanDetails.length > 2 ? cleanDetails : "Project package details synchronized securely via WhatsApp core messenger queue.";
+    const splitDetails = doc.splitTextToSize(finalText, 170); doc.text(splitDetails, 20, y + 8);
+    
+    y += 65; doc.setDrawColor(200, 200, 200); doc.line(140, y, 190, y); doc.setTextColor(120, 120, 120); doc.setFontSize(8); doc.text("Authorized Digital Stamp", 147, y + 5);
+    doc.setTextColor(245, 245, 245); doc.setFontSize(28); doc.setFont("helvetica", "bold"); doc.text("VERIFIED ORDER", 22, y - 5);
+    doc.setDrawColor(230, 230, 230); doc.line(15, 275, 195, 275); doc.setTextColor(120, 120, 120); doc.setFontSize(8); doc.setFont("helvetica", "normal"); doc.text("This is an electronically generated document. No physical signature is required.", 15, 281); doc.text("LitKingLTK Studio © 2026", 155, 281);
+    
+    doc.save("Invoice_" + name.replace(/\s+/g, '_') + ".pdf");
+  } catch (error) { console.error("PDF Error: ", error); }
+}
+
+// دالة الإرسال إلى واتساب
+function sendToWhatsApp() {
+  if (!validateForm()) { alert("يرجى تعبئة الحقول المطلوبة (الاسم، الإيميل، نوع وتفاصيل المشروع) أولاً."); return; }
+  
+  const name = document.getElementById('clientName')?.value || "Client";
+  const email = document.getElementById('clientEmail')?.value || "N/A";
+  const projectSelect = document.getElementById('projectType');
+  const project = projectSelect?.value || "Production Request";
+  const selectIndex = projectSelect ? projectSelect.selectedIndex : 0;
+  const details = document.getElementById('projectDetails')?.value || "";
+  
+  downloadInvoicePDF(name, email, selectIndex, details);
+  
+  const message = `*طلب مشروع جديد* %0A%0A👤 الاسم: ${encodeURIComponent(name)} %0A📧 البريد: ${encodeURIComponent(email)} %0A🚀 النوع: ${encodeURIComponent(project)} %0A📝 التفاصيل: ${encodeURIComponent(details)}`;
+  window.open(`https://wa.me/212629703283?text=${message}`, '_blank');
+  startCooldown();
+}
+
+// دالة الإرسال إلى البريد الإلكتروني
+function sendToEmail() {
+  if (!validateForm()) { alert("يرجى تعبئة الحقول المطلوبة (الاسم، الإيميل، نوع وتفاصيل المشروع) أولاً."); return; }
+  
+  const name = document.getElementById('clientName')?.value || "Client";
+  const email = document.getElementById('clientEmail')?.value || "N/A";
+  const projectSelect = document.getElementById('projectType');
+  const project = projectSelect?.value || "Production Request";
+  const selectIndex = projectSelect ? projectSelect.selectedIndex : 0;
+  const details = document.getElementById('projectDetails')?.value || "";
+  
+  downloadInvoicePDF(name, email, selectIndex, details);
+  
+  window.location.href = `mailto:oussamabouazzati14@gmail.com?subject=طلب مشروع جديد&body=الاسم: ${name}\nالمشروع: ${project}\nالتفاصيل: ${details}`;
+  startCooldown();
+}
+
+// دالة إخفاء شاشة التحميل (Preloader) بسلاسة
+document.addEventListener('DOMContentLoaded', function() {
+    const loaders = ['.loader-wrapper', '.preloader', '#preloader', '#loader', '.loading-screen'];
+    
+    loaders.forEach(selector => {
+        const el = document.querySelector(selector);
+        if (el) {
+            el.style.transition = 'opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s';
+            el.style.opacity = '0';
+            el.style.visibility = 'hidden';
+            
+            setTimeout(() => {
+                el.style.display = 'none';
+            }, 1000);
+        }
+    });
+    
+    document.body.style.overflow = 'auto';
+    document.documentElement.style.overflow = 'auto';
+});
+
+// ========================================================
+// شريط التقدم التفاعلي عند التمرير (Scroll Progress Bar)
+// ========================================================
+window.addEventListener('scroll', function() {
+    const progressBar = document.getElementById('scroll-progress-bar');
+    if (progressBar) {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollProgress = (scrollTop / scrollHeight) * 100;
+        progressBar.style.width = scrollProgress + '%';
+    }
+});
+
+// إخفاء الشريط في الأعلى عند عدم التمرير
+window.addEventListener('scroll', function() {
+    const progressBar = document.getElementById('scroll-progress-bar');
+    if (progressBar) progressBar.style.opacity = (window.scrollY > 20) ? '1' : '0';
+});
+
+// ========================================================
+// حجب الموقع عن متصفح Safari على أجهزة iOS
+// ========================================================
+(function() {
+    const ua = navigator.userAgent;
+    const vendor = navigator.vendor;
+    const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+    const isSafari = /Safari/i.test(ua) && /Apple/i.test(vendor) && !/CriOS/i.test(ua) && !/FxiOS/i.test(ua);
+
+    if (isIOS && isSafari) {
+        document.body.style.overflow = 'hidden'; // منع التمرير
+        const blocker = document.getElementById('safari-blocker');
+        if(blocker) blocker.style.display = 'flex';
+    }
+});
+</script>
+  </body>
+</html>
