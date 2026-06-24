@@ -1585,6 +1585,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 // نظام وضع الصيانة الذكي (Maintenance Mode System)
 // ========================================================
 //-- غير القيمة إلى 'true' لتفعيل وضع الصيانة --//
+const MAINTENANCE_MODE_ENABLED =false;
 
 (function() {
     // تحقق من وجود مفتاح الوصول الخاص بالمالك في الرابط
@@ -1957,24 +1958,19 @@ function sendToEmail() {
 }
 
 // دالة إخفاء شاشة التحميل (Preloader) بسلاسة
-document.addEventListener('DOMContentLoaded', function() {
-    const loaders = ['.loader-wrapper', '.preloader', '#preloader', '#loader', '.loading-screen'];
-    
-    loaders.forEach(selector => {
-        const el = document.querySelector(selector);
-        if (el) {
-            el.style.transition = 'opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s';
-            el.style.opacity = '0';
-            el.style.visibility = 'hidden';
-            
-            setTimeout(() => {
-                el.style.display = 'none';
-            }, 1000);
-        }
-    });
-    
-    document.body.style.overflow = 'auto';
-    document.documentElement.style.overflow = 'auto';
+window.addEventListener('load', function() {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        // إضافة الكلاس الذي يبدأ تأثير الخفوت
+        preloader.classList.add('loaded');
+
+        // إزالة العنصر من DOM بعد انتهاء الانتقال لضمان عدم تأثيره
+        setTimeout(() => {
+            if (preloader.parentNode) {
+                preloader.parentNode.removeChild(preloader);
+            }
+        }, 1000); // يجب أن تكون المدة متوافقة مع مدة الانتقال في CSS
+    }
 });
 
 // ========================================================
