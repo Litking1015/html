@@ -1653,6 +1653,7 @@ window.addEventListener('load', function() {
 
     msgContainer.innerHTML = '<div class="msg bot-msg">' + greetingText + 'مرحباً بك في استوديو LitKingLTK! أنا مستشارك الرقمي، كيف يمكنني مساعدتك في مشروعك الإبداعي اليوم؟ 🎥🛸<br><br>اكتب <b>"باقات"</b> لعرض الأسعار وحساب ميزانيتك فوراً!</div>';
 });
+}); 
 
 // 5. دالة إرسال الرسالة عند الضغط على زر "Enter"
 function handleChatKey(event) {
@@ -1732,6 +1733,30 @@ function sendBotResponseWithPacks(msgContainer) {
     msgContainer.scrollTop = msgContainer.scrollHeight;
 }
 
+// دالة عرض قائمة الخيارات الرئيسية
+function showMainMenu(msgContainer) {
+    var botMsg = document.createElement('div');
+    botMsg.className = 'msg bot-msg';
+    botMsg.innerHTML = `بالتأكيد, هذه قائمة المساعدة السريعة. اختر أحد الخيارات:<br><br>
+    1. طلب عرض سعر لمشروع جديد 💰<br>
+    2. تحميل ملف الباقات والأسعار (PDF) 📥<br>
+    3. التحدث مع فريق الدعم مباشرة 💬<br><br>
+    يرجى كتابة الرقم (1, 2, أو 3).`;
+    msgContainer.appendChild(botMsg);
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+}
+
+// دالة التعامل مع اختيارات القائمة الرئيسية
+function handleMainMenuChoice(choice) {
+    const phone = "212629703283";
+    switch(choice) {
+        case '1': window.open(`https://wa.me/${phone}?text=أريد طلب عرض سعر لمشروع جديد`, "_blank"); break;
+        case '2': window.location.href = "assets/prices.pdf"; break; // تأكد من وجود هذا الملف
+        case '3': window.open(`https://wa.me/${phone}`, "_blank"); break;
+    }
+}
+
+
 // 8. الدالة الرئيسية المنظمة لعمل الشات
 function sendChatMessage() {
     var input = document.getElementById('chatInput');
@@ -1806,6 +1831,7 @@ function sendChatMessage() {
         var keysAbout = ['ماذا', 'من انتم', 'ماهو', 'شنو هذا', 'خدمات', 'موقعك', 'عملكم', 'about'];
         var keysGreeting = ['سلام', 'مرحبا', 'الو', 'هلا', 'hi', 'hello', 'مرحب', 'اهلان', 'hey'];
         var keysPortfolio = ['أعمال', 'أعمالكم', 'سابق', 'portfolio', 'work'];
+        var keysOptions = ['خيارات', 'مساعدة', 'قائمة', 'options', 'help', 'menu'];
         var keysProcess = ['خطوات', 'سير العمل', 'كيف تعملون', 'طريقة', 'process', 'workflow'];
         var keysKnowledge = ['قوة', 'تأثير', 'احصائيات', 'لماذا', 'أهمية', 'فائدة', 'دليل', 'power', 'impact', 'stats'];
         
@@ -1814,6 +1840,12 @@ function sendChatMessage() {
         if (check(keysPrice)) {
             sendBotResponseWithPacks(msgContainer);
             return; // إنهاء الدالة لأن دالة الباقات ستتولى الباقي
+        } else if (check(keysOptions)) {
+            showMainMenu(msgContainer);
+            return;
+        } else if (['1', '2', '3'].includes(userText)) {
+            handleMainMenuChoice(userText);
+            responseText = `👍 تم تنفيذ طلبك رقم ${userText}. هل هناك أي شيء آخر يمكنني مساعدتك به؟`;
         } else if (check(keysAbout)) {
             responseText = "نحن استوديو LitKingLTK للإنتاج الرقمي والسينمائي 🎥 نوفر خدمات متكاملة تشمل تصوير الفيديو الإعلاني، التصوير الجوي بالدرون (Drone)، والمونتاج الاحترافي وتصحيح الألوان. اكتب كلمة <b>'باقات'</b> لحساب تكلفة مشروعك فوراً.";
         } else if (check(keysPortfolio)) {
@@ -1831,6 +1863,7 @@ function sendChatMessage() {
             responseText = "أهلاً بك مجدداً! ✨ يسعدني تواصلك معنا. هل تود رؤية باقات الأسعار وحساب تكلفة مشروعك تلقائياً؟ فقط اكتب كلمة <b>'باقات'</b>!";
         } else {
             responseText = "فهمت طلبك. نحن في استوديو LitKingLTK نضمن لك إنتاجاً بصرياً فخماً. لحساب ميزانية مشروعك واختيار الباقة المناسبة تفاعلياً، اكتب كلمة <b>'باقات'</b> وسأتولى الحساب فوراً.";
+            responseText = "فهمت طلبك. نحن في استوديو LitKingLTK نضمن لك إنتاجاً بصرياً فخماً. لحساب ميزانية مشروعك تفاعلياً، اكتب كلمة <b>'باقات'</b>، أو اكتب <b>'خيارات'</b> لعرض قائمة المساعدة.";
         }
 
         var replyDiv = document.createElement('div');
