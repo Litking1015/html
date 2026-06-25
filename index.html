@@ -36,6 +36,10 @@
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Syne:wght@700;800&display=swap"
       rel="stylesheet"
     />
+    <!-- Firebase SDKs - ADD YOURS HERE -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.150.1/three.min.js"></script>
     <!-- أيقونة الموقع الاحترافية (Favicon) -->
     <link rel="icon" href="https://i.ibb.co/6n2x1d8/Lit-King-LTK-icon.png" type="image/png">
@@ -830,29 +834,30 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         </p>
     </div>
 
-    <div id="whatsapp-gate" style="position:fixed; top:0; left:0; width:100%; height:100%; background:radial-gradient(circle, #1a1a1a 0%, #0a0a0a 100%); z-index:9998; display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:'Cairo', sans-serif; padding: 20px;">
-        <div style="background: #111; padding: 40px; border-radius: 20px; border: 1px solid #252525; text-align: center; max-width: 400px; width: 100%; box-shadow: 0 15px 40px rgba(0,0,0,0.5);">
-            <h2 style="font-family: 'Syne', sans-serif; font-size: 1.8rem; margin-bottom: 10px; color: var(--accent-color);">🔐 LitKing Exclusive Access</h2>
-            <p style="color: var(--text-muted); margin-bottom: 25px;">للدخول للموقع، يرجى تفعيل حسابك عبر الواتساب.</p>
+    <div id="whatsapp-gate" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(10, 10, 10, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index:9998; display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:'Cairo', sans-serif; padding: 20px; opacity: 1; transition: opacity 0.5s ease;">
+        <div style="background: linear-gradient(145deg, #1a1a1a, #101010); padding: 40px; border-radius: 24px; border: 1px solid #2a2a2a; text-align: center; max-width: 420px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.6); position: relative;">
+            <div class="loader-logo" style="font-size: 2.5rem; opacity: 1; transform: none; animation: none; margin-bottom: 20px; text-shadow: 0 0 15px rgba(255, 74, 28, 0.3);">LitKing<span>LTK</span></div>
+            <h2 style="font-family: 'Syne', sans-serif; font-size: 1.5rem; margin-bottom: 10px; color: #fff;">🔐 Exclusive Access</h2>
+            <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1rem;">للدخول للموقع، يرجى تفعيل حسابك عبر الواتساب.</p>
             
-            <div id="phone-area">
-                <input type="tel" id="user-phone" placeholder="أدخل رقمك مع رمز الدولة (مثال: 2126...)" style="width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #333; background: #0a0a0a; color: white; font-family: 'Cairo', sans-serif; font-size: 1rem; text-align: center;">
-                <button onclick="generateCode()" style="width: 100%; padding: 14px 20px; background: #25d366; color: white; border: none; border-radius: 10px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.3s;">
+            <div id="phone-area" style="transition: opacity 0.4s ease, transform 0.4s ease; opacity: 1; position: relative;">
+                <input type="tel" id="user-phone" placeholder="أدخل رقمك مع رمز الدولة (مثال: 2126...)" style="width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 12px; border: 1px solid #333; background: #0a0a0a; color: white; font-family: 'Cairo', sans-serif; font-size: 1rem; text-align: center; transition: all 0.3s ease;">
+                <button id="send-code-btn" onclick="sendVerificationCode()" style="width: 100%; padding: 15px 20px; background: #25d366; color: white; border: none; border-radius: 12px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16.75 13.96c.25.13.41.38.41.66v2.12c0 .41-.34.75-.75.75H7.59c-.41 0-.75-.34-.75-.75v-2.12c0-.28.16-.53.41-.66l4.59-2.45c.33-.18.74-.18 1.07 0l4.59 2.45zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
                     <span>إرسال كود التفعيل</span>
                 </button>
+                <div id="recaptcha-container" style="margin-top: 15px;"></div>
             </div>
             
-            <div id="verification-area" style="margin-top:20px; display:none;">
+            <div id="verification-area" style="transition: opacity 0.4s ease, transform 0.4s ease; opacity: 0; transform: translateY(10px); position: absolute; left: 40px; right: 40px; pointer-events: none;">
                 <p style="color: var(--text-muted); margin-bottom: 15px;">تم إرسال الكود. أدخله هنا للمتابعة:</p>
-                <input type="text" inputmode="numeric" id="user-code" placeholder="------" style="width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #333; background: #0a0a0a; color: white; font-family: 'Syne', sans-serif; font-size: 1.8rem; text-align: center; letter-spacing: 0.5em;">
-                <button onclick="verifyAccess()" style="width: 100%; padding: 14px 20px; background: var(--accent-color); color: white; border: none; border-radius: 10px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 700; transition: background 0.3s;">
+                <input type="text" inputmode="numeric" id="user-code" placeholder="------" style="width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 12px; border: 1px solid #333; background: #0a0a0a; color: white; font-family: 'Syne', sans-serif; font-size: 1.8rem; text-align: center; letter-spacing: 0.5em; transition: all 0.3s ease;">
+                <button id="verify-code-btn" onclick="verifyCode()" style="width: 100%; padding: 15px 20px; background: var(--accent-color); color: white; border: none; border-radius: 12px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(255, 74, 28, 0.2);">
                     <span>تأكيد ودخول</span>
                 </button>
             </div>
         </div>
     </div>
-
 
     <!-- ========================================================
          شريط التقدم التفاعلي عند التمرير (Scroll Progress Bar)
@@ -1604,39 +1609,110 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 // ========================================================
 // مساعد LitKingLTK الذكي - نسخة مطورة وأكثر قوة
 // ========================================================
-let verificationCode = '';
 
-function generateCode() {
+// --- START FIREBASE AUTH ---
+// 1. استبدل هذا الكود بمعلومات مشروعك من Firebase
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// 2. تهيئة Firebase
+firebase.initializeApp(firebaseConfig);
+
+function renderRecaptcha() {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+        'size': 'invisible',
+        'callback': (response) => {
+            // reCAPTCHA solved, allow signInWithPhoneNumber.
+            sendVerificationCode();
+        },
+        'expired-callback': () => {
+            // Response expired. Ask user to solve reCAPTCHA again.
+            alert("انتهت صلاحية التحقق، يرجى المحاولة مرة أخرى.");
+        }
+    });
+}
+
+window.onload = function() {
+    renderRecaptcha();
+};
+
+function sendVerificationCode() {
     const phoneInput = document.getElementById('user-phone');
-    const phoneNumber = phoneInput.value.replace(/\D/g, ''); // Remove non-digit characters
+    const sendBtn = document.getElementById('send-code-btn');
+    // تأكد من أن الرقم يبدأ بعلامة + (مثال: +2126...)
+    const phoneNumber = `+${phoneInput.value.replace(/\D/g, '')}`;
 
-    if (phoneNumber.length < 10) {
+    if (phoneNumber.length < 11) {
         alert('الرجاء إدخال رقم هاتف صحيح مع رمز الدولة.');
         return;
     }
 
-    // Generate a 6-digit random code
-    verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
-    
-    const message = `مرحباً! كود الدخول الخاص بك إلى موقع LitKingLTK هو: *${verificationCode}*`;
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    sendBtn.disabled = true;
+    sendBtn.innerText = '...جاري الإرسال';
 
-    window.open(whatsappUrl, '_blank');
+    const appVerifier = window.recaptchaVerifier;
+    firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+        .then((confirmationResult) => {
+            window.confirmationResult = confirmationResult;
+            alert('تم إرسال كود التحقق إلى هاتفك بنجاح!');
+            
+            const phoneArea = document.getElementById('phone-area');
+            const verificationArea = document.getElementById('verification-area');
 
-    document.getElementById('phone-area').style.display = 'none';
-    document.getElementById('verification-area').style.display = 'block';
+            phoneArea.style.opacity = '0';
+            phoneArea.style.pointerEvents = 'none';
+            
+            setTimeout(() => {
+                verificationArea.style.position = 'relative';
+                verificationArea.style.opacity = '1';
+                verificationArea.style.transform = 'translateY(0)';
+                verificationArea.style.pointerEvents = 'auto';
+            }, 400);
+
+        }).catch((error) => {
+            console.error("Firebase Error:", error);
+            alert(`حدث خطأ: ${error.message}. تأكد من صحة الرقم وأنه يبدأ برمز الدولة.`);
+            sendBtn.disabled = false;
+            sendBtn.innerHTML = '<span>إرسال كود التفعيل</span>';
+            // إعادة تعيين reCAPTCHA للسماح بإعادة المحاولة
+            if (window.recaptchaVerifier) {
+                window.recaptchaVerifier.clear(); // استخدام الدالة الرسمية من Firebase
+                // إعادة تهيئة reCAPTCHA بعد مسحه
+                renderRecaptcha();
+            }
+        });
 }
 
-function verifyAccess() {
+function verifyCode() {
     const userCodeInput = document.getElementById('user-code');
     const enteredCode = userCodeInput.value.trim();
+    const verifyBtn = document.getElementById('verify-code-btn');
 
-    if (enteredCode === verificationCode && enteredCode !== '') {
-        document.getElementById('whatsapp-gate').style.display = 'none';
-    } else {
+    verifyBtn.disabled = true;
+    verifyBtn.innerText = '...جاري التحقق';
+
+    window.confirmationResult.confirm(enteredCode).then((result) => {
+        // User signed in successfully.
+        const user = result.user;
+        console.log("User authenticated:", user);
+        const gate = document.getElementById('whatsapp-gate');
+        gate.style.opacity = '0';
+        setTimeout(() => gate.style.display = 'none', 500);
+
+    }).catch((error) => {
+        // User couldn't sign in (bad verification code?)
         alert('كود التحقق غير صحيح. يرجى المحاولة مرة أخرى.');
-    }
+        verifyBtn.disabled = false;
+        verifyBtn.innerText = 'تأكيد ودخول';
+    });
 }
+// --- END FIREBASE AUTH ---
 
 // ========================================================
 // نظام وضع الصيانة الذكي (Maintenance Mode System)
