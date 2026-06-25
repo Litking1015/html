@@ -1652,7 +1652,6 @@ window.addEventListener('load', function() {
     else greetingText = "مساء الإبداع والسينما 🌌 ";
 
     msgContainer.innerHTML = '<div class="msg bot-msg">' + greetingText + 'مرحباً بك في استوديو LitKingLTK! أنا مستشارك الرقمي، كيف يمكنني مساعدتك في مشروعك الإبداعي اليوم؟ 🎥🛸<br><br>اكتب <b>"باقات"</b> لعرض الأسعار وحساب ميزانيتك فوراً!</div>';
-});
 }); 
 
 // 5. دالة إرسال الرسالة عند الضغط على زر "Enter"
@@ -1749,13 +1748,50 @@ function showMainMenu(msgContainer) {
 // دالة التعامل مع اختيارات القائمة الرئيسية
 function handleMainMenuChoice(choice) {
     const phone = "212629703283";
+    const pdfPath = "assets/prices.pdf"; // المسار الصحيح لملف PDF
+
     switch(choice) {
         case '1': window.open(`https://wa.me/${phone}?text=أريد طلب عرض سعر لمشروع جديد`, "_blank"); break;
         case '2': window.location.href = "assets/prices.pdf"; break; // تأكد من وجود هذا الملف
         case '3': window.open(`https://wa.me/${phone}`, "_blank"); break;
+        case '1': 
+            window.open(`https://wa.me/${phone}?text=أريد طلب عرض سعر لمشروع جديد`, "_blank"); 
+            return "👍 تم توجيهك لطلب عرض السعر. هل من خدمة أخرى؟";
+        case '2': 
+            window.open(pdfPath, "_blank"); 
+            return "📥 تم فتح ملف الباقات والأسعار في نافذة جديدة. إذا لم يظهر، يرجى التأكد من السماح بالنوافذ المنبثقة.";
+            downloadPDF();
+            return "📥 جارٍ تحميل ملف الباقات والأسعار... يرجى التحقق من شريط التنزيلات في متصفحك.";
+        case '3': 
+            window.open(`https://wa.me/${phone}`, "_blank"); 
+            return "💬 تم توجيهك للتحدث مع الدعم الفني مباشرة. نحن في انتظارك!";
+        default:
+            return null;
     }
 }
 
+// دالة تحميل ملف PDF باحترافية
+function downloadPDF() {
+    const pdfUrl = 'assets/prices.pdf'; // تأكد أن هذا هو مسار ملفك الصحيح
+    const fileName = 'LitKing_Services_Prices.pdf'; // الاسم الذي سيظهر للزبون عند التحميل
+
+    fetch(pdfUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = fileName; // هذه السمة تجبر المتصفح على التحميل
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+        })
+        .catch(() => {
+            alert("عذراً، الملف غير متاح حالياً. يرجى التواصل معنا مباشرة عبر واتساب للحصول على نسخة.");
+        });
+}
 
 // 8. الدالة الرئيسية المنظمة لعمل الشات
 function sendChatMessage() {
@@ -1846,6 +1882,11 @@ function sendChatMessage() {
         } else if (['1', '2', '3'].includes(userText)) {
             handleMainMenuChoice(userText);
             responseText = `👍 تم تنفيذ طلبك رقم ${userText}. هل هناك أي شيء آخر يمكنني مساعدتك به؟`;
+            const resultMessage = handleMainMenuChoice(userText);
+            if (resultMessage) {
+                responseText = resultMessage;
+            }
+
         } else if (check(keysAbout)) {
             responseText = "نحن استوديو LitKingLTK للإنتاج الرقمي والسينمائي 🎥 نوفر خدمات متكاملة تشمل تصوير الفيديو الإعلاني، التصوير الجوي بالدرون (Drone)، والمونتاج الاحترافي وتصحيح الألوان. اكتب كلمة <b>'باقات'</b> لحساب تكلفة مشروعك فوراً.";
         } else if (check(keysPortfolio)) {
@@ -1990,23 +2031,13 @@ function sendToEmail() {
   startCooldown();
 }
 
-// دالة إخفاء شاشة التحميل (Preloader) بسلاسة
 // دالة إخفاء شاشة التحميل (Preloader)
 window.addEventListener('load', function() {
-    const preloader = document.getElementById('preloader');
-    const preloader = document.querySelector('#preloader'); //  تحديد عنصر البريلودر
+    const preloader = document.querySelector('#preloader');
     if (preloader) {
-        // إضافة الكلاس الذي يبدأ تأثير الخفوت
-        preloader.classList.add('loaded');
-
-        // إزالة العنصر من DOM بعد انتهاء الانتقال لضمان عدم تأثيره
         preloader.style.transition = "opacity 0.5s ease";
         preloader.style.opacity = "0";
         setTimeout(() => {
-            if (preloader.parentNode) {
-                preloader.parentNode.removeChild(preloader);
-            }
-        }, 1000); // يجب أن تكون المدة متوافقة مع مدة الانتقال في CSS
             preloader.style.display = "none";
         }, 500);
     }
