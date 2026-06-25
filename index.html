@@ -830,28 +830,26 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         </p>
     </div>
 
-    <div id="game-gate" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; color:white;">
-        <h1>مرحباً بك في اختبار المونتاج!</h1>
-        <p>أجب على هذا السؤال للدخول:</p>
-        <div id="question-box">
-            <p>ما هو المفهوم الذي يصف سرعة الفيديو؟</p>
-            <button onclick="checkAnswer(true)" style="padding: 10px 20px; margin: 5px; cursor: pointer; background-color: var(--accent-color); color: white; border: none; border-radius: 5px; font-family: 'Cairo', sans-serif;">Frame Rate</button>
-            <button onclick="checkAnswer(false)" style="padding: 10px 20px; margin: 5px; cursor: pointer; background-color: #333; color: white; border: none; border-radius: 5px; font-family: 'Cairo', sans-serif;">Audio Gain</button>
-    <div id="whatsapp-gate" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#111; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:sans-serif;">
-        </div>
-    </div>
-    <div id="whatsapp-gate" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#111; z-index:9999; display:none; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:sans-serif;">
-    <div id="whatsapp-gate" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#111; z-index:9998; display:none; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:sans-serif;">
-        <h2>🔐 LitKing Exclusive Access</h2>
-        <p>للدخول للموقع، يرجى تفعيل حسابك عبر الواتساب</p>
-        
-        <input type="text" id="user-phone" placeholder="أدخل رقمك مع رمز الدولة (مثال: 2126...)" style="padding:10px; margin:10px; border-radius:5px; border:none; width:250px;">
-        
-        <button onclick="generateCode()" style="padding:10px 20px; background:#25d366; color:white; border:none; border-radius:5px; cursor:pointer;">إرسال كود التفعيل عبر الواتساب</button>
-        
-        <div id="verification-area" style="margin-top:20px; display:none;">
-            <input type="text" id="user-code" placeholder="أدخل الكود الذي وصلك" style="padding:10px; margin:10px; border-radius:5px; border:none;">
-            <button onclick="verifyAccess()" style="padding:10px 20px; background:#007bff; color:white; border:none; border-radius:5px; cursor:pointer;">دخول</button>
+    <div id="whatsapp-gate" style="position:fixed; top:0; left:0; width:100%; height:100%; background:radial-gradient(circle, #1a1a1a 0%, #0a0a0a 100%); z-index:9998; display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:'Cairo', sans-serif; padding: 20px;">
+        <div style="background: #111; padding: 40px; border-radius: 20px; border: 1px solid #252525; text-align: center; max-width: 400px; width: 100%; box-shadow: 0 15px 40px rgba(0,0,0,0.5);">
+            <h2 style="font-family: 'Syne', sans-serif; font-size: 1.8rem; margin-bottom: 10px; color: var(--accent-color);">🔐 LitKing Exclusive Access</h2>
+            <p style="color: var(--text-muted); margin-bottom: 25px;">للدخول للموقع، يرجى تفعيل حسابك عبر الواتساب.</p>
+            
+            <div id="phone-area">
+                <input type="tel" id="user-phone" placeholder="أدخل رقمك مع رمز الدولة (مثال: 2126...)" style="width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #333; background: #0a0a0a; color: white; font-family: 'Cairo', sans-serif; font-size: 1rem; text-align: center;">
+                <button onclick="generateCode()" style="width: 100%; padding: 14px 20px; background: #25d366; color: white; border: none; border-radius: 10px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.3s;">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16.75 13.96c.25.13.41.38.41.66v2.12c0 .41-.34.75-.75.75H7.59c-.41 0-.75-.34-.75-.75v-2.12c0-.28.16-.53.41-.66l4.59-2.45c.33-.18.74-.18 1.07 0l4.59 2.45zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                    <span>إرسال كود التفعيل</span>
+                </button>
+            </div>
+            
+            <div id="verification-area" style="margin-top:20px; display:none;">
+                <p style="color: var(--text-muted); margin-bottom: 15px;">تم إرسال الكود. أدخله هنا للمتابعة:</p>
+                <input type="text" inputmode="numeric" id="user-code" placeholder="------" style="width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #333; background: #0a0a0a; color: white; font-family: 'Syne', sans-serif; font-size: 1.8rem; text-align: center; letter-spacing: 0.5em;">
+                <button onclick="verifyAccess()" style="width: 100%; padding: 14px 20px; background: var(--accent-color); color: white; border: none; border-radius: 10px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 700; transition: background 0.3s;">
+                    <span>تأكيد ودخول</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1608,14 +1606,6 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 // ========================================================
 let verificationCode = '';
 
-// Function for the game gate
-function checkAnswer(isCorrect) {
-    if (isCorrect) {
-        document.getElementById('game-gate').style.display = 'none';
-    } else {
-        alert("إجابة خاطئة! المونتاج يتطلب دقة، حاول مرة أخرى.");
-    }
-}
 function generateCode() {
     const phoneInput = document.getElementById('user-phone');
     const phoneNumber = phoneInput.value.replace(/\D/g, ''); // Remove non-digit characters
@@ -1633,9 +1623,9 @@ function generateCode() {
 
     window.open(whatsappUrl, '_blank');
 
+    document.getElementById('phone-area').style.display = 'none';
     document.getElementById('verification-area').style.display = 'block';
 }
-function generateCode() {
 
 function verifyAccess() {
     const userCodeInput = document.getElementById('user-code');
@@ -1644,7 +1634,6 @@ function verifyAccess() {
     if (enteredCode === verificationCode && enteredCode !== '') {
         document.getElementById('whatsapp-gate').style.display = 'none';
     } else {
-        alert("إجابة خاطئة! المونتاج يتطلب دقة، حاول مرة أخرى.");
         alert('كود التحقق غير صحيح. يرجى المحاولة مرة أخرى.');
     }
 }
