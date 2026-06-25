@@ -1991,18 +1991,24 @@ function sendToEmail() {
 }
 
 // دالة إخفاء شاشة التحميل (Preloader) بسلاسة
+// دالة إخفاء شاشة التحميل (Preloader)
 window.addEventListener('load', function() {
     const preloader = document.getElementById('preloader');
+    const preloader = document.querySelector('#preloader'); //  تحديد عنصر البريلودر
     if (preloader) {
         // إضافة الكلاس الذي يبدأ تأثير الخفوت
         preloader.classList.add('loaded');
 
         // إزالة العنصر من DOM بعد انتهاء الانتقال لضمان عدم تأثيره
+        preloader.style.transition = "opacity 0.5s ease";
+        preloader.style.opacity = "0";
         setTimeout(() => {
             if (preloader.parentNode) {
                 preloader.parentNode.removeChild(preloader);
             }
         }, 1000); // يجب أن تكون المدة متوافقة مع مدة الانتقال في CSS
+            preloader.style.display = "none";
+        }, 500);
     }
 });
 
