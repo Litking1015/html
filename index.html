@@ -830,6 +830,32 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         </p>
     </div>
 
+    <div id="game-gate" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; color:white;">
+        <h1>مرحباً بك في اختبار المونتاج!</h1>
+        <p>أجب على هذا السؤال للدخول:</p>
+        <div id="question-box">
+            <p>ما هو المفهوم الذي يصف سرعة الفيديو؟</p>
+            <button onclick="checkAnswer(true)" style="padding: 10px 20px; margin: 5px; cursor: pointer; background-color: var(--accent-color); color: white; border: none; border-radius: 5px; font-family: 'Cairo', sans-serif;">Frame Rate</button>
+            <button onclick="checkAnswer(false)" style="padding: 10px 20px; margin: 5px; cursor: pointer; background-color: #333; color: white; border: none; border-radius: 5px; font-family: 'Cairo', sans-serif;">Audio Gain</button>
+    <div id="whatsapp-gate" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#111; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:sans-serif;">
+        </div>
+    </div>
+    <div id="whatsapp-gate" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#111; z-index:9999; display:none; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:sans-serif;">
+    <div id="whatsapp-gate" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#111; z-index:9998; display:none; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:sans-serif;">
+        <h2>🔐 LitKing Exclusive Access</h2>
+        <p>للدخول للموقع، يرجى تفعيل حسابك عبر الواتساب</p>
+        
+        <input type="text" id="user-phone" placeholder="أدخل رقمك مع رمز الدولة (مثال: 2126...)" style="padding:10px; margin:10px; border-radius:5px; border:none; width:250px;">
+        
+        <button onclick="generateCode()" style="padding:10px 20px; background:#25d366; color:white; border:none; border-radius:5px; cursor:pointer;">إرسال كود التفعيل عبر الواتساب</button>
+        
+        <div id="verification-area" style="margin-top:20px; display:none;">
+            <input type="text" id="user-code" placeholder="أدخل الكود الذي وصلك" style="padding:10px; margin:10px; border-radius:5px; border:none;">
+            <button onclick="verifyAccess()" style="padding:10px 20px; background:#007bff; color:white; border:none; border-radius:5px; cursor:pointer;">دخول</button>
+        </div>
+    </div>
+
+
     <!-- ========================================================
          شريط التقدم التفاعلي عند التمرير (Scroll Progress Bar)
          ======================================================== -->
@@ -1580,6 +1606,48 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 // ========================================================
 // مساعد LitKingLTK الذكي - نسخة مطورة وأكثر قوة
 // ========================================================
+let verificationCode = '';
+
+// Function for the game gate
+function checkAnswer(isCorrect) {
+    if (isCorrect) {
+        document.getElementById('game-gate').style.display = 'none';
+    } else {
+        alert("إجابة خاطئة! المونتاج يتطلب دقة، حاول مرة أخرى.");
+    }
+}
+function generateCode() {
+    const phoneInput = document.getElementById('user-phone');
+    const phoneNumber = phoneInput.value.replace(/\D/g, ''); // Remove non-digit characters
+
+    if (phoneNumber.length < 10) {
+        alert('الرجاء إدخال رقم هاتف صحيح مع رمز الدولة.');
+        return;
+    }
+
+    // Generate a 6-digit random code
+    verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+    
+    const message = `مرحباً! كود الدخول الخاص بك إلى موقع LitKingLTK هو: *${verificationCode}*`;
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank');
+
+    document.getElementById('verification-area').style.display = 'block';
+}
+function generateCode() {
+
+function verifyAccess() {
+    const userCodeInput = document.getElementById('user-code');
+    const enteredCode = userCodeInput.value.trim();
+
+    if (enteredCode === verificationCode && enteredCode !== '') {
+        document.getElementById('whatsapp-gate').style.display = 'none';
+    } else {
+        alert("إجابة خاطئة! المونتاج يتطلب دقة، حاول مرة أخرى.");
+        alert('كود التحقق غير صحيح. يرجى المحاولة مرة أخرى.');
+    }
+}
 
 // ========================================================
 // نظام وضع الصيانة الذكي (Maintenance Mode System)
