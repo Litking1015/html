@@ -37,8 +37,8 @@
       rel="stylesheet"
     />
     <!-- Firebase SDKs - ADD YOURS HERE -->
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+    
+    <!-- تم حذف مكتبات Firebase بناءً على الطلب -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.150.1/three.min.js"></script>
     <!-- أيقونة الموقع الاحترافية (Favicon) -->
@@ -842,17 +842,29 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
             
             <div id="phone-area" style="transition: opacity 0.4s ease, transform 0.4s ease; opacity: 1; position: relative;">
                 <input type="tel" id="user-phone" placeholder="أدخل رقمك مع رمز الدولة (مثال: 2126...)" style="width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 12px; border: 1px solid #333; background: #0a0a0a; color: white; font-family: 'Cairo', sans-serif; font-size: 1rem; text-align: center; transition: all 0.3s ease;">
-                <button id="send-code-btn" onclick="sendVerificationCode()" style="width: 100%; padding: 15px 20px; background: #25d366; color: white; border: none; border-radius: 12px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);">
+                <button id="send-code-btn" onclick="generateCode()" style="width: 100%; padding: 15px 20px; background: #25d366; color: white; border: none; border-radius: 12px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16.75 13.96c.25.13.41.38.41.66v2.12c0 .41-.34.75-.75.75H7.59c-.41 0-.75-.34-.75-.75v-2.12c0-.28.16-.53.41-.66l4.59-2.45c.33-.18.74-.18 1.07 0l4.59 2.45zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
                     <span>إرسال كود التفعيل</span>
                 </button>
-                <div id="recaptcha-container" style="margin-top: 15px;"></div>
             </div>
             
             <div id="verification-area" style="transition: opacity 0.4s ease, transform 0.4s ease; opacity: 0; transform: translateY(10px); position: absolute; left: 40px; right: 40px; pointer-events: none;">
                 <p style="color: var(--text-muted); margin-bottom: 15px;">تم إرسال الكود. أدخله هنا للمتابعة:</p>
-                <input type="text" inputmode="numeric" id="user-code" placeholder="------" style="width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 12px; border: 1px solid #333; background: #0a0a0a; color: white; font-family: 'Syne', sans-serif; font-size: 1.8rem; text-align: center; letter-spacing: 0.5em; transition: all 0.3s ease;">
-                <button id="verify-code-btn" onclick="verifyCode()" style="width: 100%; padding: 15px 20px; background: var(--accent-color); color: white; border: none; border-radius: 12px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(255, 74, 28, 0.2);">
+                <div id="otp-container" style="display: flex; justify-content: center; gap: 12px; direction: ltr;">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                </div>
+                <style>
+                    .otp-input {
+                        width: 55px; height: 65px; text-align: center; font-size: 2.2rem; font-family: 'Syne', sans-serif;
+                        border: 1px solid #333; background: #0a0a0a; color: white; border-radius: 10px;
+                        transition: all 0.3s ease; caret-color: var(--accent-color);
+                    }
+                    .otp-input:focus { outline: none; border-color: var(--accent-color); box-shadow: 0 0 10px rgba(255, 74, 28, 0.3); }
+                </style>
+                <button id="verify-code-btn" onclick="verifyAccess()" style="width: 100%; padding: 15px 20px; background: var(--accent-color); color: white; border: none; border-radius: 12px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(255, 74, 28, 0.2); margin-top: 25px;">
                     <span>تأكيد ودخول</span>
                 </button>
             </div>
@@ -1255,8 +1267,6 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         </div>
       </div>
     </section>
-    
-    </section>
     <section class="pricing" id="pricing">
       <h2 class="section-title">باقات الاستثمار المرئي</h2>
       <p
@@ -1350,8 +1360,6 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
           >
         </div>
     </section>
-
-</section>
 
     <section class="portfolio" id="portfolio">
       <center><h2 class="section-title">معرض الأعمال الاحترافي</h2></center>
@@ -1610,108 +1618,57 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 // مساعد LitKingLTK الذكي - نسخة مطورة وأكثر قوة
 // ========================================================
 
-// --- START FIREBASE AUTH ---
-// 1. استبدل هذا الكود بمعلومات مشروعك من Firebase
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-
-// 2. تهيئة Firebase
-firebase.initializeApp(firebaseConfig);
-
-function renderRecaptcha() {
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-        'size': 'invisible',
-        'callback': (response) => {
-            // reCAPTCHA solved, allow signInWithPhoneNumber.
-            sendVerificationCode();
-        },
-        'expired-callback': () => {
-            // Response expired. Ask user to solve reCAPTCHA again.
-            alert("انتهت صلاحية التحقق، يرجى المحاولة مرة أخرى.");
-        }
-    });
-}
-
-window.onload = function() {
-    renderRecaptcha();
-};
-
-function sendVerificationCode() {
+// --- START WHATSAPP AUTH ---
+function generateCode() {
     const phoneInput = document.getElementById('user-phone');
-    const sendBtn = document.getElementById('send-code-btn');
-    // تأكد من أن الرقم يبدأ بعلامة + (مثال: +2126...)
-    const phoneNumber = `+${phoneInput.value.replace(/\D/g, '')}`;
+    const phone = phoneInput.value.replace(/\D/g, ''); // تنظيف الرقم من أي رموز
 
-    if (phoneNumber.length < 11) {
-        alert('الرجاء إدخال رقم هاتف صحيح مع رمز الدولة.');
+    if (phone.length < 10) {
+        alert("الرجاء إدخال رقم هاتف صحيح مع رمز الدولة.");
         return;
     }
 
-    sendBtn.disabled = true;
-    sendBtn.innerText = '...جاري الإرسال';
+    const randomCode = Math.floor(1000 + Math.random() * 9000); // توليد كود من 4 أرقام
+    
+    // تخزين الكود في المتصفح للمقارنة لاحقاً
+    localStorage.setItem('tempCode', randomCode);
+    
+    const message = `أهلاً بك في LitKing، كود التفعيل الخاص بك هو: ${randomCode}`;
+    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    
+    // إظهار منطقة إدخال الكود مع الحفاظ على الانتقال السلس
+    const phoneArea = document.getElementById('phone-area');
+    const verificationArea = document.getElementById('verification-area');
 
-    const appVerifier = window.recaptchaVerifier;
-    firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-        .then((confirmationResult) => {
-            window.confirmationResult = confirmationResult;
-            alert('تم إرسال كود التحقق إلى هاتفك بنجاح!');
-            
-            const phoneArea = document.getElementById('phone-area');
-            const verificationArea = document.getElementById('verification-area');
-
-            phoneArea.style.opacity = '0';
-            phoneArea.style.pointerEvents = 'none';
-            
-            setTimeout(() => {
-                verificationArea.style.position = 'relative';
-                verificationArea.style.opacity = '1';
-                verificationArea.style.transform = 'translateY(0)';
-                verificationArea.style.pointerEvents = 'auto';
-            }, 400);
-
-        }).catch((error) => {
-            console.error("Firebase Error:", error);
-            alert(`حدث خطأ: ${error.message}. تأكد من صحة الرقم وأنه يبدأ برمز الدولة.`);
-            sendBtn.disabled = false;
-            sendBtn.innerHTML = '<span>إرسال كود التفعيل</span>';
-            // إعادة تعيين reCAPTCHA للسماح بإعادة المحاولة
-            if (window.recaptchaVerifier) {
-                window.recaptchaVerifier.clear(); // استخدام الدالة الرسمية من Firebase
-                // إعادة تهيئة reCAPTCHA بعد مسحه
-                renderRecaptcha();
-            }
-        });
+    phoneArea.style.opacity = '0';
+    phoneArea.style.pointerEvents = 'none';
+    
+    setTimeout(() => {
+        verificationArea.style.opacity = '1';
+        verificationArea.style.transform = 'translateY(0)';
+        verificationArea.style.pointerEvents = 'auto';
+    }, 400);
+    
+    // فتح الواتساب
+    window.open(whatsappUrl, '_blank');
 }
 
-function verifyCode() {
-    const userCodeInput = document.getElementById('user-code');
-    const enteredCode = userCodeInput.value.trim();
-    const verifyBtn = document.getElementById('verify-code-btn');
+function verifyAccess() {
+    const inputs = document.querySelectorAll('.otp-input');
+    let userInput = Array.from(inputs).map(input => input.value).join('');
 
-    verifyBtn.disabled = true;
-    verifyBtn.innerText = '...جاري التحقق';
-
-    window.confirmationResult.confirm(enteredCode).then((result) => {
-        // User signed in successfully.
-        const user = result.user;
-        console.log("User authenticated:", user);
+    const savedCode = localStorage.getItem('tempCode');
+    if (userInput.length === 4 && userInput === savedCode) {
+        alert("تم التفعيل بنجاح! أهلاً بك.");
         const gate = document.getElementById('whatsapp-gate');
         gate.style.opacity = '0';
         setTimeout(() => gate.style.display = 'none', 500);
-
-    }).catch((error) => {
-        // User couldn't sign in (bad verification code?)
-        alert('كود التحقق غير صحيح. يرجى المحاولة مرة أخرى.');
-        verifyBtn.disabled = false;
-        verifyBtn.innerText = 'تأكيد ودخول';
-    });
+        localStorage.removeItem('tempCode'); // حذف الكود بعد الاستخدام
+    } else {
+        alert("الكود غير صحيح، حاول مجدداً.");
+    }
 }
+
 // --- END FIREBASE AUTH ---
 
 // ========================================================
@@ -1884,15 +1841,10 @@ function handleMainMenuChoice(choice) {
     const pdfPath = "assets/prices.pdf"; // المسار الصحيح لملف PDF
 
     switch(choice) {
-        case '1': window.open(`https://wa.me/${phone}?text=أريد طلب عرض سعر لمشروع جديد`, "_blank"); break;
-        case '2': window.location.href = "assets/prices.pdf"; break; // تأكد من وجود هذا الملف
-        case '3': window.open(`https://wa.me/${phone}`, "_blank"); break;
         case '1': 
             window.open(`https://wa.me/${phone}?text=أريد طلب عرض سعر لمشروع جديد`, "_blank"); 
             return "👍 تم توجيهك لطلب عرض السعر. هل من خدمة أخرى؟";
         case '2': 
-            window.open(pdfPath, "_blank"); 
-            return "📥 تم فتح ملف الباقات والأسعار في نافذة جديدة. إذا لم يظهر، يرجى التأكد من السماح بالنوافذ المنبثقة.";
             downloadPDF();
             return "📥 جارٍ تحميل ملف الباقات والأسعار... يرجى التحقق من شريط التنزيلات في متصفحك.";
         case '3': 
@@ -2003,8 +1955,10 @@ function sendChatMessage() {
         var keysOptions = ['خيارات', 'مساعدة', 'قائمة', 'options', 'help', 'menu'];
         var keysProcess = ['خطوات', 'سير العمل', 'كيف تعملون', 'طريقة', 'process', 'workflow'];
         var keysKnowledge = ['قوة', 'تأثير', 'احصائيات', 'لماذا', 'أهمية', 'فائدة', 'دليل', 'power', 'impact', 'stats'];
-        
-        var responseText = "";
+
+        let responseText;
+        var replyDiv = document.createElement('div');
+        replyDiv.className = 'msg bot-msg';
 
         if (check(keysPrice)) {
             sendBotResponseWithPacks(msgContainer);
@@ -2013,13 +1967,10 @@ function sendChatMessage() {
             showMainMenu(msgContainer);
             return;
         } else if (['1', '2', '3'].includes(userText)) {
-            handleMainMenuChoice(userText);
-            responseText = `👍 تم تنفيذ طلبك رقم ${userText}. هل هناك أي شيء آخر يمكنني مساعدتك به؟`;
             const resultMessage = handleMainMenuChoice(userText);
             if (resultMessage) {
                 responseText = resultMessage;
             }
-
         } else if (check(keysAbout)) {
             responseText = "نحن استوديو LitKingLTK للإنتاج الرقمي والسينمائي 🎥 نوفر خدمات متكاملة تشمل تصوير الفيديو الإعلاني، التصوير الجوي بالدرون (Drone)، والمونتاج الاحترافي وتصحيح الألوان. اكتب كلمة <b>'باقات'</b> لحساب تكلفة مشروعك فوراً.";
         } else if (check(keysPortfolio)) {
@@ -2029,19 +1980,14 @@ function sendChatMessage() {
             responseText = `نتبع منهجية عمل احترافية من 4 خطوات تبدأ من التخطيط وتنتهي بالتسليم. سأقوم بتمريرك الآن إلى قسم "رحلة صناعة مشروعك" لتتعرف عليها بالتفصيل.`;
             document.getElementById('process').scrollIntoView({ behavior: 'smooth' });
         } else if (check(keysKnowledge)) {
-            // سحب معلومة عشوائية من قاعدة المعرفة
             const randomFact = advertisingKnowledgeBase.video_impact[Math.floor(Math.random() * advertisingKnowledgeBase.video_impact.length)];
             responseText = `💡 <b> معلومة تسويقية: </b><br>${randomFact}<br><br>هذا يوضح القوة الهائلة للفيديو في تحقيق النتائج. هل تود حساب تكلفة مشروعك الآن؟ اكتب <b>'باقات'</b>.`;
-
         } else if (check(keysGreeting)) {
             responseText = "أهلاً بك مجدداً! ✨ يسعدني تواصلك معنا. هل تود رؤية باقات الأسعار وحساب تكلفة مشروعك تلقائياً؟ فقط اكتب كلمة <b>'باقات'</b>!";
         } else {
-            responseText = "فهمت طلبك. نحن في استوديو LitKingLTK نضمن لك إنتاجاً بصرياً فخماً. لحساب ميزانية مشروعك واختيار الباقة المناسبة تفاعلياً، اكتب كلمة <b>'باقات'</b> وسأتولى الحساب فوراً.";
             responseText = "فهمت طلبك. نحن في استوديو LitKingLTK نضمن لك إنتاجاً بصرياً فخماً. لحساب ميزانية مشروعك تفاعلياً، اكتب كلمة <b>'باقات'</b>، أو اكتب <b>'خيارات'</b> لعرض قائمة المساعدة.";
         }
 
-        var replyDiv = document.createElement('div');
-        replyDiv.className = 'msg bot-msg';
         replyDiv.innerHTML = responseText;
         msgContainer.appendChild(replyDiv);
         msgContainer.scrollTop = msgContainer.scrollHeight;
@@ -2208,6 +2154,71 @@ window.addEventListener('scroll', function() {
         document.body.style.overflow = 'hidden'; // منع التمرير
         const blocker = document.getElementById('safari-blocker');
         if(blocker) blocker.style.display = 'flex';
+    }
+});
+
+// ========================================================
+// تأثير تحريك الشعار بالماوس (3D Logo Mouse Effect)
+// ========================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const logo = document.getElementById('dynamicLogo');
+    if (logo) {
+        const logoContainer = logo.parentElement;
+
+        logoContainer.addEventListener('mousemove', (e) => {
+            const rect = logoContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            // تحديد درجة الدوران، يمكنك تعديل الرقم 10 لزيادة أو تقليل التأثير
+            const rotateX = (y - centerY) / centerY * -10;
+            const rotateY = (x - centerX) / centerX * 10;
+
+            logo.style.transition = 'none'; // إيقاف الانتقال المؤقت لضمان حركة سلسة
+            logo.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        logoContainer.addEventListener('mouseleave', () => {
+            logo.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)'; // إعادة تفعيل الانتقال
+            logo.style.transform = 'rotateX(0deg) rotateY(0deg)'; // العودة للوضع الأصلي
+        });
+    }
+
+    // ========================================================
+    // نظام خانات إدخال الكود الاحترافي (Professional OTP Inputs)
+    // ========================================================
+    const otpInputs = document.querySelectorAll('.otp-input');
+    if (otpInputs.length > 0) {
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                // الانتقال للخانة التالية عند الإدخال
+                if (input.value.length === 1 && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                // الرجوع للخلف عند الضغط على Backspace
+                if (e.key === 'Backspace' && input.value.length === 0 && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+
+            // دعم اللصق
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData('text').trim();
+                if (pastedData.length === otpInputs.length) {
+                    otpInputs.forEach((box, i) => {
+                        box.value = pastedData[i] || '';
+                    });
+                    otpInputs[otpInputs.length - 1].focus();
+                }
+            });
+        });
     }
 });
 </script>
