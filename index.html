@@ -1618,13 +1618,76 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 // ========================================================
 // مساعد LitKingLTK الذكي - نسخة مطورة وأكثر قوة
 // ========================================================
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // تفعيل الحركة عند ظهور نافذة التحقق
     const gate = document.getElementById('whatsapp-gate');
     const modal = document.getElementById('gate-modal');
     if (gate && modal && getComputedStyle(gate).display !== 'none') {
         modal.style.transform = 'translateY(0)';
         modal.style.opacity = '1';
+    }
+
+    // ========================================================
+    // تأثير تحريك الشعار بالماوس (3D Logo Mouse Effect)
+    // ========================================================
+    const logo = document.getElementById('dynamicLogo');
+    if (logo) {
+        const logoContainer = logo.parentElement;
+
+        logoContainer.addEventListener('mousemove', (e) => {
+            const rect = logoContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            // تحديد درجة الدوران، يمكنك تعديل الرقم 10 لزيادة أو تقليل التأثير
+            const rotateX = (y - centerY) / centerY * -10;
+            const rotateY = (x - centerX) / centerX * 10;
+
+            logo.style.transition = 'none'; // إيقاف الانتقال المؤقت لضمان حركة سلسة
+            logo.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        logoContainer.addEventListener('mouseleave', () => {
+            logo.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)'; // إعادة تفعيل الانتقال
+            logo.style.transform = 'rotateX(0deg) rotateY(0deg)'; // العودة للوضع الأصلي
+        });
+    }
+
+    // ========================================================
+    // نظام خانات إدخال الكود الاحترافي (Professional OTP Inputs)
+    // ========================================================
+    const otpInputs = document.querySelectorAll('.otp-input');
+    if (otpInputs.length > 0) {
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                // الانتقال للخانة التالية عند الإدخال
+                if (input.value.length === 1 && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                // الرجوع للخلف عند الضغط على Backspace
+                if (e.key === 'Backspace' && input.value.length === 0 && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+
+            // دعم اللصق
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData('text').trim();
+                if (pastedData.length === otpInputs.length) {
+                    otpInputs.forEach((box, i) => {
+                        box.value = pastedData[i] || '';
+                    });
+                    otpInputs[otpInputs.length - 1].focus();
+                }
+            });
+        });
     }
 });
 
@@ -2170,67 +2233,6 @@ window.addEventListener('scroll', function() {
 // ========================================================
 // تأثير تحريك الشعار بالماوس (3D Logo Mouse Effect)
 // ========================================================
-document.addEventListener('DOMContentLoaded', () => {
-    const logo = document.getElementById('dynamicLogo');
-    if (logo) {
-        const logoContainer = logo.parentElement;
-
-        logoContainer.addEventListener('mousemove', (e) => {
-            const rect = logoContainer.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            // تحديد درجة الدوران، يمكنك تعديل الرقم 10 لزيادة أو تقليل التأثير
-            const rotateX = (y - centerY) / centerY * -10;
-            const rotateY = (x - centerX) / centerX * 10;
-
-            logo.style.transition = 'none'; // إيقاف الانتقال المؤقت لضمان حركة سلسة
-            logo.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-
-        logoContainer.addEventListener('mouseleave', () => {
-            logo.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)'; // إعادة تفعيل الانتقال
-            logo.style.transform = 'rotateX(0deg) rotateY(0deg)'; // العودة للوضع الأصلي
-        });
-    }
-
-    // ========================================================
-    // نظام خانات إدخال الكود الاحترافي (Professional OTP Inputs)
-    // ========================================================
-    const otpInputs = document.querySelectorAll('.otp-input');
-    if (otpInputs.length > 0) {
-        otpInputs.forEach((input, index) => {
-            input.addEventListener('input', (e) => {
-                // الانتقال للخانة التالية عند الإدخال
-                if (input.value.length === 1 && index < otpInputs.length - 1) {
-                    otpInputs[index + 1].focus();
-                }
-            });
-
-            input.addEventListener('keydown', (e) => {
-                // الرجوع للخلف عند الضغط على Backspace
-                if (e.key === 'Backspace' && input.value.length === 0 && index > 0) {
-                    otpInputs[index - 1].focus();
-                }
-            });
-
-            // دعم اللصق
-            input.addEventListener('paste', (e) => {
-                e.preventDefault();
-                const pastedData = e.clipboardData.getData('text').trim();
-                if (pastedData.length === otpInputs.length) {
-                    otpInputs.forEach((box, i) => {
-                        box.value = pastedData[i] || '';
-                    });
-                    otpInputs[otpInputs.length - 1].focus();
-                }
-            });
-        });
-    }
-});
 </script>
   </body>
 </html>
