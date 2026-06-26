@@ -180,7 +180,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 #scroll-progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent-color); width: 0; z-index: 10001; transition: opacity 0.3s; box-shadow: 0 0 10px var(--accent-color); }
 
 /* قسم القوالب الجاهزة */
-.templates { padding: 100px 8%; background-color: #080808; text-align: center; border-top: 1px solid #1a1a1a; }
+.templates { padding: 70px 6%; background-color: #080808; text-align: center; border-top: 1px solid #1a1a1a; }
 .templates-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 50px; }
 .template-card { background: var(--card-bg); border: 1px solid #222; border-radius: 15px; overflow: hidden; text-align: right; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
 .template-card:hover { transform: translateY(-10px); border-color: var(--accent-color); box-shadow: 0 15px 40px rgba(255, 74, 28, 0.1); }
@@ -195,6 +195,17 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 .template-info p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
 .template-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #252525; padding-top: 20px; margin-top: 20px; }
 .template-price { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--accent-color); }
+.templates { padding: 100px 8%; background-color: #080808; text-align: center; border-top: 1px solid #1a1a1a; }
+
+/* لوحة تحكم الأدمن لتوليد الرموز */
+#admin-panel { display: none; padding: 40px; background: #111; border: 1px solid #333; border-radius: 15px; text-align: center; max-width: 500px; margin: 50px auto; }
+#admin-panel h2 { color: var(--accent-color); margin-bottom: 20px; }
+#admin-panel select { width: 100%; padding: 10px; background: #222; color: white; border: 1px solid #444; border-radius: 8px; margin-bottom: 15px; }
+#admin-panel button { width: 100%; }
+#generated-code-container { margin-top: 20px; background: #0a0a0a; padding: 15px; border-radius: 8px; border: 1px dashed #444; display: none; }
+#generated-code-container p { margin: 0 0 10px 0; color: var(--text-muted); }
+#generated-code { font-family: 'Syne', sans-serif; font-size: 1.5rem; color: var(--accent-color); background: #1a1a1a; padding: 10px; border-radius: 5px; user-select: all; cursor: pointer; }
+
 
 /* نافذة إدخال رمز تحميل القالب */
 #template-code-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 99990; display: none; justify-content: center; align-items: center; padding: 20px; }
@@ -1164,51 +1175,6 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         </div>
       </div>
     </section>
-<style>
-.testimonial-header { /* CSS for testimonial header */
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 2;
-}
-.client-avatar { /* CSS for client avatar */
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 3px solid #333;
-  object-fit: cover;
-  transition: border-color 0.4s;
-}
-.testimonial-card:hover .client-avatar {
-    border-color: var(--accent-color);
-}
-.client-info h3 { /* CSS for client info heading */
-  margin: 0;
-  color: #fff;
-  font-size: 1.2rem;
-}
-.client-info span { /* CSS for client info span */
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
-.testimonial-quote { /* CSS for testimonial quote */
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #ccc;
-  margin-bottom: 25px;
-  position: relative;
-  z-index: 2;
-}
-.stars { /* CSS for stars */
-  font-size: 1.2rem;
-  color: #ffc107;
-  text-align: left;
-  letter-spacing: 2px;
-  text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
-}
-</style>
 
     <section class="software-section" id="tools">
       <h2 class="section-title">بيئة العمل والخدمات الإبداعية</h2>
@@ -1458,7 +1424,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
             <p>أكثر من 50 انتقالاً احترافياً (Transitions) يضيف لمسة سينمائية لمقاطع الفيديو الخاصة بك. سهل الاستخدام ومتوافق مع Premiere Pro.</p>
             <div class="template-footer">
               <span class="template-price">150 درهم</span>
-              <a href="https://your-gumroad-link-for-transitions" target="_blank" class="btn-price btn-filled" style="width: auto; padding: 10px 25px;">شراء وتنزيل فوري</a>
+              <a href="https://wa.me/212629703283?text=أرغب في شراء باقة الانتقالات السينمائية" target="_blank" class="btn-price btn-filled" style="width: auto; padding: 10px 25px;">اطلب القالب الآن</a>
             </div>
           </div>
         </div>
@@ -1476,7 +1442,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
             <p>مجموعة من 20 فلتر تلوين (LUTs) جاهز يمنح فيديوهاتك مظهراً سينمائياً احترافياً بضغطة زر. متوافق مع DaVinci Resolve و Premiere Pro.</p>
             <div class="template-footer">
               <span class="template-price">200 درهم</span>
-              <a href="https://your-gumroad-link-for-luts" target="_blank" class="btn-price btn-filled" style="width: auto; padding: 10px 25px;">شراء وتنزيل فوري</a>
+              <a href="https://wa.me/212629703283?text=أرغب في شراء مجموعة التلوين السينمائي" target="_blank" class="btn-price btn-filled" style="width: auto; padding: 10px 25px;">اطلب القالب الآن</a>
             </div>
           </div>
         </div>
@@ -1494,12 +1460,27 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
             <p>حزمة من 30 قالب نصوص متحركة وعصرية لمقاطع اليوتيوب والسوشيال ميديا. قابلة للتعديل بالكامل في After Effects و Premiere Pro.</p>
             <div class="template-footer">
               <span class="template-price">180 درهم</span>
-              <a href="https://your-gumroad-link-for-titles" target="_blank" class="btn-price btn-filled" style="width: auto; padding: 10px 25px;">شراء وتنزيل فوري</a>
+              <a href="https://wa.me/212629703283?text=أرغب في شراء قوالب النصوص المتحركة" target="_blank" class="btn-price btn-filled" style="width: auto; padding: 10px 25px;">اطلب القالب الآن</a>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- لوحة تحكم الأدمن لتوليد الرموز (سرية) -->
+    <div id="admin-panel">
+        <h2>لوحة تحكم توليد الرموز</h2>
+        <select id="admin-template-select">
+            <option value="transitions">باقة الانتقالات السينمائية</option>
+            <option value="luts">مجموعة التلوين السينمائي (LUTs)</option>
+            <option value="titles">قوالب نصوص متحركة (Titles)</option>
+        </select>
+        <button onclick="generateAndDisplayCode()" class="btn-price btn-filled">ولّد رابط تحميل ذكي</button>
+        <div id="generated-code-container">
+            <p>الرمز الجديد جاهز. انسخه وأرسله للعميل:</p>
+            <div id="generated-code" onclick="copyCodeToClipboard()"></div>
+        </div>
+    </div>
 
     <section class="portfolio" id="portfolio">
       <center><h2 class="section-title">معرض الأعمال الاحترافي</h2></center>
@@ -1700,26 +1681,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
     </p>
 </footer>
 
-<!-- ========================================================
-     نافذة إدخال رمز تحميل القالب
-     ======================================================== -->
-<div id="template-code-modal">
-    <div id="template-modal-content">
-        <button id="close-template-modal" onclick="closeTemplateModal()">×</button>
-        <h2>🔑 أدخل رمز التحميل</h2>
-        <p>الرجاء إدخال الرمز الذي تم إرساله لك عبر واتساب لتحميل القالب.</p>
-        <input type="text" id="template-code-input" placeholder="XXXX-XXXX-XXXX" oninput="this.value = this.value.toUpperCase()">
-        <button id="verify-template-code-btn" onclick="verifyTemplateCode()" class="btn-price btn-filled" style="width: 100%;">
-            تحقق وحمّل
-        </button>
-        <p class="modal-info">لم تحصل على رمز؟ <a href="https://wa.me/212629703283?text=أرغب في شراء قالب من الموقع" target="_blank">تواصل معنا للشراء</a></p>
-    </div>
-</div>
-<!-- تم حذف نافذة إدخال الرمز ونظام التحقق القديم -->
-
 <style>
-.contact { padding: 100px 8%; background: radial-gradient(circle at center, #141414 0%, #050505 100%); text-align: center; position: relative; overflow: hidden; border-top: 1px solid #161616; font-family: 'Cairo', sans-serif; }
-.cta-glow-blur { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: #ff4a1c; filter: blur(140px); opacity: 0.12; pointer-events: none; z-index: 1; }
 .contact-methods { display: flex; justify-content: center; gap: 25px; margin-bottom: 45px; flex-wrap: wrap; position: relative; z-index: 2; }
 .contact-item { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); padding: 14px 28px; border-radius: 16px; display: inline-flex; align-items: center; gap: 15px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 .contact-item:hover { border-color: rgba(255, 255, 255, 0.15); background: rgba(255, 255, 255, 0.05); transform: translateY(-3px); }
@@ -1915,7 +1877,6 @@ document.addEventListener('DOMContentLoaded', function () {
 function generateCode() {
     const phoneInput = document.getElementById('user-phone');
     const phone = phoneInput.value.replace(/\D/g, ''); // تنظيف الرقم من أي رموز
-
     if (phone.length < 10) {
         alert("الرجاء إدخال رقم هاتف صحيح مع رمز الدولة.");
         showToast("الرجاء إدخال رقم هاتف صحيح مع رمز الدولة.", "error");
@@ -1965,83 +1926,37 @@ function verifyAccess() {
     }
 }
 
-// ========================================================
-// نظام التحقق من رمز تحميل القوالب
-// ========================================================
-
-// -- يمكنك تغيير الرموز وروابط التحميل من هنا --
-const templateData = {
-    'transitions': {
-        code: 'LTK-TRANS-2024',
-        link: 'https://usersdrive.com/2vhh6sj3rl79.html'
-    },
-    'luts': {
-        code: 'LTK-LUTS-PRO',
-        link: 'https://example.com/luts-download-link' // غيّر هذا الرابط
-    },
-    'titles': {
-        code: 'LTK-TITLES-PACK',
-        link: 'https://example.com/titles-download-link' // غيّر هذا الرابط
-    }
-};
-
-let currentTemplateId = null;
-
-function requestTemplateDownload(templateId) {
-    currentTemplateId = templateId;
-    const modal = document.getElementById('template-code-modal');
-    modal.style.display = 'flex';
-    setTimeout(() => modal.classList.add('show'), 10);
-}
-
-function closeTemplateModal() {
-    const modal = document.getElementById('template-code-modal');
-    modal.classList.remove('show');
-    setTimeout(() => modal.style.display = 'none', 400);
-}
-
-function verifyTemplateCode() {
-    const input = document.getElementById('template-code-input');
-    const enteredCode = input.value.trim().toUpperCase();
-    const correctData = templateData[currentTemplateId];
-
-    if (correctData && enteredCode === correctData.code) {
-        showToast('الرمز صحيح! جارٍ بدء التحميل...', 'success');
-        window.open(correctData.link, '_blank');
-        closeTemplateModal();
-        input.value = '';
-    } else {
-        showToast('رمز التحقق غير صحيح. يرجى المحاولة مرة أخرى.', 'error');
-        // إضافة اهتزاز للنافذة عند الخطأ
-        const modalContent = document.getElementById('template-modal-content');
-        modalContent.style.animation = 'shake 0.5s';
-        setTimeout(() => modalContent.style.animation = '', 500);
-    }
-}
-
 // --- END FIREBASE AUTH ---
 
 // ========================================================
 // نظام وضع الصيانة الذكي (Maintenance Mode System)
 // ========================================================
 //-- غير القيمة إلى 'true' لتفعيل وضع الصيانة --//
-const MAINTENANCE_MODE_ENABLED =false;
+const MAINTENANCE_MODE_ENABLED = false;
 
 (function() {
     // تحقق من وجود مفتاح الوصول الخاص بالمالك في الرابط
     const urlParams = new URLSearchParams(window.location.search);
     const canAccess = urlParams.get('access') === 'owner';
+    const isAdmin = urlParams.get('admin') === 'true';
 
-    // إذا كان وضع الصيانة مفعلاً والزائر ليس المالك
-    if (MAINTENANCE_MODE_ENABLED && !canAccess) {
+    // إذا كان وضع الصيانة مفعلاً والزائر ليس المالك أو المسؤول
+    if (MAINTENANCE_MODE_ENABLED && !canAccess && !isAdmin) {
         const maintenanceScreen = document.getElementById('maintenance-overlay');
         if (maintenanceScreen) {
             maintenanceScreen.style.display = 'flex'; // إظهار شاشة الصيانة
             document.body.style.overflow = 'hidden'; // منع التمرير
         }
     }
-})();
 
+    // إظهار لوحة تحكم الأدمن إذا كان الرابط يحتوي على مفتاح الوصول الصحيح
+    if (canAccess && isAdmin) {
+        const adminPanel = document.getElementById('admin-panel');
+        if (adminPanel) {
+            adminPanel.style.display = 'block';
+        }
+    }
+})();
 
 // 1. تحميل مكتبة PDF ديناميكياً لتجنب أي تعارض
 if (typeof window.jspdf === "undefined") {
@@ -2224,7 +2139,6 @@ function downloadPDF() {
             a.remove();
         })
         .catch(() => {
-            alert("عذراً، الملف غير متاح حالياً. يرجى التواصل معنا مباشرة عبر واتساب للحصول على نسخة.");
             showToast("عذراً، الملف غير متاح حالياً. يرجى التواصل معنا مباشرة.", "error");
         });
 }
@@ -2359,7 +2273,6 @@ function startCooldown() {
 function validateForm() {
   const trapField = document.getElementById('security_honeypot');
   if (trapField && trapField.value !== "") return false; // فخ بوتات السبام
-  if (isCooldownActive) { alert("تجنباً للإرسال العشوائي، يرجى الانتظار دقيقة بين الطلبات."); return false; }
   if (isCooldownActive) { showToast("يرجى الانتظار دقيقة بين الطلبات لتجنب الإرسال المتكرر.", "info"); return false; }
 
   const fields = ["clientName", "clientEmail", "projectType", "projectDetails"];
@@ -2429,7 +2342,6 @@ function downloadInvoicePDF(name, email, selectIndex, details) {
 
 // دالة الإرسال إلى واتساب
 function sendToWhatsApp() {
-  if (!validateForm()) { alert("يرجى تعبئة الحقول المطلوبة (الاسم، الإيميل، نوع وتفاصيل المشروع) أولاً."); return; }
   if (!validateForm()) { showToast("يرجى تعبئة الحقول المطلوبة أولاً.", "error"); return; }
   
   const name = document.getElementById('clientName')?.value || "Client";
@@ -2448,7 +2360,6 @@ function sendToWhatsApp() {
 
 // دالة الإرسال إلى البريد الإلكتروني
 function sendToEmail() {
-  if (!validateForm()) { alert("يرجى تعبئة الحقول المطلوبة (الاسم، الإيميل، نوع وتفاصيل المشروع) أولاً."); return; }
   if (!validateForm()) { showToast("يرجى تعبئة الحقول المطلوبة أولاً.", "error"); return; }
   
   const name = document.getElementById('clientName')?.value || "Client";
@@ -2463,18 +2374,6 @@ function sendToEmail() {
   window.location.href = `mailto:oussamabouazzati14@gmail.com?subject=طلب مشروع جديد&body=الاسم: ${name}\nالمشروع: ${project}\nالتفاصيل: ${details}`;
   startCooldown();
 }
-
-// دالة إخفاء شاشة التحميل (Preloader)
-window.addEventListener('load', function() {
-    const preloader = document.querySelector('#preloader');
-    if (preloader) {
-        preloader.style.transition = "opacity 0.5s ease";
-        preloader.style.opacity = "0";
-        setTimeout(() => {
-            preloader.style.display = "none";
-        }, 500);
-    }
-});
 
 // ========================================================
 // شريط التقدم التفاعلي عند التمرير (Scroll Progress Bar)
@@ -2509,7 +2408,7 @@ window.addEventListener('scroll', function() {
         const blocker = document.getElementById('safari-blocker');
         if(blocker) blocker.style.display = 'flex';
     }
-});
+})();
 
 // ========================================================
 // تأثير تحريك الشعار بالماوس (3D Logo Mouse Effect)
