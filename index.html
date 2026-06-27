@@ -1789,6 +1789,13 @@ document.addEventListener('DOMContentLoaded', function () {
         gate.style.display = 'none'; // إخفاء شاشة التحقق فوراً
         return; // إيقاف باقي الأكواد المتعلقة بالنافذة
     }
+    // تم تعطيل بوابة الواتساب بناءً على الطلب للسماح بالدخول المباشر
+    // const gate = document.getElementById('whatsapp-gate');
+    // const isVerified = localStorage.getItem('isVerified');
+    // if (isVerified === 'true' && gate) {
+    //     gate.style.display = 'none'; // إخفاء شاشة التحقق فوراً
+    //     return; // إيقاف باقي الأكواد المتعلقة بالنافذة
+    // }
 
     // تفعيل الحركة عند ظهور نافذة التحقق (إذا كانت ستظهر)
     const modal = document.getElementById('gate-modal');
