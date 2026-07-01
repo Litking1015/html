@@ -994,6 +994,21 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         </p>
     </div>
 
+    <!-- ========================================================
+         شاشة حظر المستخدم بسبب النشاط غير المعتاد (تصميم احترافي)
+         ======================================================== -->
+    <div id="user-blocker" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 999999; color: white; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; font-family: 'Cairo', sans-serif; opacity: 0; transition: opacity 0.5s ease;">
+        <div class="blocker-content" style="background: linear-gradient(145deg, #1e1e1e, #121212); padding: 50px; border-radius: 24px; border: 1px solid #333; text-align: center; max-width: 500px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.7); transform: scale(0.95); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div style="font-size: 4rem; margin-bottom: 20px; color: #e74c3c; line-height: 1;">🚫</div>
+            <h2 style="font-family: 'Syne', sans-serif; font-size: 2.2rem; color: #fff; margin-bottom: 15px;">تم تقييد الوصول</h2>
+            <p style="font-size: 1.1rem; max-width: 400px; margin: 0 auto; line-height: 1.8; color: var(--text-muted);">
+                لقد رصد نظام الحماية لدينا نشاطاً غير معتاد من جهازك. لحماية الموقع، تم تقييد وصولك مؤقتاً.
+                <br><br>
+                إذا كنت تعتقد أن هذا الإجراء تم عن طريق الخطأ، يرجى التواصل مع الدعم الفني.
+            </p>
+        </div>
+    </div>
+
     <div id="whatsapp-gate" style="display: none; position:fixed; top:0; left:0; width:100%; height: 100dvh; background:rgba(10, 10, 10, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index:9998; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:'Cairo', sans-serif; padding: 20px; opacity: 1; transition: opacity 0.5s ease, backdrop-filter 0.5s ease;">
         <div id="gate-modal" style="background: linear-gradient(145deg, #1a1a1a, #101010); padding: 40px; border-radius: 24px; border: 1px solid #2a2a2a; text-align: center; max-width: 420px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255, 74, 28, 0.1); position: relative; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease; transform: translateY(20px) scale(0.95); opacity: 0;">
             <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 4px; background: var(--accent-color); border-radius: 0 0 5px 5px; box-shadow: 0 0 15px var(--accent-color);"></div>
@@ -1762,13 +1777,20 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 // إعدادات خدمة EmailJS (مهم جداً: استبدل بالمعرفات الخاصة بك)
 // ========================================================
 (function() {
+    // --- جديد: نظام الحظر عند محاولة الإرسال المتكرر ---
+    // يتحقق عند تحميل الصفحة إذا كان المستخدم محظوراً
+    if (localStorage.getItem('isUserBlocked') === 'true') {
+        const blocker = document.getElementById('user-blocker');
+        if (blocker) {
+            blocker.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // منع التمرير
+        }
+    }
+
     // 1. اذهب إلى موقع emailjs.com وأنشئ حساباً مجانياً.
     // 2. أضف خدمة بريد (مثل Gmail).
     // 3. أنشئ قالب بريد إلكتروني جديد.
     // 4. انسخ المعرفات من حسابك وضعها هنا.
-    emailjs.init({
-      publicKey: "r0uB9bjP2dEf8ghHl" // المفتاح العام الصحيح من حسابك
-    });
     try {
         if (typeof emailjs !== 'undefined') {
             emailjs.init({
@@ -2715,12 +2737,36 @@ function completeEmailSubmission() {
 // ========================================================
 // دوال الإرسال الرئيسية التي تبدأ عملية التحقق
 // ========================================================
+
+// --- جديد: دالة حماية من النقرات المتكررة ---
+function checkAndBlockForSpamClicks() {
+    let clickCount = parseInt(localStorage.getItem('submissionClickCount') || '0');
+    clickCount++;
+    localStorage.setItem('submissionClickCount', clickCount);
+
+    if (clickCount >= 3) {
+        showToast("🚫 تم اكتشاف نقرات متكررة وعشوائية. سيتم تقييد وصولك.", "error");
+        localStorage.setItem('isUserBlocked', 'true');
+        setTimeout(() => { window.location.reload(); }, 3000);
+        return true; // إرجاع "صحيح" للإشارة إلى أنه تم الحظر
+    }
+    return false; // إرجاع "خطأ" للإشارة إلى أن كل شيء على ما يرام
+}
+
 function sendToWhatsApp() {
+    // التحقق من النقرات المتكررة أولاً
+    if (checkAndBlockForSpamClicks()) {
+        return; // إيقاف التنفيذ إذا تم الحظر
+    }
     // هذه الدالة الآن تستدعي النظام الجديد للتحقق
     initiateOrderVerification('whatsapp');
 }
 
 function sendToEmail() {
+    // التحقق من النقرات المتكررة أولاً
+    if (checkAndBlockForSpamClicks()) {
+        return; // إيقاف التنفيذ إذا تم الحظر
+    }
     // هذه الدالة الآن تستدعي النظام الجديد للتحقق
     initiateOrderVerification('email');
 }
