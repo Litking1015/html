@@ -147,7 +147,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
     transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .ai-chat-widget.visible { opacity: 1; transform: translateX(0); }
-.ai-chat-trigger { width: 60px; height: 60px; background: #ff4a1c; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(255, 74, 28, 0.4); position: relative; transition: transform 0.3s ease; }
+.ai-chat-trigger { width: 60px; height: 60px; background: #ff4a1c; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(255, 74, 28, 0.4); position: relative; transition: transform 0.3s ease; outline: none; }
 .ai-chat-trigger:hover { transform: scale(1.08); }
 .ai-chat-trigger svg { width: 26px; height: 26px; fill: white; }
 .pulse-ring { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 2px solid #ff4a1c; animation: chatPulse 2s infinite; }
@@ -454,6 +454,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
                   margin: 0;
                   padding: 0;
                   scroll-behavior: smooth;
+                  -webkit-tap-highlight-color: transparent; /* لإزالة الإطار الأزرق عند اللمس في الهواتف */
               }
 
               body {
