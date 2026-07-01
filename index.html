@@ -1826,6 +1826,44 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
     }
 })();
 
+// --- جديد: نظام الحماية من فتح أدوات المطور (Inspector) ---
+(function() {
+    // لا تقم بتشغيل هذا النظام إذا كان المستخدم هو المالك (لتسهيل التطوير) أو إذا كان محظوراً بالفعل
+    const urlParams = new URLSearchParams(window.location.search);
+    const isOwner = urlParams.get('access') === 'owner';
+    const blockUntil = localStorage.getItem('userBlockUntil');
+    const isBlocked = blockUntil && Date.now() < parseInt(blockUntil);
+
+    if (isOwner || isBlocked) {
+        if (isOwner) console.warn("DevTools detection is disabled for owner.");
+        return;
+    }
+
+    function detect() {
+        const threshold = 160;
+        const startTime = new Date();
+        
+        debugger; // هذه النقطة ستتسبب في توقف الكود مؤقتاً إذا كانت أدوات المطور مفتوحة
+        
+        const endTime = new Date();
+        
+        if (endTime.getTime() - startTime.getTime() > threshold) {
+            // إيقاف الفحص لمنع التكرار
+            if (window.devToolsInterval) {
+                clearInterval(window.devToolsInterval);
+            }
+            
+            // تطبيق الحظر
+            showToast("🚫 تم اكتشاف محاولة للعبث بالكود. سيتم تقييد وصولك.", "error");
+            const blockDuration = 5 * 60 * 1000; // 5 دقائق
+            localStorage.setItem('userBlockUntil', Date.now() + blockDuration);
+            setTimeout(() => { window.location.reload(); }, 2500);
+        }
+    }
+
+    window.devToolsInterval = setInterval(detect, 1000);
+})();
+
 // دالة إخفاء شاشة التحميل (Preloader)
 window.addEventListener('load', function() {
     const preloader = document.querySelector('#preloader');
@@ -2630,7 +2668,7 @@ function initiateOrderVerification(type) {
     // إرسال البريد باستخدام EmailJS
     emailjs.send('service_ju0q7ob', 'template_yibhc0g', templateParams) // استبدل بمعرفاتك
         .then(function(response) {
-            startCountdownTimer(5 * 60); // بدء مؤقت الصلاحية لمدة 5 دقائق
+            startCountdownTimer(30); // بدء مؤقت الصلاحية لمدة 30 ثانية
             showToast("✅ تم إرسال رمز التحقق إلى بريدك الإلكتروني.", "success");
             
             // إخفاء أزرار الإرسال الأصلية وإظهار حقل التحقق
@@ -2661,10 +2699,10 @@ function verifyOrderCode() {
         return;
     }
 
-    // --- جديد: التحقق من صلاحية الرمز (5 دقائق) ---
+    // --- جديد: التحقق من صلاحية الرمز (30 ثانية) ---
     const now = Date.now();
-    const fiveMinutes = 5 * 60 * 1000; // 5 دقائق بالمللي ثانية
-    if (verificationCodeTimestamp && (now - verificationCodeTimestamp > fiveMinutes)) {
+    const thirtySeconds = 30 * 1000; // 30 ثانية بالمللي ثانية
+    if (verificationCodeTimestamp && (now - verificationCodeTimestamp > thirtySeconds)) {
         showToast("⏳ انتهت صلاحية الرمز. يرجى إعادة إرسال الطلب للحصول على رمز جديد.", "error");
         resetForm(); // إعادة تعيين النموذج للسماح بطلب جديد
         return;
@@ -2780,8 +2818,8 @@ function checkAndBlockForSpamClicks() {
 
     if (clickCount >= 3) {
         showToast("🚫 تم اكتشاف نقرات متكررة وعشوائية. سيتم تقييد وصولك.", "error");
-        // --- جديد: تفعيل حظر مؤقت لمدة 5 دقائق ---
-        const blockDuration = 5 * 60 * 1000; // 5 دقائق
+        // --- جديد: تفعيل حظر مؤقت لمدة 30 ثانية ---
+        const blockDuration = 30 * 1000; // 30 ثانية
         localStorage.setItem('userBlockUntil', Date.now() + blockDuration);
         setTimeout(() => { window.location.reload(); }, 2500);
         return true; // إرجاع "صحيح" للإشارة إلى أنه تم الحظر
