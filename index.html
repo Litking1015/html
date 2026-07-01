@@ -1796,6 +1796,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
     // يتحقق عند تحميل الصفحة إذا كان المستخدم محظوراً مؤقتاً
     const blockUntil = localStorage.getItem('userBlockUntil');
     if (blockUntil && Date.now() < parseInt(blockUntil)) {
+        const blockEndTime = parseInt(blockUntil); // تخزين وقت الانتهاء
         const blocker = document.getElementById('user-blocker');
         if (blocker) {
             blocker.style.display = 'flex'; // إظهار الحاوية الخلفية
@@ -1803,6 +1804,10 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 
             // بدء مؤقت العد التنازلي على شاشة الحظر
             startBlockerCountdown(parseInt(blockUntil));
+            startBlockerCountdown(blockEndTime);
+
+            // --- جديد: تفعيل آلية الدفاع ضد العبث بالحظر ---
+            enforceBlockade(blockEndTime);
 
             // تفعيل الحركة الاحترافية للظهور
             setTimeout(() => {
@@ -2654,6 +2659,22 @@ function validateForm() {
         }
     });
 
+    // --- جديد: نظام التحقق من صحة الاسم المدخل ---
+    const nameField = document.getElementById('clientName');
+    if (nameField && nameField.value.trim() !== "" && allFieldsValid) { // فقط إذا كانت الحقول الأخرى صالحة مبدئياً
+        const nameValue = nameField.value.trim();
+        // 1. يجب أن يحتوي على مسافة (اسم شخصي وعائلي).
+        // 2. يجب ألا يحتوي على أرقام.
+        // 3. يجب ألا يحتوي على تكرار مفرط للحروف (مثل 'aaaa').
+        // 4. يجب أن يكون طوله معقولاً (5 أحرف على الأقل).
+        const repetitiveCharsRegex = /(.)\1{2,}/;
+        if (nameValue.length < 5 || !nameValue.includes(' ') || /\d/.test(nameValue) || repetitiveCharsRegex.test(nameValue)) {
+            nameField.classList.add("input-error");
+            showToast("الرجاء إدخال اسم حقيقي وصحيح (اسم شخصي وعائلي).", "error");
+            allFieldsValid = false;
+        }
+    }
+
     const emailField = document.getElementById('clientEmail');
     if (emailField && emailField.value.trim() !== "") {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -2953,6 +2974,32 @@ function startBlockerCountdown(endTime) {
 
         timerDisplay.innerHTML = `يمكنك المحاولة مرة أخرى بعد: <br> <span style="font-size: 2.5rem;">${formattedMinutes}:${formattedSeconds}</span>`;
     }, 1000);
+}
+
+// ========================================================
+// نظام حماية الحظر من العبث (Blockade Anti-Tamper)
+// ========================================================
+function enforceBlockade(blockEndTime) {
+    const blockadeInterval = setInterval(() => {
+        // هذه النقطة ستجعل من الصعب جداً استخدام أدوات المطور لفك الحظر
+        debugger;
+
+        // التحقق مما إذا كان وقت الحظر لم ينته بعد
+        if (Date.now() < blockEndTime) {
+            // إذا حاول المستخدم إزالة مفتاح الحظر من الذاكرة...
+            if (!localStorage.getItem('userBlockUntil')) {
+                // ...نقوم بإعادته فوراً
+                console.warn("Anti-tamper: Block re-enforced.");
+                localStorage.setItem('userBlockUntil', blockEndTime);
+            }
+        } else {
+            // إذا انتهى وقت الحظر، نزيل كل شيء ونعيد تحميل الصفحة
+            clearInterval(blockadeInterval);
+            localStorage.removeItem('userBlockUntil');
+            localStorage.removeItem('submissionClickCount');
+            window.location.reload();
+        }
+    }, 500); // يتم الفحص كل نصف ثانية
 }
 // ========================================================
 // شريط التقدم التفاعلي عند التمرير (Scroll Progress Bar)
