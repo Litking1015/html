@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>طلب عرض سعر مميز | LitKingLTK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="https://i.ibb.co/6n2x1d8/Lit-King-LTK-icon.png"
+      type="image/png"
+    />
+    <style>
+      :root {
+        --bg-color: #0d0d0d;
+        --accent-color: #ff4a1c;
+        --text-color: #ffffff;
+        --text-muted: #a0a0a0;
+        --card-bg: #161616;
+        --border-color: rgba(255, 255, 255, 0.1);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #111;
+        color: var(--text-color);
+        font-family: "Cairo", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        background-image:
+          url("https://www.transparenttextures.com/patterns/dark-denim-3.png"),
+          radial-gradient(
+            circle at top right,
+            rgba(255, 74, 28, 0.15),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at bottom left,
+            rgba(0, 150, 255, 0.15),
+            transparent 50%
+          );
+      }
+      .premium-container {
+        background: rgba(22, 22, 22, 0.6);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 24px;
+        padding: 40px;
+        max-width: 600px;
+        width: 100%;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: scale(0.95);
+        animation: popIn 0.8s 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+      }
+      @keyframes popIn {
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .form-top-line {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--accent-color);
+        border-radius: 0 0 5px 5px;
+        box-shadow: 0 0 15px var(--accent-color);
+      }
+      .step {
+        display: none;
+      }
+      .step.active {
+        display: block;
+        animation: fadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      }
+      .step.is-exiting {
+        animation: fadeOut 0.4s cubic-bezier(0.5, 0, 0.75, 0) forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+      }
+      h2 {
+        font-family: "Syne", sans-serif;
+        font-size: 2rem;
+        color: var(--text-color);
+        text-align: center;
+        margin-bottom: 15px;
+      }
+      h2 span {
+        color: var(--accent-color);
+      }
+      p {
+        color: var(--text-muted);
+        text-align: center;
+        line-height: 1.7;
+        margin-bottom: 30px;
+      }
+      .input-group {
+        position: relative;
+        margin-bottom: 30px;
+      }
+      .input-group label {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: var(--text-muted);
+        pointer-events: none;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+      }
+      input:focus + label,
+      textarea:focus + label,
+      input[type="text"]:not(:placeholder-shown) + label,
+      textarea:not(:placeholder-shown) + label {
+        top: -12px;
+        right: 10px;
+        font-size: 0.85rem;
+        color: var(--accent-color);
+        background: rgba(
+          22,
+          22,
+          22,
+          0.8
+        ); /* Match container bg to create notch */
+        padding: 0 5px;
+      }
+      .file-upload-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      input[type="file"] {
+        display: none;
+      }
+      .file-upload-label {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px dashed rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        padding: 30px;
+        width: 100%;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        color: var(--text-muted);
+      }
+      .file-upload-label:hover {
+        background-color: rgba(0, 0, 0, 0.3);
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+      .file-upload-label svg {
+        transition: transform 0.3s ease;
+      }
+      .file-upload-label:hover svg {
+        transform: translateY(-5px);
+      }
+      input[type="text"],
+      textarea {
+        width: 100%;
+        padding: 15px;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        color: white;
+        font-family: "Cairo", sans-serif;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+      input[type="text"]:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        background-color: rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 10px rgba(255, 74, 28, 0.2);
+      }
+      .btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+      }
+      .btn {
+        background-color: var(--accent-color);
+        color: white;
+        padding: 14px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 74, 28, 0.3);
+      }
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(255, 74, 28, 0.5);
+      }
+      .btn:active {
+        transform: translateY(-1px) scale(0.98);
+        box-shadow: 0 2px 10px rgba(255, 74, 28, 0.4);
+      }
+      .btn-secondary {
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+      }
+      .btn-secondary:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: #fff;
+      }
+      .progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 5px;
+        background: var(--accent-color);
+        width: 0%;
+        box-shadow:
+          0 0 10px var(--accent-color),
+          0 0 20px var(--accent-color);
+        transition: width 0.5s ease;
+      }
+      .final-summary {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: right;
+      }
+      .final-summary p {
+        text-align: right;
+        margin-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 10px;
+      }
+      .file-name-display {
+        font-size: 0.9rem;
+        color: #fff;
+        font-weight: bold;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 5px 15px;
+        border-radius: 5px;
+        display: none; /* Hidden by default */
+      }
+      .final-summary p:last-child {
+        border-bottom: none;
+        font-size: 0.95rem;
+      }
+      .final-summary span {
+        color: #fff;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="premium-container">
+      <div class="form-top-line"></div>
+      <form id="premium-form" onsubmit="return false;">
+        <!-- Step 1: Welcome -->
+        <div class="step active" id="step1">
+          <h2 id="welcome-title">
+            مرحباً بك في تجربة الطلب <span>المميزة</span>
+          </h2>
+          <p id="welcome-text">
+            لقد اخترت باقة رائعة! لنبدأ معاً في تخصيص طلبك بخطوات بسيطة وممتعة.
+          </p>
+          <div class="btn-container">
+            <button type="button" class="btn" onclick="nextStep()">
+              لنبدأ! 🚀
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Name -->
+        <div class="step" id="step2">
+          <h2>ما هو <span>اسمك الكريم</span>؟</h2>
+          <p>نحب أن نناديك باسمك.</p>
+          <div class="input-group">
+            <input type="text" id="clientName" placeholder=" " required />
+            <label for="clientName">الاسم الكامل</label>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="btn" onclick="nextStep()">
+              التالي
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Contact -->
+        <div class="step" id="step3">
+          <h2>كيف يمكننا <span>التواصل معك</span>؟</h2>
+          <p>أدخل رقم الواتساب أو البريد الإلكتروني الخاص بك.</p>
+          <div class="input-group">
+            <input type="text" id="clientContact" placeholder=" " required />
+            <label for="clientContact">واتساب أو بريد إلكتروني</label>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="btn-secondary" onclick="prevStep()">
+              السابق
+            </button>
+            <button type="button" class="btn" onclick="nextStep()">
+              التالي
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 4: Details -->
+        <div class="step" id="step4">
+          <h2>أخبرنا عن <span>فكرة مشروعك</span></h2>
+          <p>كلما زادت التفاصيل، كان التنفيذ أفضل. (اختياري)</p>
+          <div class="input-group">
+            <textarea id="projectDetails" rows="5" placeholder=" "></textarea>
+            <label for="projectDetails">تفاصيل المشروع</label>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="btn-secondary" onclick="prevStep()">
+              السابق
+            </button>
+            <button type="button" class="btn" onclick="showSummary()">
+              عرض الملخص
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 5: File Upload (New) -->
+        <div class="step" id="step5">
+          <h2>هل لديك <span>ملفات مرجعية</span>؟</h2>
+          <p>يمكنك رفع شعار، صور، أو أي ملف يساعدنا على فهم رؤيتك (اختياري).</p>
+          <div class="file-upload-wrapper">
+            <input
+              type="file"
+              id="fileUpload"
+              onchange="updateFileName(this)"
+            />
+            <label for="fileUpload" class="file-upload-label">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="currentColor"
+              >
+                <path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"></path>
+              </svg>
+              <span>اختر ملفاً...</span>
+            </label>
+            <span id="fileNameDisplay" class="file-name-display"></span>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="btn-secondary" onclick="prevStep()">
+              السابق
+            </button>
+            <button type="button" class="btn" onclick="showSummary()">
+              التالي (أو تخطي)
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 6: Summary & Submit -->
+        <div class="step" id="step6">
+          <h2>مراجعة <span>الطلب</span></h2>
+          <p>كل شيء يبدو رائعاً! هل أنت جاهز لإرسال الطلب؟</p>
+          <div class="final-summary" id="summary-content">
+            <!-- Summary will be injected here by JS -->
+          </div>
+          <div class="btn-container">
+            <button type="button" class="btn-secondary" onclick="prevStep()">
+              تعديل
+            </button>
+            <button type="button" class="btn" onclick="submitOrder()">
+              أرسل الطلب عبر واتساب ✅
+            </button>
+          </div>
+        </div>
+      </form>
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <script>
+      let currentStep = 1;
+      const totalSteps = 6;
+      const formData = {
+        package: "",
+        packageName: "",
+        name: "",
+        contact: "",
+        details: "",
+        file: null,
+      };
+
+      // On page load, read the package from URL
+      document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const packageType = urlParams.get("package");
+        formData.package = packageType;
+
+        const welcomeTitle = document.getElementById("welcome-title");
+        const welcomeText = document.getElementById("welcome-text");
+
+        const packageInfo = {
+          basic: {
+            name: "باقة التصوير السريع",
+            text: "لقد اخترت الباقة الاقتصادية، وهي مثالية للمحتوى السريع والجذاب. لنبدأ!",
+          },
+          medium: {
+            name: "الباقة التجارية المتوسطة",
+            text: "اختيار ممتاز! هذه الباقة هي التوازن المثالي بين الجودة والقيمة. لنبدأ!",
+          },
+          premium: {
+            name: "الباقة السينمائية الشاملة",
+            text: "أهلاً بك في تجربة الإنتاج الفاخر. سنصنع معاً شيئاً استثنائياً. لنبدأ!",
+          },
+        };
+
+        if (packageType && packageInfo[packageType]) {
+          formData.packageName = packageInfo[packageType].name;
+          welcomeTitle.innerHTML = `أهلاً بك في باقة <span>${packageInfo[packageType].name}</span>`;
+          welcomeText.textContent = packageInfo[packageType].text;
+        }
+        updateProgressBar();
+      });
+
+      function updateProgressBar() {
+        const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+        document.getElementById("progress-bar").style.width = `${progress}%`;
+      }
+
+      function toggleButtons(disabled) {
+        document
+          .querySelectorAll(".btn, .btn-secondary")
+          .forEach((btn) => (btn.disabled = disabled));
+      }
+
+      function nextStep() {
+        if (currentStep < totalSteps) {
+          // Validation
+          // --- جديد: نظام حماية وتحقق متقدم ---
+          if (currentStep === 2) {
+            const name = document.getElementById("clientName").value.trim();
+            // التحقق من أن الاسم لا يحتوي على أرقام، يحتوي على مسافة، وطوله معقول
+            const nameRegex = /^[ء-ي\s a-zA-Z]{5,}$/;
+            const repetitiveCharsRegex = /(.)\1{2,}/;
+            if (
+              !nameRegex.test(name) ||
+              !name.includes(" ") ||
+              repetitiveCharsRegex.test(name)
+            ) {
+              alert(
+                "الرجاء إدخال اسم حقيقي وصحيح (اسم شخصي وعائلي بدون أرقام أو رموز).",
+              );
+              return;
+            }
+            formData.name = name;
+          }
+          if (currentStep === 3) {
+            const contact = document
+              .getElementById("clientContact")
+              .value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            // يسمح برقم هاتف دولي أو محلي
+            const phoneRegex = /^\+?[0-9\s-]{9,}$/;
+            if (!emailRegex.test(contact) && !phoneRegex.test(contact)) {
+              alert("الرجاء إدخال بريد إلكتروني أو رقم هاتف صحيح.");
+              return;
+            }
+            formData.contact = contact;
+          }
+
+          // --- جديد: منطق الانتقال السلس ---
+          const currentStepEl = document.getElementById(`step${currentStep}`);
+          const nextStepEl = document.getElementById(`step${currentStep + 1}`);
+
+          toggleButtons(true); // تعطيل الأزرار
+          currentStepEl.classList.add("is-exiting");
+
+          currentStepEl.addEventListener(
+            "animationend",
+            () => {
+              currentStepEl.classList.remove("active", "is-exiting");
+              currentStep++;
+              nextStepEl.classList.add("active");
+              updateProgressBar();
+              toggleButtons(false); // إعادة تفعيل الأزرار
+            },
+            { once: true },
+          );
+        }
+      }
+
+      function prevStep() {
+        if (currentStep > 1) {
+          const currentStepEl = document.getElementById(`step${currentStep}`);
+          const prevStepEl = document.getElementById(`step${currentStep - 1}`);
+
+          toggleButtons(true);
+          currentStepEl.classList.add("is-exiting");
+
+          currentStepEl.addEventListener(
+            "animationend",
+            () => {
+              currentStepEl.classList.remove("active", "is-exiting");
+              currentStep--;
+              prevStepEl.classList.add("active");
+              updateProgressBar();
+              toggleButtons(false);
+            },
+            { once: true },
+          );
+        }
+      }
+
+      function updateFileName(input) {
+        const fileNameDisplay = document.getElementById("fileNameDisplay");
+        if (input.files && input.files.length > 0) {
+          const fileName = input.files[0].name;
+          formData.file = input.files[0]; // Store the file object
+          fileNameDisplay.textContent = fileName;
+          fileNameDisplay.style.display = "inline-block";
+        } else {
+          formData.file = null;
+          fileNameDisplay.style.display = "none";
+        }
+      }
+
+      function showSummary() {
+        formData.details =
+          document.getElementById("projectDetails").value.trim() ||
+          "لم يتم تحديد تفاصيل إضافية.";
+
+        const summaryContainer = document.getElementById("summary-content");
+        summaryContainer.innerHTML = `
+                <p><strong>الباقة المختارة:</strong> <span>${formData.packageName}</span></p>
+                <p><strong>الاسم:</strong> <span>${formData.name}</span></p>
+                <p><strong>وسيلة التواصل:</strong> <span>${formData.contact}</span></p>
+                <p><strong>تفاصيل المشروع:</strong> <span>${formData.details}</span></p>
+            `;
+        nextStep();
+      }
+
+      function submitOrder() {
+        const message = `*طلب جديد من صفحة العملاء المميزين* ✨
+%0A%0A*الباقة المختارة:* ${encodeURIComponent(formData.packageName)}
+%0A*الاسم:* ${encodeURIComponent(formData.name)}
+%0A*للتواصل:* ${encodeURIComponent(formData.contact)}
+%0A*التفاصيل:*
+%0A${encodeURIComponent(formData.details)}`;
+
+        const whatsappUrl = `https://wa.me/212629703283?text=${message}`;
+        window.open(whatsappUrl, "_blank");
+
+        // Optional: Show a final thank you message
+        document.getElementById("step5").innerHTML =
+          `<h2>شكراً لك، <span>${formData.name}</span>!</h2><p>تم توجيهك إلى واتساب لإرسال طلبك. سنتواصل معك في أقرب وقت ممكن لمناقشة التفاصيل.</p>`;
+      }
+    </script>
+  </body>
+</html>
