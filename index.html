@@ -36,6 +36,11 @@
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Syne:wght@700;800&display=swap"
       rel="stylesheet"
     />
+    <!-- ========================================================
+         مكتبة EmailJS لإرسال رمز التحقق عبر البريد الإلكتروني
+         ======================================================== -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
     <!-- Firebase SDKs - ADD YOURS HERE -->
     
     <!-- تم حذف مكتبات Firebase بناءً على الطلب -->
@@ -109,10 +114,10 @@
     }
 }
       .contact { padding: 100px 8%; background: radial-gradient(circle at center, #141414 0%, #050505 100%); text-align: center; position: relative; overflow: hidden; border-top: 1px solid #161616; }
-.cta-glow-blur { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: #ff4a1c; filter: blur(140px); opacity: 0.12; pointer-events: none; z-index: 1; }
+.cta-glow-blur { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: #ff4a1c; filter: blur(140px); opacity: 0.15; pointer-events: none; z-index: 1; }
 .contact-methods { display: flex; justify-content: center; gap: 25px; margin-bottom: 45px; flex-wrap: wrap; position: relative; z-index: 2; }
-.contact-item { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); padding: 14px 28px; border-radius: 16px; display: inline-flex; align-items: center; gap: 15px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-.contact-item:hover { border-color: rgba(255, 255, 255, 0.15); background: rgba(255, 255, 255, 0.05); transform: translateY(-3px); }
+.contact-item { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 14px 28px; border-radius: 16px; display: inline-flex; align-items: center; gap: 15px; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.contact-item:hover { border-color: rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.1); transform: translateY(-3px); }
 .contact-item.whatsapp-box-premium:hover { border-color: #25d366; background: rgba(37, 211, 102, 0.03); }
 .contact-item.mail-box-premium:hover { border-color: #ff4a1c; background: rgba(255, 74, 28, 0.03); }
 .icon-wrap { padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.03); }
@@ -122,7 +127,7 @@
 .method-details span { font-size: 0.8rem; color: #666; font-weight: 500; margin-bottom: 2px; }
 .method-link { color: #fff; text-decoration: none; font-weight: 700; font-size: 1rem; transition: color 0.3s; }
 .whatsapp-color-text { color: #25d366; }
-form { max-width: 620px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; background: linear-gradient(135deg, rgba(20, 20, 20, 0.6) 0%, rgba(10, 10, 10, 0.8) 100%); padding: 45px; border-radius: 24px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.04); box-shadow: 0 25px 50px rgba(0,0,0,0.4); position: relative; z-index: 2; }
+form { max-width: 620px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; background: rgba(255, 255, 255, 0.05); padding: 45px; border-radius: 24px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 25px 50px rgba(0,0,0,0.4); position: relative; z-index: 2; }
 .form-top-line { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 70px; height: 3px; background: #ff4a1c; border-radius: 0 0 4px 4px; opacity: 0.6; }
 .input-error { border-color: #ff3333 !important; box-shadow: 0 0 12px rgba(255, 51, 51, 0.25) !important; background-color: #160a0a !important; }
 .btn-submit-container { display: flex; gap: 15px; width: 100%; margin-top: 8px; }
@@ -182,7 +187,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 }
 .ai-chat-input-area input:focus {
     outline: none;
-    border-color: var(--accent-color);
+    border-color: rgba(255, 74, 28, 0.7);
     background: #222;
     box-shadow: 0 0 10px rgba(255, 74, 28, 0.2);
 }
@@ -248,8 +253,8 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 
 /* قسم القوالب الجاهزة */
 .templates { padding: 70px 6%; background-color: #080808; text-align: center; border-top: 1px solid #1a1a1a; }
-.templates-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 50px; }
-.template-card { background: var(--card-bg); border: 1px solid #222; border-radius: 15px; overflow: hidden; text-align: right; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.templates-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 50px; position: relative; z-index: 2; }
+.template-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; overflow: hidden; text-align: right; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); }
 .template-card:hover { transform: translateY(-10px); border-color: var(--accent-color); box-shadow: 0 15px 40px rgba(255, 74, 28, 0.1); }
 .template-preview { position: relative; padding-bottom: 56.25%; background-color: #000; }
 .template-preview img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
@@ -259,10 +264,10 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 .preview-overlay svg { width: 50px; height: 50px; fill: white; }
 .template-info { padding: 25px; }
 .template-info h3 { font-size: 1.3rem; margin-bottom: 10px; color: #fff; }
-.template-info p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
-.template-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #252525; padding-top: 20px; margin-top: 20px; }
+.template-info p { color: #ccc; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+.template-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 20px; margin-top: 20px; }
 .template-price { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--accent-color); }
-.templates { padding: 100px 8%; background-color: #080808; text-align: center; border-top: 1px solid #1a1a1a; }
+.templates { padding: 100px 8%; background-color: transparent; text-align: center; border-top: 1px solid #1a1a1a; }
 
 /* لوحة تحكم الأدمن لتوليد الرموز */
 #admin-panel { display: none; padding: 40px; background: #111; border: 1px solid #333; border-radius: 15px; text-align: center; max-width: 500px; margin: 50px auto; }
@@ -346,11 +351,11 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
       .partner-card {
           padding: 20px 40px;
           border: 1px solid #333;
-          border-radius: 10px;
+          border-radius: 12px;
           color: #fff;
           font-weight: 700;
           font-size: 1.2rem;
-          background: #161616;
+          background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
           transition: all 0.4s ease;
       }
       .partner-card:hover {
@@ -365,8 +370,8 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
       
               /* تنسيقات قسم لماذا نحن الجديد */
           .why-us { padding: 100px 8%; background-color: #0d0d0d; text-align: center; }
-          .why-us-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 50px; }
-          .why-card { background: #161616; padding: 40px 30px; border-radius: 15px; border: 1px solid #222; transition: all 0.4s ease; }
+          .why-us-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 50px; position: relative; z-index: 2; }
+          .why-card { background: rgba(255, 255, 255, 0.05); padding: 40px 30px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.4s ease; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); }
           .why-card:hover { border-color: var(--accent-color); transform: translateY(-10px); box-shadow: 0 10px 30px rgba(255, 74, 28, 0.15); }
           .why-card .icon { font-size: 3rem; margin-bottom: 20px; display: block; }
           .why-card h3 { color: white; margin-bottom: 15px; font-size: 1.4rem; }
@@ -377,7 +382,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
    ======================================================== */
 .testimonials {
   padding: 100px 8%;
-  background: linear-gradient(180deg, #0a0a0a 0%, #101010 100%);
+  background: transparent;
   text-align: center;
   border-top: 1px solid #1a1a1a;
   position: relative;
@@ -397,10 +402,10 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
   margin-top: 50px;
 }
 .testimonial-card {
-  background: linear-gradient(145deg, #1a1a1a, #121212);
+  background: rgba(255, 255, 255, 0.05);
   padding: 35px;
   border-radius: 20px;
-  border: 1px solid #252525;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   text-align: right;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
@@ -410,6 +415,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 .testimonial-card:hover {
   transform: translateY(-10px) scale(1.02);
   border-color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 0 4px rgba(255, 74, 28, 0.1);
 }
 .testimonial-card::before {
@@ -430,7 +436,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 
               :root {
                   --bg-color: #0d0d0d;
-                  --card-bg: #161616;
+                  --card-bg: rgba(22, 22, 22, 0.5); /* خلفية زجاجية شبه شفافة */
                   --accent-color: #ff4a1c; /* برتقالي ناري يناسب اسم Lit */
                   --text-color: #ffffff;
                   --text-muted: #a0a0a0;
@@ -539,15 +545,15 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
                   display: flex;
                   justify-content: space-between;
                   align-items: center;
-                  padding: 20px 8%;
-                  background-color: rgba(13, 13, 13, 0.75);
-                  backdrop-filter: blur(12px);
-                  -webkit-backdrop-filter: blur(12px);
+                  padding: 15px 8%;
+                  background-color: rgba(13, 13, 13, 0.5); /* زيادة الشفافية */
+                  backdrop-filter: blur(18px); /* زيادة الضبابية */
+                  -webkit-backdrop-filter: blur(18px);
                   position: fixed;
                   width: 100%;
                   top: 0;
                   z-index: 1000;
-                  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+                  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* حد أكثر وضوحاً */
                   perspective: 1000px;
               }
 
@@ -644,15 +650,15 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
               .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255, 74, 28, 0.6); }
 
               /* عني */
-              .about { padding: 100px 8%; background-color: rgba(22, 22, 22, 0.85); text-align: center; backdrop-filter: blur(5px); }
+              .about { padding: 100px 8%; background-color: transparent; text-align: center; }
               .section-title { font-size: 2.5rem; margin-bottom: 50px; position: relative; display: inline-block; }
               .section-title::after { content: ''; width: 50%; height: 4px; background-color: var(--accent-color); position: absolute; bottom: -10px; left: 25%; border-radius: 2px; }
               .about p { font-size: 1.2rem; color: var(--text-muted); max-width: 900px; margin: 0 auto; line-height: 1.8; }
 
               /* قسم الخدمات والتجهيزات التفاعلي */
-              .software-section { padding: 100px 8%; background-color: rgba(9, 9, 9, 0.8); text-align: center; }
-              .software-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; margin-top: 50px; }
-              .software-card { background-color: var(--card-bg); border: 1px solid #222; border-radius: 12px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; }
+              .software-section { padding: 100px 8%; background-color: transparent; text-align: center; }
+              .software-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; margin-top: 50px; position: relative; z-index: 2; }
+              .software-card { background-color: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); }
               .software-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: transparent; transition: background-color 0.3s; }
               .software-card::after {
                   content: '';
@@ -665,7 +671,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
                   z-index: -1;
               }
 
-              .software-card:hover { transform: translateY(-8px); }
+              .software-card:hover { transform: translateY(-8px); background-color: rgba(22, 22, 22, 0.7); }
               .software-card:hover .software-icon { transform: translateY(-4px) scale(1.05) rotate(-2deg); }
               .software-card:hover::after { opacity: 0.15; }
 
@@ -720,9 +726,9 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
                   z-index: 2;
               }
 
-              .process-card-premium {
-                  background-color: var(--card-bg);
-                  border: 1px solid #1c1c1c;
+              .process-card-premium { 
+                  background-color: var(--card-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+                  border: 1px solid rgba(255, 255, 255, 0.1);
                   border-radius: 16px;
                   padding: 45px 25px 35px 25px;
                   position: relative;
@@ -788,17 +794,17 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 
               /* قسم باقات الأسعار المحدثة والمرنة */
               .pricing { padding: 100px 8%; background-color: rgba(9, 9, 9, 0.7); text-align: center; }
-              .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; align-items: center; }
+              .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; align-items: center; position: relative; z-index: 2; }
 
-              .price-card { background-color: var(--card-bg); border: 1px solid #222; border-radius: 15px; padding: 40px 30px; transition: all 0.3s ease; position: relative; }
-              .price-card:hover { transform: translateY(-10px); border-color: #444; }
+              .price-card { background-color: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 40px 30px; transition: all 0.3s ease; position: relative; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); }
+              .price-card:hover { transform: translateY(-10px); border-color: rgba(255, 255, 255, 0.2); background-color: rgba(22, 22, 22, 0.7); }
 
               .price-card.popular {
                   border-color: var(--accent-color);
                   transform: scale(1.05);
                   box-shadow: 0 10px 40px rgba(255, 74, 28, 0.15);
                   z-index: 2;
-                  background: linear-gradient(180deg, #1a1a1a 0%, var(--card-bg) 100%);
+                  background: linear-gradient(180deg, rgba(26, 26, 26, 0.6) 0%, var(--card-bg) 100%);
               }
               .price-card.popular:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 15px 50px rgba(255, 74, 28, 0.25); }
 
@@ -835,16 +841,16 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
               .btn-outline:hover { background-color: #222; border-color: white; }
               .btn-filled { background-color: var(--accent-color); color: white; border: none; box-shadow: 0 4px 15px rgba(255, 74, 28, 0.3); }
               .btn-filled:hover { background-color: #e63e15; box-shadow: 0 6px 20px rgba(255, 74, 28, 0.5); transform: translateY(-2px); }
-
+ 
               /* معرض الأعمال الاحترافي */
-              .portfolio { padding: 100px 8%; background-color: rgba(22, 22, 22, 0.85); backdrop-filter: blur(5px); }
-              .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px; }
+              .portfolio { padding: 100px 8%; background-color: transparent; }
+              .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px; position: relative; z-index: 2; }
 
               .portfolio-card {
-                  background-color: var(--bg-color);
+                  background-color: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
                   border-radius: 10px;
                   overflow: hidden;
-                  border: 1px solid #222;
+                  border: 1px solid rgba(255, 255, 255, 0.1);
                   transition: transform 0.3s, border-color 0.3s;
                   text-decoration: none;
                   color: inherit;
@@ -881,13 +887,13 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
               .card-info span { background-color: rgba(255, 74, 28, 0.1); color: var(--accent-color); font-size: 0.8rem; font-weight: 700; padding: 4px 10px; border-radius: 4px; display: inline-block; }
 
               /* صفحة التواصل والنموذج المربوط */
-              .contact { padding: 100px 8%; background-color: rgba(13, 13, 13, 0.8); text-align: center; border-top: 1px solid #1a1a1a;}
+              .contact { padding: 100px 8%; background-color: transparent; text-align: center; border-top: 1px solid #1a1a1a;}
               .contact-methods { display: flex; justify-content: center; gap: 30px; margin-top: 25px; flex-wrap: wrap; }
               .contact-item { font-size: 1.1rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
               .contact-item a { color: var(--text-color); text-decoration: none; font-weight: 700; transition: color 0.3s; }
               .contact-item a:hover { color: var(--accent-color); }
 
-              form { max-width: 600px; margin: 40px auto 0 auto; display: flex; flex-direction: column; gap: 20px; }
+              form { max-width: 600px; margin: 40px auto 0 auto; display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 2; }
               input, textarea, select { width: 100%; padding: 15px; background-color: var(--bg-color); border: 1px solid #333; border-radius: 5px; color: white; font-family: 'Cairo', sans-serif; font-size: 1rem; transition: all 0.3s ease; }
               input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent-color); box-shadow: 0 0 10px rgba(255, 74, 28, 0.2); }
 
@@ -1456,13 +1462,14 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         <div class="template-card">
           <div class="template-preview">
             <img src="https://i.ytimg.com/vi/G5B68J5d90A/maxresdefault.jpg" alt="قالب تلوين سينمائي">
+            <img src="https://intro-hd.net/wp-content/uploads/2022/07/Videohive-LUTs-Color-Presets-for-Premiere-Pro.jpg" alt="قالب تلوين سينمائي">
             <div class="preview-overlay">
               <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             </div>
           </div>
           <div class="template-info">
             <h3>مجموعة التلوين السينمائي (LUTs)</h3>
-            <p>مجموعة من 20 فلتر تلوين (LUTs) جاهز يمنح فيديوهاتك مظهراً سينمائياً احترافياً بضغطة زر. متوافق مع DaVinci Resolve و Premiere Pro.</p>
+            <p>مجموعة من 600 فلتر تلوين (LUTs) جاهز يمنح فيديوهاتك مظهراً سينمائياً احترافياً بضغطة زر. متوافق مع DaVinci Resolve و Premiere Pro.</p>
             <div class="template-footer">
               <span class="template-price">200 درهم</span>
               <a href="https://wa.me/212629703283?text=أرغب في شراء مجموعة التلوين السينمائي (LUTs)" target="_blank" class="btn-price btn-filled" style="width: auto; padding: 10px 25px;">اطلب القالب الآن</a>
@@ -1473,7 +1480,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         <!-- Template Card 3 -->
         <div class="template-card">
           <div class="template-preview">
-            <img src="https://i.ytimg.com/vi/eXFz21CZl5c/maxresdefault.jpg" alt="قالب نصوص متحركة">
+            <img src="https://aedownload.com/wp-content/donotbackup/text-animations-free-download-aedownload-template.webp" alt="قالب نصوص متحركة">
             <div class="preview-overlay">
               <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             </div>
@@ -1596,8 +1603,27 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
             />
           </div>
           <div class="card-info">
-            <span>تغطية إعلامية</span>
+            <span>تغطية تجارية وإعلانية</span>
             <h3>بوتيك جمال المرأة بالدريوش</h3>
+          </div>
+        </a>
+
+        <a
+          href="https://youtu.be/8zPtamllifc"
+          target="_blank"
+          class="portfolio-card"
+        >
+          <div class="thumbnail-container">
+            <div class="play-overlay">▶</div>
+            <img
+              src="https://img.youtube.com/vi/8zPtamllifc/maxresdefault.jpg"
+              alt="إعلان تجاري لمحل هواتف"
+              alt="تغطية افتتاح عيادة طب عام بالدريوش"
+            />
+          </div>
+          <div class="card-info">
+            <span>تغطية تجارية وإعلانية</span>
+            <h3>فيديو تغطية لافتتاح عيادة للطب العام بالدريوش</h3>
           </div>
         </a>
       </div>
@@ -1662,6 +1688,23 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
             <button type="button" id="submitEmailBtn" onclick="sendToEmail()" class="btn-email-secondary">
                 إرسال عبر البريد
             </button>
+
+            <!-- ========================================================
+                 نافذة التحقق من الرمز (مخفية بشكل افتراضي)
+                 ======================================================== -->
+            <div id="verification-container" style="display: none; width: 100%; flex-direction: column; gap: 15px; margin-top: 15px; background: rgba(0,0,0,0.2); padding: 25px; border-radius: 15px; border: 1px solid #333;">
+                <p style="color: var(--text-muted); margin: 0;">تم إرسال رمز تحقق إلى بريدك الإلكتروني. يرجى إدخاله هنا:</p>
+                <div id="otp-container" style="display: flex; justify-content: center; gap: 12px; direction: ltr;">
+                    <input type="text" class="otp-input" maxlength="1" style="width: 55px; height: 65px; text-align: center; font-size: 2.2rem; font-family: 'Syne', sans-serif; border: 1px solid #333; background: #0a0a0a; color: white; border-radius: 10px; transition: all 0.3s ease; caret-color: var(--accent-color);">
+                    <input type="text" class="otp-input" maxlength="1" style="width: 55px; height: 65px; text-align: center; font-size: 2.2rem; font-family: 'Syne', sans-serif; border: 1px solid #333; background: #0a0a0a; color: white; border-radius: 10px; transition: all 0.3s ease; caret-color: var(--accent-color);">
+                    <input type="text" class="otp-input" maxlength="1" style="width: 55px; height: 65px; text-align: center; font-size: 2.2rem; font-family: 'Syne', sans-serif; border: 1px solid #333; background: #0a0a0a; color: white; border-radius: 10px; transition: all 0.3s ease; caret-color: var(--accent-color);">
+                    <input type="text" class="otp-input" maxlength="1" style="width: 55px; height: 65px; text-align: center; font-size: 2.2rem; font-family: 'Syne', sans-serif; border: 1px solid #333; background: #0a0a0a; color: white; border-radius: 10px; transition: all 0.3s ease; caret-color: var(--accent-color);">
+                </div>
+                <button type="button" id="verifyCodeBtn" onclick="verifyOrderCode()" class="btn-filled" style="width: 100%; padding: 15px;">
+                    <span id="verifyBtnText">تأكيد الطلب</span>
+                    <div class="spinner" id="verifySpinner" style="margin: 0 auto;"></div>
+                </button>
+            </div>
         </div>
     </form>
 </section>
@@ -1710,33 +1753,36 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
     </p>
 </footer>
 
-<!-- START: Voice Assistant -->
-<div class="voice-assistant-fab" id="voiceAssistantBtn" title="المساعد الصوتي">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
-        <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.49 6-3.31 6-6.72h-1.7z"/>
-    </svg>
-</div>
-
-<div id="voice-listening-overlay">
-    <div class="listening-indicator">
-        <div class="listening-logo">LitKing<span>LTK</span></div>
-        <p>أنا أستمع الآن، تفضل بالأمر...</p>
-        <div class="listening-animation">
-            <span class="voice-bar"></span>
-            <span class="voice-bar"></span>
-            <span class="voice-bar"></span>
-            <span class="voice-bar"></span>
-            <span class="voice-bar"></span>
-        </div>
-        <button id="cancelVoiceBtn" class="cancel-voice-btn">إلغاء</button>
-    </div>
-</div>
-<!-- END: Voice Assistant -->
-
 <script>
 // ========================================================
 // الكود البرمجي الشامل للموقع
 // ========================================================
+
+// ========================================================
+// إعدادات خدمة EmailJS (مهم جداً: استبدل بالمعرفات الخاصة بك)
+// ========================================================
+(function() {
+    // 1. اذهب إلى موقع emailjs.com وأنشئ حساباً مجانياً.
+    // 2. أضف خدمة بريد (مثل Gmail).
+    // 3. أنشئ قالب بريد إلكتروني جديد.
+    // 4. انسخ المعرفات من حسابك وضعها هنا.
+    emailjs.init({
+      publicKey: "r0uB9bjP2dEf8ghHl" // المفتاح العام الصحيح من حسابك
+    });
+    try {
+        if (typeof emailjs !== 'undefined') {
+            emailjs.init({
+                publicKey: "r0uB9bjP2dEf8ghHl" // المفتاح العام الصحيح من حسابك
+            });
+        } else {
+            throw new Error("EmailJS library is not defined.");
+        }
+    } catch (e) {
+        console.error("فشل تهيئة EmailJS. قد تكون المكتبة محجوبة.", e);
+        // وضع علامة للإشارة إلى فشل التهيئة
+        window.emailjsInitFailed = true;
+    }
+})();
 
 // دالة إخفاء شاشة التحميل (Preloader)
 window.addEventListener('load', function() {
@@ -1804,6 +1850,32 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.target.classList.contains('custom-toast')) e.target.remove();
     });
 
+    // ========================================================
+    // نظام خانات إدخال الكود الاحترافي (Professional OTP Inputs)
+    // ========================================================
+    const otpInputs = document.querySelectorAll('#verification-container .otp-input');
+    if (otpInputs.length > 0) {
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                // الانتقال للخانة التالية عند الإدخال
+                if (input.value.length === 1 && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                // الرجوع للخلف عند الضغط على Backspace
+                if (e.key === 'Backspace' && input.value.length === 0 && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+                // السماح بإدخال الأرقام فقط
+                if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab' && !e.ctrlKey) {
+                    e.preventDefault();
+                }
+            });
+        });
+    }
+
     // --- جديد: تفعيل رسالة الترحيب الاستباقية ---
     const callout = document.getElementById('chatCallout');
     const chatTrigger = document.querySelector('.ai-chat-trigger');
@@ -1822,29 +1894,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     
     // --- التحقق من حالة التفعيل السابقة ---
+    // ========================================================
+    // تعطيل بوابة التحقق عبر واتساب بشكل كامل لإصلاح مشكلة عدم فتح الموقع
+    // ========================================================
     const gate = document.getElementById('whatsapp-gate');
-    const isVerified = localStorage.getItem('isVerified');
-    if (isVerified === 'true' && gate) {
-        gate.style.display = 'none'; // إخفاء شاشة التحقق فوراً
-        return; // إيقاف باقي الأكواد المتعلقة بالنافذة
-    }
-    // تم تعطيل بوابة الواتساب بناءً على الطلب للسماح بالدخول المباشر
-    // const gate = document.getElementById('whatsapp-gate');
-    // const isVerified = localStorage.getItem('isVerified');
-    // if (isVerified === 'true' && gate) {
-    //     gate.style.display = 'none'; // إخفاء شاشة التحقق فوراً
-    //     return; // إيقاف باقي الأكواد المتعلقة بالنافذة
-    // }
-    // تم تعطيل بوابة الواتساب بشكل كامل لضمان عدم ظهورها.
-
-    // تفعيل الحركة عند ظهور نافذة التحقق (إذا كانت ستظهر)
-    const modal = document.getElementById('gate-modal');
-    if (gate && modal && getComputedStyle(gate).display !== 'none') {
-        // تأخير بسيط لضمان عرض الانتقال بشكل صحيح
-        setTimeout(() => { // تأخير بسيط لضمان عرض الانتقال بشكل صحيح
-            modal.style.transform = 'translateY(0) scale(1)';
-            modal.style.opacity = '1';
-        }, 50);
+    if (gate) {
+        gate.style.display = 'none';
     }
 
     // ========================================================
@@ -1875,97 +1930,7 @@ document.addEventListener('DOMContentLoaded', function () {
             logo.style.transform = 'rotateX(0deg) rotateY(0deg)'; // العودة للوضع الأصلي
         });
     }
-
-    // ========================================================
-    // نظام خانات إدخال الكود الاحترافي (Professional OTP Inputs)
-    // ========================================================
-    const otpInputs = document.querySelectorAll('.otp-input');
-    if (otpInputs.length > 0) {
-        otpInputs.forEach((input, index) => {
-            input.addEventListener('input', (e) => {
-                // الانتقال للخانة التالية عند الإدخال
-                if (input.value.length === 1 && index < otpInputs.length - 1) {
-                    otpInputs[index + 1].focus();
-                }
-            });
-
-            input.addEventListener('keydown', (e) => {
-                // الرجوع للخلف عند الضغط على Backspace
-                if (e.key === 'Backspace' && input.value.length === 0 && index > 0) {
-                    otpInputs[index - 1].focus();
-                }
-            });
-
-            // دعم اللصق
-            input.addEventListener('paste', (e) => {
-                e.preventDefault();
-                const pastedData = e.clipboardData.getData('text').trim();
-                if (pastedData.length === otpInputs.length) {
-                    otpInputs.forEach((box, i) => {
-                        box.value = pastedData[i] || '';
-                    });
-                    otpInputs[otpInputs.length - 1].focus();
-                }
-            });
-        });
-    }
 });
-
-// --- START WHATSAPP AUTH ---
-function generateCode() {
-    const phoneInput = document.getElementById('user-phone');
-    const phone = phoneInput.value.replace(/\D/g, ''); // تنظيف الرقم من أي رموز
-    if (phone.length < 10) {
-        alert("الرجاء إدخال رقم هاتف صحيح مع رمز الدولة.");
-        showToast("الرجاء إدخال رقم هاتف صحيح مع رمز الدولة.", "error");
-        return;
-    }
-
-    const randomCode = Math.floor(1000 + Math.random() * 9000); // توليد كود من 4 أرقام
-    
-    // تخزين الكود في المتصفح للمقارنة لاحقاً
-    localStorage.setItem('tempCode', randomCode);
-    
-    const message = `أهلاً بك في LitKing، كود التفعيل الخاص بك هو: ${randomCode}`;
-    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-    
-    // إظهار منطقة إدخال الكود مع الحفاظ على الانتقال السلس
-    const phoneArea = document.getElementById('phone-area');
-    const verificationArea = document.getElementById('verification-area');
-
-    phoneArea.style.opacity = '0';
-    phoneArea.style.pointerEvents = 'none';
-    
-    setTimeout(() => {
-        verificationArea.style.opacity = '1';
-        verificationArea.style.transform = 'translateY(0)';
-        verificationArea.style.pointerEvents = 'auto';
-    }, 400);
-    
-    // فتح الواتساب
-    window.open(whatsappUrl, '_blank');
-}
-
-function verifyAccess() {
-    const inputs = document.querySelectorAll('.otp-input');
-    let userInput = Array.from(inputs).map(input => input.value).join('');
-
-    const savedCode = localStorage.getItem('tempCode');
-    if (userInput.length === 4 && userInput === savedCode) {
-        alert("تم التفعيل بنجاح! أهلاً بك.");
-        showToast("تم التفعيل بنجاح! أهلاً بك.", "success");
-        const gate = document.getElementById('whatsapp-gate');
-        gate.style.opacity = '0';
-        setTimeout(() => gate.style.display = 'none', 500);
-        // --- جديد: تخزين حالة التحقق بشكل دائم ---
-        localStorage.setItem('isVerified', 'true');
-        // --- نهاية الإضافة ---
-        localStorage.removeItem('tempCode'); // حذف الكود بعد الاستخدام
-    } else {
-        alert("الكود غير صحيح، حاول مجدداً.");
-        showToast("الكود غير صحيح، حاول مجدداً.", "error");
-    }
-}
 
 // --- END FIREBASE AUTH ---
 
@@ -2523,6 +2488,13 @@ function sendChatMessage() {
 
 var isCooldownActive = false; // متغير لمنع الإرسال المتكرر
 
+// متغيرات لتخزين بيانات الطلب ورمز التحقق
+let orderData = {};
+let verificationCode = null;
+
+// متغير لتتبع نوع الإرسال (واتساب أو إيميل)
+let submissionType = null;
+
 function startCooldown() {
     isCooldownActive = true;
     setTimeout(function() {
@@ -2532,25 +2504,142 @@ function startCooldown() {
 
 // دالة التحقق من الحقول الفارغة + نظام الحماية
 function validateForm() {
-  const trapField = document.getElementById('security_honeypot');
-  if (trapField && trapField.value !== "") return false; // فخ بوتات السبام
-  if (isCooldownActive) { showToast("يرجى الانتظار دقيقة بين الطلبات لتجنب الإرسال المتكرر.", "info"); return false; }
-
-  const fields = ["clientName", "clientEmail", "projectType", "projectDetails"];
-  let isValid = true;
-  fields.forEach((fieldId) => {
-    const element = document.getElementById(fieldId);
-    if (element) {
-      if (!element.value || element.value.trim() === "") { 
-          element.classList.add("input-error"); 
-          isValid = false; 
-      } else { 
-          element.classList.remove("input-error"); 
-      }
+    const trapField = document.getElementById('security_honeypot');
+    if (trapField && trapField.value !== "") return false; // فخ بوتات السبام
+    if (isCooldownActive) {
+        showToast("يرجى الانتظار دقيقة بين الطلبات لتجنب الإرسال المتكرر.", "info");
+        return false;
     }
-  });
-  return isValid;
 
+    const fields = ["clientName", "clientEmail", "projectType", "projectDetails"];
+    let allFieldsValid = true;
+
+    fields.forEach((fieldId) => {
+        const element = document.getElementById(fieldId);
+        if (element) {
+            if (!element.value || element.value.trim() === "") {
+                element.classList.add("input-error");
+                allFieldsValid = false;
+            } else {
+                element.classList.remove("input-error");
+            }
+        }
+    });
+
+    const emailField = document.getElementById('clientEmail');
+    if (emailField && emailField.value.trim() !== "") {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailField.value)) {
+            emailField.classList.add("input-error");
+            showToast("الرجاء إدخال بريد إلكتروني بصيغة صحيحة.", "error");
+            return false; // إيقاف التنفيذ فوراً عند وجود خطأ في الإيميل
+        }
+    }
+
+    return allFieldsValid;
+}
+
+// ========================================================
+// الخطوة 1: بدء عملية التحقق وإرسال الرمز
+// ========================================================
+function initiateOrderVerification(type) {
+    // التحقق مما إذا كانت خدمة البريد تعمل
+    if (window.emailjsInitFailed) {
+        showToast("عذراً، خدمة إرسال البريد غير متاحة حالياً. قد يكون السبب هو استخدامك لمانع إعلانات.", "error");
+        return;
+    }
+
+    if (!validateForm()) {
+        showToast("يرجى تعبئة الحقول المطلوبة أولاً والتأكد من صحة الإيميل.", "error");
+        return;
+    }
+
+    submissionType = type; // 'whatsapp' or 'email'
+
+    // جمع البيانات وتخزينها مؤقتاً
+    const name = document.getElementById('clientName').value;
+    const email = document.getElementById('clientEmail').value;
+    const projectSelect = document.getElementById('projectType');
+    const project = projectSelect.value;
+    const selectIndex = projectSelect.selectedIndex;
+    const details = document.getElementById('projectDetails').value;
+
+    orderData = { name, email, project, selectIndex, details };
+
+    // توليد رمز عشوائي
+    verificationCode = Math.floor(1000 + Math.random() * 9000).toString();
+
+    // إظهار مؤشر التحميل على الأزرار الرئيسية
+    const wpBtn = document.getElementById('submitWpBtn');
+    const emailBtn = document.getElementById('submitEmailBtn');
+    wpBtn.disabled = true;
+    emailBtn.disabled = true;
+    wpBtn.querySelector('span').textContent = "جارٍ الإرسال...";
+
+    // إعداد بيانات قالب البريد الإلكتروني
+    const templateParams = {
+        to_name: name,
+        to_email: email,
+        verification_code: verificationCode,
+    };
+
+    // إرسال البريد باستخدام EmailJS
+    emailjs.send('service_ju0q7ob', 'template_yibhc0g', templateParams) // استبدل بمعرفاتك
+        .then(function(response) {
+            showToast("✅ تم إرسال رمز التحقق إلى بريدك الإلكتروني.", "success");
+            
+            // إخفاء أزرار الإرسال الأصلية وإظهار حقل التحقق
+            document.getElementById('submitWpBtn').style.display = 'none';
+            document.getElementById('submitEmailBtn').style.display = 'none';
+            document.getElementById('verification-container').style.display = 'flex';
+            document.querySelector('#verification-container .otp-input').focus();
+
+        }, function(error) {
+            showToast("❌ حدث خطأ أثناء إرسال رمز التحقق. يرجى المحاولة مرة أخرى.", "error");
+            console.error('EmailJS Error:', error);
+            // إعادة تفعيل الأزرار عند الفشل
+            wpBtn.disabled = false;
+            emailBtn.disabled = false;
+            wpBtn.querySelector('span').textContent = "تأكيد وتحميل الفاتورة عبر واتساب";
+        });
+}
+
+// ========================================================
+// الخطوة 2: التحقق من الرمز المدخل وإكمال الطلب
+// ========================================================
+function verifyOrderCode() {
+    const inputs = document.querySelectorAll('#verification-container .otp-input');
+    const enteredCode = Array.from(inputs).map(input => input.value).join('');
+
+    if (enteredCode.length !== 4) {
+        showToast("الرجاء إدخال الرمز المكون من 4 أرقام.", "error");
+        return;
+    }
+
+    const verifyBtn = document.getElementById('verifyCodeBtn');
+    const verifySpinner = document.getElementById('verifySpinner');
+    const verifyBtnText = document.getElementById('verifyBtnText');
+
+    verifyBtn.disabled = true;
+    verifySpinner.style.display = 'block';
+    verifyBtnText.style.display = 'none';
+
+    setTimeout(() => { // محاكاة التحقق
+        if (enteredCode === verificationCode) {
+            showToast("تم التحقق بنجاح! جارٍ إكمال طلبك...", "success");
+            // استدعاء الدالة النهائية بناءً على اختيار المستخدم الأصلي
+            if (submissionType === 'whatsapp') {
+                completeWhatsAppSubmission();
+            } else if (submissionType === 'email') {
+                completeEmailSubmission();
+            }
+        } else {
+            showToast("الرمز الذي أدخلته غير صحيح. حاول مرة أخرى.", "error");
+            verifyBtn.disabled = false;
+            verifySpinner.style.display = 'none';
+            verifyBtnText.style.display = 'inline';
+        }
+    }, 1000);
 }
 
 // دالة توليد وتحميل فاتورة PDF احترافية
@@ -2601,39 +2690,39 @@ function downloadInvoicePDF(name, email, selectIndex, details) {
   } catch (error) { console.error("PDF Error: ", error); }
 }
 
-// دالة الإرسال إلى واتساب
-function sendToWhatsApp() {
-  if (!validateForm()) { showToast("يرجى تعبئة الحقول المطلوبة أولاً.", "error"); return; }
-  
-  const name = document.getElementById('clientName')?.value || "Client";
-  const email = document.getElementById('clientEmail')?.value || "N/A";
-  const projectSelect = document.getElementById('projectType');
-  const project = projectSelect?.value || "Production Request";
-  const selectIndex = projectSelect ? projectSelect.selectedIndex : 0;
-  const details = document.getElementById('projectDetails')?.value || "";
-  
+// ========================================================
+// الخطوة 3: الدوال النهائية لإكمال الطلب بعد التحقق
+// ========================================================
+function completeWhatsAppSubmission() {
+  const { name, email, project, selectIndex, details } = orderData;
   downloadInvoicePDF(name, email, selectIndex, details);
-  
-  const message = `*طلب مشروع جديد* %0A%0A👤 الاسم: ${encodeURIComponent(name)} %0A📧 البريد: ${encodeURIComponent(email)} %0A🚀 النوع: ${encodeURIComponent(project)} %0A📝 التفاصيل: ${encodeURIComponent(details)}`;
+
+  const message = `*طلب مشروع جديد (تم التحقق)* %0A%0A👤 الاسم: ${encodeURIComponent(name)} %0A📧 البريد: ${encodeURIComponent(email)} %0A🚀 النوع: ${encodeURIComponent(project)} %0A📝 التفاصيل: ${encodeURIComponent(details)}`;
   window.open(`https://wa.me/212629703283?text=${message}`, '_blank');
   startCooldown();
+  // إعادة النموذج لحالته الأصلية
+  resetForm();
 }
 
-// دالة الإرسال إلى البريد الإلكتروني
-function sendToEmail() {
-  if (!validateForm()) { showToast("يرجى تعبئة الحقول المطلوبة أولاً.", "error"); return; }
-  
-  const name = document.getElementById('clientName')?.value || "Client";
-  const email = document.getElementById('clientEmail')?.value || "N/A";
-  const projectSelect = document.getElementById('projectType');
-  const project = projectSelect?.value || "Production Request";
-  const selectIndex = projectSelect ? projectSelect.selectedIndex : 0;
-  const details = document.getElementById('projectDetails')?.value || "";
-  
-  downloadInvoicePDF(name, email, selectIndex, details); // استدعاء واحد فقط
-  
+function completeEmailSubmission() {
+  const { name, project, details } = orderData;
+  downloadInvoicePDF(orderData.name, orderData.email, orderData.selectIndex, orderData.details);
   window.location.href = `mailto:oussamabouazzati14@gmail.com?subject=طلب مشروع جديد&body=الاسم: ${name}\nالمشروع: ${project}\nالتفاصيل: ${details}`;
   startCooldown();
+  resetForm();
+}
+
+// ========================================================
+// دوال الإرسال الرئيسية التي تبدأ عملية التحقق
+// ========================================================
+function sendToWhatsApp() {
+    // هذه الدالة الآن تستدعي النظام الجديد للتحقق
+    initiateOrderVerification('whatsapp');
+}
+
+function sendToEmail() {
+    // هذه الدالة الآن تستدعي النظام الجديد للتحقق
+    initiateOrderVerification('email');
 }
 
 // ========================================================
@@ -2659,255 +2748,21 @@ window.addEventListener('scroll', function() {
 // حجب الموقع عن متصفح Safari على أجهزة iOS
 // ========================================================
 </script>
-
-<!-- CSS for Voice Assistant -->
-<style>
-.voice-assistant-fab {
-    position: fixed;
-    bottom: 100px; /* فوق أيقونة الشات */
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #8e44ad, #9b59b6);
-    background: linear-gradient(145deg, #a855f7, #7c3aed);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 8px 25px rgba(142, 68, 173, 0.4);
-    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
-    z-index: 9998;
-    transition: all 0.3s ease;
-    animation: voicePulse 2.5s infinite cubic-bezier(0.66, 0, 0, 1);
-    position: relative;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-}
-@keyframes voicePulse {
-    0% { transform: scale(1); box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4); }
-    50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(124, 58, 237, 0.6); }
-    100% { transform: scale(1); box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4); }
-}
-.voice-assistant-fab::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 2px solid #a855f7;
-    opacity: 0;
-    transition: all 0.4s ease;
-    animation: spinRing 4s linear infinite;
-}
-@keyframes spinRing {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-.voice-assistant-fab:hover {
-    transform: scale(1.15) !important; /* Use important to override pulse */
-    animation-play-state: paused;
-}
-.voice-assistant-fab:hover::before {
-    opacity: 1;
-    transform: scale(1.1);
-    box-shadow: 0 12px 30px rgba(142, 68, 173, 0.5);
-}
-.voice-assistant-fab svg {
-    transition: all 0.3s ease;
-}
-.voice-assistant-fab:hover svg {
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
-}
-#voice-listening-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100dvh;
-    background: rgba(10, 10, 10, 0.9);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    z-index: 999990;
-    display: none; /* Hidden by default */
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-#voice-listening-overlay.active {
-    display: flex;
-}
-.listening-indicator {
-    font-family: 'Cairo', sans-serif;
-    color: white;
-}
-.listening-logo {
-    font-family: 'Syne', sans-serif;
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 20px;
-    text-shadow: 0 0 20px rgba(155, 89, 182, 0.5);
-}
-.listening-logo span { color: #9b59b6; }
-.listening-indicator p { font-size: 1.3rem; color: #ccc; margin-bottom: 40px; }
-.listening-animation { display: flex; justify-content: center; align-items: center; height: 50px; gap: 8px; }
-.voice-bar {
-    width: 8px;
-    height: 10px;
-    background-color: #9b59b6;
-    border-radius: 4px;
-    animation: voice-wave 1.2s infinite ease-in-out;
-}
-.voice-bar:nth-child(2) { animation-delay: -1.0s; }
-.voice-bar:nth-child(3) { animation-delay: -0.8s; }
-.voice-bar:nth-child(4) { animation-delay: -0.6s; }
-.voice-bar:nth-child(5) { animation-delay: -0.4s; }
-@keyframes voice-wave {
-    0%, 40%, 100% { transform: scaleY(0.4); }
-    20% { transform: scaleY(1.0); }
-}
-.cancel-voice-btn {
-    margin-top: 50px;
-    background: transparent;
-    border: 1px solid #555;
-    color: #aaa;
-    padding: 10px 25px;
-    border-radius: 8px;
-    font-family: 'Cairo', sans-serif;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.cancel-voice-btn:hover {
-    background: #9b59b6;
-    border-color: #9b59b6;
-    color: white;
-}
-</style>
-
-<!-- JS for Voice Assistant -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const voiceBtn = document.getElementById('voiceAssistantBtn');
-    const overlay = document.getElementById('voice-listening-overlay');
-    const cancelBtn = document.getElementById('cancelVoiceBtn');
-
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-        voiceBtn.style.display = 'none'; // إخفاء الزر إذا لم يكن المتصفح يدعم الميزة
-        const chatVoiceBtn = document.getElementById('chatVoiceBtn');
-        if(chatVoiceBtn) chatVoiceBtn.style.display = 'none'; // إخفاء زر المايك في الشات
-        console.warn("متصفحك لا يدعم ميزة التعرف على الصوت.");
-        return;
+    // دالة لإعادة النموذج إلى حالته الأصلية بعد الإرسال
+    function resetForm() {
+        document.getElementById('orderForm').reset();
+        document.getElementById('verification-container').style.display = 'none';
+        document.getElementById('submitWpBtn').style.display = 'inline-flex';
+        document.getElementById('submitEmailBtn').style.display = 'inline-flex';
+        
+        const wpBtn = document.getElementById('submitWpBtn');
+        const emailBtn = document.getElementById('submitEmailBtn');
+        wpBtn.disabled = false;
+        emailBtn.disabled = false;
+        wpBtn.querySelector('span').textContent = "تأكيد وتحميل الفاتورة عبر واتساب";
     }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'ar-SA'; // تحديد اللغة العربية
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    const commands = {
-        'الرئيسية': '.hero',
-        'عني': '#about',
-        'لماذا نحن': '#why-us',
-        'الخدمات': '#tools',
-        'الآراء': '#testimonials',
-        'اراء': '#testimonials',
-        'العملاء': '#testimonials',
-        'سير العمل': '#process',
-        'الخطوات': '#process',
-        'الأسعار': '#pricing',
-        'سعر': '#pricing',
-        'بكم': '#pricing',
-        'قوالب': '#templates',
-        'أعمالي': '#portfolio',
-        'اعمال': '#portfolio',
-        'التواصل': '#contactSection',
-        'تواصل': '#contactSection',
-        'اتصال': '#contactSection'
-    };
-
-    const chatVoiceBtn = document.getElementById('chatVoiceBtn');
-    const chatInput = document.getElementById('chatInput');
-    const originalPlaceholder = chatInput.placeholder;
-
-    const startListening = () => {
-        overlay.classList.add('active');
-        setTimeout(() => overlay.style.opacity = '1', 10);
-        chatVoiceBtn.classList.add('listening');
-        chatInput.placeholder = "أنا أستمع الآن...";
-        try {
-            recognition.start();
-        } catch(e) {
-            console.error("خطأ في بدء التعرف على الصوت:", e);
-            showToast("حدث خطأ أثناء تفعيل المساعد الصوتي.", "error");
-            showToast("حدث خطأ أثناء تفعيل المايك.", "error");
-            stopListening();
-        }
-    };
-
-    const stopListening = () => {
-        overlay.style.opacity = '0';
-        setTimeout(() => overlay.classList.remove('active'), 400);
-        chatVoiceBtn.classList.remove('listening');
-        chatInput.placeholder = originalPlaceholder;
-        recognition.stop();
-    };
-
-    voiceBtn.addEventListener('click', startListening);
-    cancelBtn.addEventListener('click', stopListening);
-    chatVoiceBtn.addEventListener('click', startListening);
-
-    recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript.toLowerCase().trim();
-        showToast(`تم التعرف على: "${transcript}"`, 'info');
-
-        let matched = false;
-        for (const command in commands) {
-            if (transcript.includes(command)) {
-                const selector = commands[command];
-                const section = document.querySelector(selector);
-                if (section) {
-                    setTimeout(() => {
-                        showToast(`جاري التوجيه إلى قسم "${command}"...`, 'success');
-                        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 800);
-                    matched = true;
-                    break;
-                }
-            }
-        }
-
-        // إذا لم يتطابق مع أمر توجيه، ضع النص في مربع الإدخال وأرسله
-        if (!matched) {
-            chatInput.value = transcript;
-            sendChatMessage();
-        }
-
-        if (!matched) {
-            setTimeout(() => {
-                showToast('عذراً، لم أتعرف على القسم المطلوب.', 'error');
-            }, 800);
-        }
-    };
-
-    recognition.onspeechend = () => {
-        recognition.stop();
-    };
-
-    recognition.onend = () => {
-        stopListening();
-    };
-
-    recognition.onerror = (event) => {
-        console.error('خطأ في التعرف على الصوت:', event.error);
-        if (event.error === 'no-speech') {
-            showToast('لم يتم اكتشاف أي صوت. يرجى المحاولة مرة أخرى.', 'error');
-        } else if (event.error === 'not-allowed') {
-            showToast('تم رفض إذن استخدام الميكروفون.', 'error');
-        } else {
-            showToast('حدث خطأ أثناء الاستماع.', 'error');
-        }
-    };
-});
 </script>
+
   </body>
-</html>
+</html> 
