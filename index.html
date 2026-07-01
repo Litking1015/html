@@ -1919,6 +1919,40 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
     document.body.style.cssText += 'user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;';
 })();
 
+// --- جديد: نظام الحماية من اختصارات لوحة المفاتيح (عرض المصدر، الحفظ) ---
+(function() {
+    // استثناء المالك من هذه الحماية
+    const urlParams = new URLSearchParams(window.location.search);
+    const isOwner = urlParams.get('access') === 'owner';
+    const blockUntil = localStorage.getItem('userBlockUntil');
+    const isBlocked = blockUntil && Date.now() < parseInt(blockUntil);
+ 
+    if (isOwner || isBlocked) {
+        if(isOwner) console.warn("Keyboard shortcut protection is disabled for owner.");
+        return;
+    }
+
+    function triggerShortcutBan(message) {
+        // Prevent this listener from running again to avoid multiple bans
+        document.removeEventListener('keydown', handleShortcutAttempt);
+        
+        showToast(message, "error");
+        const blockDuration = 5 * 60 * 1000; // 5 دقائق
+        localStorage.setItem('userBlockUntil', Date.now() + blockDuration);
+        setTimeout(() => { window.location.reload(); }, 2500);
+    }
+
+    function handleShortcutAttempt(e) {
+        // Ctrl+U (View Source), Ctrl+S (Save Page)
+        if (e.ctrlKey && (e.key.toLowerCase() === 'u' || e.key.toLowerCase() === 's')) {
+            e.preventDefault();
+            triggerShortcutBan("🚫 تم اكتشاف محاولة للوصول إلى كود المصدر. سيتم تقييد وصولك.");
+        }
+    }
+
+    document.addEventListener('keydown', handleShortcutAttempt);
+})();
+
 // دالة إخفاء شاشة التحميل (Preloader)
 window.addEventListener('load', function() {
     const preloader = document.querySelector('#preloader');
