@@ -1006,6 +1006,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
                 <br><br>
                 إذا كنت تعتقد أن هذا الإجراء تم عن طريق الخطأ، يرجى التواصل مع الدعم الفني.
             </p>
+            <div id="blocker-timer" style="margin-top: 30px; font-family: 'Syne', sans-serif; font-size: 1.5rem; color: var(--accent-color); font-weight: bold; line-height: 1.5;"></div>
         </div>
     </div>
 
@@ -1715,6 +1716,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
                     <input type="text" class="otp-input" maxlength="1" style="width: 55px; height: 65px; text-align: center; font-size: 2.2rem; font-family: 'Syne', sans-serif; border: 1px solid #333; background: #0a0a0a; color: white; border-radius: 10px; transition: all 0.3s ease; caret-color: var(--accent-color);">
                     <input type="text" class="otp-input" maxlength="1" style="width: 55px; height: 65px; text-align: center; font-size: 2.2rem; font-family: 'Syne', sans-serif; border: 1px solid #333; background: #0a0a0a; color: white; border-radius: 10px; transition: all 0.3s ease; caret-color: var(--accent-color);">
                 </div>
+                <p id="timer-display" style="color: var(--accent-color); font-size: 0.9rem; margin-top: 10px; font-weight: bold; height: 15px;"></p>
                 <button type="button" id="verifyCodeBtn" onclick="verifyOrderCode()" class="btn-filled" style="width: 100%; padding: 15px;">
                     <span id="verifyBtnText">تأكيد الطلب</span>
                     <div class="spinner" id="verifySpinner" style="margin: 0 auto;"></div>
@@ -1778,13 +1780,31 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 // ========================================================
 (function() {
     // --- جديد: نظام الحظر عند محاولة الإرسال المتكرر ---
-    // يتحقق عند تحميل الصفحة إذا كان المستخدم محظوراً
-    if (localStorage.getItem('isUserBlocked') === 'true') {
+    // يتحقق عند تحميل الصفحة إذا كان المستخدم محظوراً مؤقتاً
+    const blockUntil = localStorage.getItem('userBlockUntil');
+    if (blockUntil && Date.now() < parseInt(blockUntil)) {
         const blocker = document.getElementById('user-blocker');
         if (blocker) {
-            blocker.style.display = 'flex';
+            blocker.style.display = 'flex'; // إظهار الحاوية الخلفية
             document.body.style.overflow = 'hidden'; // منع التمرير
+
+            // بدء مؤقت العد التنازلي على شاشة الحظر
+            startBlockerCountdown(parseInt(blockUntil));
+
+            // تفعيل الحركة الاحترافية للظهور
+            setTimeout(() => {
+                blocker.style.opacity = '1';
+                const blockerContent = blocker.querySelector('.blocker-content');
+                if (blockerContent) {
+                    blockerContent.style.opacity = '1';
+                    blockerContent.style.transform = 'scale(1)';
+                }
+            }, 50); // تأخير بسيط للسماح بتطبيق الانتقال
         }
+    } else if (blockUntil) {
+        // إذا انتهت مدة الحظر، يتم مسح البيانات للسماح للمستخدم بالمحاولة مجدداً
+        localStorage.removeItem('userBlockUntil');
+        localStorage.removeItem('submissionClickCount');
     }
 
     // 1. اذهب إلى موقع emailjs.com وأنشئ حساباً مجانياً.
@@ -2513,7 +2533,8 @@ var isCooldownActive = false; // متغير لمنع الإرسال المتكر
 // متغيرات لتخزين بيانات الطلب ورمز التحقق
 let orderData = {};
 let verificationCode = null;
-
+let verificationCodeTimestamp = null;
+let countdownInterval = null;
 // متغير لتتبع نوع الإرسال (واتساب أو إيميل)
 let submissionType = null;
 
@@ -2590,6 +2611,7 @@ function initiateOrderVerification(type) {
 
     // توليد رمز عشوائي
     verificationCode = Math.floor(1000 + Math.random() * 9000).toString();
+    verificationCodeTimestamp = Date.now(); // تخزين وقت إنشاء الرمز
 
     // إظهار مؤشر التحميل على الأزرار الرئيسية
     const wpBtn = document.getElementById('submitWpBtn');
@@ -2608,6 +2630,7 @@ function initiateOrderVerification(type) {
     // إرسال البريد باستخدام EmailJS
     emailjs.send('service_ju0q7ob', 'template_yibhc0g', templateParams) // استبدل بمعرفاتك
         .then(function(response) {
+            startCountdownTimer(5 * 60); // بدء مؤقت الصلاحية لمدة 5 دقائق
             showToast("✅ تم إرسال رمز التحقق إلى بريدك الإلكتروني.", "success");
             
             // إخفاء أزرار الإرسال الأصلية وإظهار حقل التحقق
@@ -2638,6 +2661,16 @@ function verifyOrderCode() {
         return;
     }
 
+    // --- جديد: التحقق من صلاحية الرمز (5 دقائق) ---
+    const now = Date.now();
+    const fiveMinutes = 5 * 60 * 1000; // 5 دقائق بالمللي ثانية
+    if (verificationCodeTimestamp && (now - verificationCodeTimestamp > fiveMinutes)) {
+        showToast("⏳ انتهت صلاحية الرمز. يرجى إعادة إرسال الطلب للحصول على رمز جديد.", "error");
+        resetForm(); // إعادة تعيين النموذج للسماح بطلب جديد
+        return;
+    }
+    // --- نهاية الإضافة ---
+
     const verifyBtn = document.getElementById('verifyCodeBtn');
     const verifySpinner = document.getElementById('verifySpinner');
     const verifyBtnText = document.getElementById('verifyBtnText');
@@ -2649,6 +2682,7 @@ function verifyOrderCode() {
     setTimeout(() => { // محاكاة التحقق
         if (enteredCode === verificationCode) {
             showToast("تم التحقق بنجاح! جارٍ إكمال طلبك...", "success");
+            clearInterval(countdownInterval); // إيقاف المؤقت عند النجاح
             // استدعاء الدالة النهائية بناءً على اختيار المستخدم الأصلي
             if (submissionType === 'whatsapp') {
                 completeWhatsAppSubmission();
@@ -2746,8 +2780,10 @@ function checkAndBlockForSpamClicks() {
 
     if (clickCount >= 3) {
         showToast("🚫 تم اكتشاف نقرات متكررة وعشوائية. سيتم تقييد وصولك.", "error");
-        localStorage.setItem('isUserBlocked', 'true');
-        setTimeout(() => { window.location.reload(); }, 3000);
+        // --- جديد: تفعيل حظر مؤقت لمدة 5 دقائق ---
+        const blockDuration = 5 * 60 * 1000; // 5 دقائق
+        localStorage.setItem('userBlockUntil', Date.now() + blockDuration);
+        setTimeout(() => { window.location.reload(); }, 2500);
         return true; // إرجاع "صحيح" للإشارة إلى أنه تم الحظر
     }
     return false; // إرجاع "خطأ" للإشارة إلى أن كل شيء على ما يرام
@@ -2771,6 +2807,68 @@ function sendToEmail() {
     initiateOrderVerification('email');
 }
 
+// ========================================================
+// نظام مؤقت صلاحية الرمز (Code Expiration Timer)
+// ========================================================
+function startCountdownTimer(duration) {
+    const timerDisplay = document.getElementById('timer-display');
+    if (!timerDisplay) return;
+
+    let timer = duration, minutes, seconds;
+    
+    // مسح أي مؤقت موجود مسبقاً
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+    }
+
+    countdownInterval = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        timerDisplay.textContent = "الرمز صالح لمدة: " + minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            clearInterval(countdownInterval);
+            timerDisplay.textContent = "انتهت صلاحية الرمز!";
+            // تعطيل زر التحقق عند انتهاء الوقت
+            document.getElementById('verifyCodeBtn').disabled = true;
+        }
+    }, 1000);
+}
+
+// ========================================================
+// نظام مؤقت شاشة الحظر (Blocker Screen Countdown)
+// ========================================================
+function startBlockerCountdown(endTime) {
+    const timerDisplay = document.getElementById('blocker-timer');
+    if (!timerDisplay) return;
+
+    const interval = setInterval(() => {
+        const now = Date.now();
+        const remaining = endTime - now;
+
+        if (remaining <= 0) {
+            clearInterval(interval);
+            timerDisplay.innerHTML = "يمكنك الآن تحديث الصفحة للمتابعة.";
+            // إزالة بيانات الحظر وإعادة تحميل الصفحة تلقائياً
+            localStorage.removeItem('userBlockUntil');
+            localStorage.removeItem('submissionClickCount');
+            setTimeout(() => { window.location.reload(); }, 2000);
+            return;
+        }
+
+        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+        const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+        const formattedSeconds = seconds < 10 ? "0" + seconds : seconds;
+
+        timerDisplay.innerHTML = `يمكنك المحاولة مرة أخرى بعد: <br> <span style="font-size: 2.5rem;">${formattedMinutes}:${formattedSeconds}</span>`;
+    }, 1000);
+}
 // ========================================================
 // شريط التقدم التفاعلي عند التمرير (Scroll Progress Bar)
 // ========================================================
@@ -2797,6 +2895,14 @@ window.addEventListener('scroll', function() {
 <script>
     // دالة لإعادة النموذج إلى حالته الأصلية بعد الإرسال
     function resetForm() {
+        // --- جديد: إيقاف المؤقت وإفراغ النص ---
+        if (countdownInterval) {
+            clearInterval(countdownInterval);
+        }
+        const timerDisplay = document.getElementById('timer-display');
+        if (timerDisplay) timerDisplay.textContent = "";
+        // --- نهاية الإضافة ---
+
         document.getElementById('orderForm').reset();
         document.getElementById('verification-container').style.display = 'none';
         document.getElementById('submitWpBtn').style.display = 'inline-flex';
@@ -2807,6 +2913,8 @@ window.addEventListener('scroll', function() {
         wpBtn.disabled = false;
         emailBtn.disabled = false;
         wpBtn.querySelector('span').textContent = "تأكيد وتحميل الفاتورة عبر واتساب";
+        // --- جديد: إعادة تفعيل زر التحقق ---
+        document.getElementById('verifyCodeBtn').disabled = false;
     }
 </script>
 
