@@ -1864,6 +1864,52 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
     window.devToolsInterval = setInterval(detect, 1000);
 })();
 
+// --- جديد: نظام الحماية من السلوك الاستفزازي (نسخ، تحديد، نقر يمين) ---
+(function() {
+    // استثناء المالك من هذه الحماية
+    const urlParams = new URLSearchParams(window.location.search);
+    const isOwner = urlParams.get('access') === 'owner';
+    const blockUntil = localStorage.getItem('userBlockUntil');
+    const isBlocked = blockUntil && Date.now() < parseInt(blockUntil);
+
+    if (isOwner || isBlocked) {
+        if(isOwner) console.warn("Provocation detection is disabled for owner.");
+        return;
+    }
+
+    let provocationCount = 0;
+    const provocationLimit = 3; // عدد المحاولات قبل الحظر
+
+    function triggerProvocationBan() {
+        // إيقاف جميع المستمعات لتجنب التكرار
+        document.removeEventListener('contextmenu', handleProvocation);
+        document.removeEventListener('copy', handleProvocation);
+        document.body.style.userSelect = 'auto';
+
+        showToast("🚫 تم رصد سلوك غير مرغوب فيه. سيتم تقييد وصولك.", "error");
+        const blockDuration = 5 * 60 * 1000; // 5 دقائق
+        localStorage.setItem('userBlockUntil', Date.now() + blockDuration);
+        setTimeout(() => { window.location.reload(); }, 2500);
+    }
+
+    function handleProvocation(e) {
+        e.preventDefault();
+        provocationCount++;
+
+        const message = e.type === 'copy' ? "نسخ المحتوى غير مسموح به." : "الوصول إلى هذه القائمة معطل.";
+        showToast(`${message} (محاولة ${provocationCount}/${provocationLimit})`, "error");
+
+        if (provocationCount >= provocationLimit) {
+            triggerProvocationBan();
+        }
+    }
+
+    // تعطيل النقر بالزر الأيمن والنسخ وتحديد النص
+    document.addEventListener('contextmenu', handleProvocation);
+    document.addEventListener('copy', handleProvocation);
+    document.body.style.cssText += 'user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;';
+})();
+
 // دالة إخفاء شاشة التحميل (Preloader)
 window.addEventListener('load', function() {
     const preloader = document.querySelector('#preloader');
