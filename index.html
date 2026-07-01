@@ -1792,6 +1792,9 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 // إعدادات خدمة EmailJS (مهم جداً: استبدل بالمعرفات الخاصة بك)
 // ========================================================
 (function() {
+    // --- جديد: إزالة علامة التمديد عند التحميل ---
+    sessionStorage.removeItem('lastBanExtension');
+
     // --- جديد: نظام الحظر عند محاولة الإرسال المتكرر ---
     // يتحقق عند تحميل الصفحة إذا كان المستخدم محظوراً مؤقتاً
     const blockUntil = localStorage.getItem('userBlockUntil');
@@ -1980,6 +1983,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // إضافة أيقونة إغلاق للتنبيهات (اختياري)
     toastContainer.addEventListener('click', (e) => {
         if (e.target.classList.contains('custom-toast')) e.target.remove();
+    });
+
+    // --- جديد: نظام إخفاء روابط الصور (Image Source Obfuscation) ---
+    const protectedImages = document.querySelectorAll('img[data-src]');
+    protectedImages.forEach(img => {
+        // استخدام data-src لتحميل الصورة
+        img.setAttribute('src', img.getAttribute('data-src'));
+        img.onload = () => {
+            img.removeAttribute('data-src'); // تنظيف الكود بعد التحميل
+        };
     });
 
     // ========================================================
@@ -2981,8 +2994,29 @@ function startBlockerCountdown(endTime) {
 // ========================================================
 function enforceBlockade(blockEndTime) {
     const blockadeInterval = setInterval(() => {
+        const startTime = new Date();
         // هذه النقطة ستجعل من الصعب جداً استخدام أدوات المطور لفك الحظر
         debugger;
+        const endTime = new Date();
+
+        // --- جديد: زيادة مدة الحظر عند محاولة العبث ---
+        if (endTime.getTime() - startTime.getTime() > 100) {
+            const lastExtension = parseInt(sessionStorage.getItem('lastBanExtension') || '0');
+            if (Date.now() - lastExtension > 5000) { // منع التمديد المتكرر السريع
+                sessionStorage.setItem('lastBanExtension', Date.now());
+                
+                const extensionDuration = 5 * 60 * 1000; // 5 دقائق إضافية
+                const newBlockEndTime = Date.now() + extensionDuration;
+                localStorage.setItem('userBlockUntil', newBlockEndTime);
+                
+                showToast("🚫 تم تمديد مدة الحظر بسبب محاولة العبث بالنظام.", "error");
+                console.warn("Anti-tamper: Ban extended for developer tools access.");
+                
+                setTimeout(() => window.location.reload(), 2500);
+                clearInterval(blockadeInterval);
+            }
+            return;
+        }
 
         // التحقق مما إذا كان وقت الحظر لم ينته بعد
         if (Date.now() < blockEndTime) {
