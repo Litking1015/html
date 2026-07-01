@@ -886,6 +886,19 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
               .card-info h3 { font-size: 1.15rem; margin-top: 5px; margin-bottom: 10px; line-height: 1.4; }
               .card-info span { background-color: rgba(255, 74, 28, 0.1); color: var(--accent-color); font-size: 0.8rem; font-weight: 700; padding: 4px 10px; border-radius: 4px; display: inline-block; }
 
+              /* --- جديد: نظام حماية الصور من التحميل (Image Shield) --- */
+              .image-shield-overlay {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  z-index: 5; /* قيمة عالية لضمان أنه فوق كل شيء */
+                  background-color: transparent; /* غير مرئي تماماً */
+                  cursor: pointer; /* للحفاظ على شكل مؤشر اليد عند المرور */
+              }
+              .thumbnail-container img, .template-preview img { pointer-events: none; /* يجعل الصورة غير قابلة للنقر مباشرة */ }
+
               /* صفحة التواصل والنموذج المربوط */
               .contact { padding: 100px 8%; background-color: transparent; text-align: center; border-top: 1px solid #1a1a1a;}
               .contact-methods { display: flex; justify-content: center; gap: 30px; margin-top: 25px; flex-wrap: wrap; }
@@ -1864,49 +1877,37 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
     window.devToolsInterval = setInterval(detect, 1000);
 })();
 
-// --- جديد: نظام الحماية من السلوك الاستفزازي (نسخ، تحديد، نقر يمين) ---
+// --- جديد: نظام الحماية من السلوك الاستفزازي (النسخ الفوري) ---
 (function() {
     // استثناء المالك من هذه الحماية
     const urlParams = new URLSearchParams(window.location.search);
     const isOwner = urlParams.get('access') === 'owner';
     const blockUntil = localStorage.getItem('userBlockUntil');
     const isBlocked = blockUntil && Date.now() < parseInt(blockUntil);
-
+ 
     if (isOwner || isBlocked) {
-        if(isOwner) console.warn("Provocation detection is disabled for owner.");
+        if(isOwner) console.warn("Copy/Select protection is disabled for owner.");
         return;
     }
-
-    let provocationCount = 0;
-    const provocationLimit = 3; // عدد المحاولات قبل الحظر
-
-    function triggerProvocationBan() {
-        // إيقاف جميع المستمعات لتجنب التكرار
-        document.removeEventListener('contextmenu', handleProvocation);
-        document.removeEventListener('copy', handleProvocation);
+ 
+    function triggerCopyBan() {
+        // إيقاف المستمع لتجنب التكرار
+        document.removeEventListener('copy', handleCopyAttempt);
         document.body.style.userSelect = 'auto';
-
-        showToast("🚫 تم رصد سلوك غير مرغوب فيه. سيتم تقييد وصولك.", "error");
+ 
+        showToast("🚫 تم اكتشاف محاولة لنسخ المحتوى. سيتم تقييد وصولك.", "error");
         const blockDuration = 5 * 60 * 1000; // 5 دقائق
         localStorage.setItem('userBlockUntil', Date.now() + blockDuration);
         setTimeout(() => { window.location.reload(); }, 2500);
     }
-
-    function handleProvocation(e) {
-        e.preventDefault();
-        provocationCount++;
-
-        const message = e.type === 'copy' ? "نسخ المحتوى غير مسموح به." : "الوصول إلى هذه القائمة معطل.";
-        showToast(`${message} (محاولة ${provocationCount}/${provocationLimit})`, "error");
-
-        if (provocationCount >= provocationLimit) {
-            triggerProvocationBan();
-        }
+ 
+    function handleCopyAttempt(e) {
+        e.preventDefault(); // منع النسخ
+        triggerCopyBan(); // الحظر فوراً
     }
-
-    // تعطيل النقر بالزر الأيمن والنسخ وتحديد النص
-    document.addEventListener('contextmenu', handleProvocation);
-    document.addEventListener('copy', handleProvocation);
+ 
+    // تعطيل النسخ وتحديد النص، مع السماح بالنقر بالزر الأيمن
+    document.addEventListener('copy', handleCopyAttempt);
     document.body.style.cssText += 'user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;';
 })();
 
