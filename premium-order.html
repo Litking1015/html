@@ -293,9 +293,65 @@
         color: #fff;
         font-weight: bold;
       }
+      /* --- جديد: زر التحكم في الموسيقى --- */
+      .music-control-btn {
+        position: fixed;
+        top: 25px;
+        left: 25px;
+        width: 44px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        opacity: 0.5;
+      }
+      .music-control-btn:hover {
+        opacity: 1;
+        transform: scale(1.1);
+        border-color: var(--accent-color);
+      }
+      .music-control-btn svg {
+        width: 20px;
+        height: 20px;
+        fill: #fff;
+      }
     </style>
   </head>
   <body>
+    <!-- --- جديد: زر التحكم في الموسيقى --- -->
+    <button
+      id="music-control"
+      class="music-control-btn"
+      title="كتم/تشغيل الموسيقى"
+    >
+      <svg id="music-icon-on" viewBox="0 0 24 24">
+        <path
+          d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"
+        ></path>
+      </svg>
+      <svg id="music-icon-off" style="display: none" viewBox="0 0 24 24">
+        <path
+          d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"
+        ></path>
+      </svg>
+    </button>
+
+    <!-- --- جديد: ملف الموسيقى الخلفية --- -->
+    <audio id="background-music" loop>
+      <source
+        src="https://cdn.pixabay.com/download/audio/2022/10/24/audio_a7f2a3c202.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
     <div class="premium-container">
       <div class="form-top-line"></div>
       <form id="premium-form" onsubmit="return false;">
@@ -461,6 +517,48 @@
           welcomeText.textContent = packageInfo[packageType].text;
         }
         updateProgressBar();
+
+        // --- جديد: منطق تشغيل الموسيقى والتحكم بها ---
+        const music = document.getElementById("background-music");
+        const musicControlBtn = document.getElementById("music-control");
+        const iconOn = document.getElementById("music-icon-on");
+        const iconOff = document.getElementById("music-icon-off");
+        let musicStarted = false;
+
+        // دالة لتشغيل الموسيقى (تعمل مرة واحدة فقط عند أول تفاعل)
+        const startMusic = async () => {
+          if (music && !musicStarted) {
+            try {
+              music.volume = 0.3; // تم رفع مستوى الصوت قليلاً
+              await music.play();
+              musicStarted = true;
+              musicControlBtn.style.opacity = "1"; // إظهار الزر بوضوح
+              iconOn.style.display = "block";
+              iconOff.style.display = "none";
+            } catch (error) {
+              console.log(
+                "Autoplay was prevented. Music will start on next interaction.",
+              );
+            }
+          }
+        };
+
+        // دالة للتحكم في كتم/تشغيل الصوت
+        musicControlBtn.addEventListener("click", () => {
+          if (!musicStarted) {
+            startMusic(); // إذا لم تبدأ الموسيقى، شغلها أولاً
+            return; // الخروج لأن startMusic ستتعامل مع كل شيء
+          }
+
+          music.muted = !music.muted;
+          musicControlBtn.style.opacity = music.muted ? "0.5" : "1";
+          iconOn.style.display = music.muted ? "none" : "block";
+          iconOff.style.display = music.muted ? "block" : "none";
+        });
+
+        // إضافة مستمع لأول تفاعل من المستخدم لتجاوز قيود التشغيل التلقائي
+        document.body.addEventListener("click", startMusic, { once: true });
+        document.body.addEventListener("keydown", startMusic, { once: true });
       });
 
       function updateProgressBar() {
@@ -570,29 +668,41 @@
           document.getElementById("projectDetails").value.trim() ||
           "لم يتم تحديد تفاصيل إضافية.";
 
+        // --- إصلاح: إضافة معلومات الملف المرفق إلى الملخص ---
         const summaryContainer = document.getElementById("summary-content");
+        const fileInfo = formData.file
+          ? `<span>${formData.file.name}</span>`
+          : "<span>لم يتم رفع ملف</span>";
+
         summaryContainer.innerHTML = `
                 <p><strong>الباقة المختارة:</strong> <span>${formData.packageName}</span></p>
                 <p><strong>الاسم:</strong> <span>${formData.name}</span></p>
                 <p><strong>وسيلة التواصل:</strong> <span>${formData.contact}</span></p>
                 <p><strong>تفاصيل المشروع:</strong> <span>${formData.details}</span></p>
+                <p><strong>الملف المرفق:</strong> ${fileInfo}</p>
             `;
         nextStep();
       }
 
       function submitOrder() {
+        // --- إصلاح: إضافة معلومات الملف المرفق إلى رسالة الواتساب ---
+        const fileMessage = formData.file
+          ? `%0A*الملف المرفق:* ${encodeURIComponent(formData.file.name)}`
+          : "";
+
         const message = `*طلب جديد من صفحة العملاء المميزين* ✨
 %0A%0A*الباقة المختارة:* ${encodeURIComponent(formData.packageName)}
 %0A*الاسم:* ${encodeURIComponent(formData.name)}
 %0A*للتواصل:* ${encodeURIComponent(formData.contact)}
 %0A*التفاصيل:*
-%0A${encodeURIComponent(formData.details)}`;
+%0A${encodeURIComponent(formData.details)}${fileMessage}`;
 
         const whatsappUrl = `https://wa.me/212629703283?text=${message}`;
         window.open(whatsappUrl, "_blank");
 
         // Optional: Show a final thank you message
-        document.getElementById("step5").innerHTML =
+        // --- إصلاح: استهداف الخطوة الصحيحة (step6) لعرض رسالة الشكر ---
+        document.getElementById("step6").innerHTML =
           `<h2>شكراً لك، <span>${formData.name}</span>!</h2><p>تم توجيهك إلى واتساب لإرسال طلبك. سنتواصل معك في أقرب وقت ممكن لمناقشة التفاصيل.</p>`;
       }
     </script>

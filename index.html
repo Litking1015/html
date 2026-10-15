@@ -21,6 +21,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <!-- ========================================================
          وسوم Open Graph لتحسين مشاركة الموقع على وسائل التواصل
          ======================================================== -->
@@ -229,6 +230,177 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 }
 .chat-callout.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
 .chat-callout p { margin: 0; line-height: 1.5; }
+
+/* ============================================================
+   🤖 المساعد الذكي المطوّر - CSS Enhancements v2.0
+   ============================================================ */
+
+/* --- Badge عدد الرسائل غير المقروءة --- */
+.chat-unread-badge {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 22px;
+    height: 22px;
+    background: #25d366;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+}
+.chat-unread-badge.show { opacity: 1; transform: scale(1); }
+
+/* --- أفتار المساعد المتحرك --- */
+.ai-avatar {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, #ff4a1c, #c23a10);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; color: white; font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 0 0 rgba(255,74,28,0.4);
+    animation: avatarPulse 3s infinite;
+    flex-shrink: 0;
+}
+@keyframes avatarPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(255,74,28,0.4); }
+    50%  { box-shadow: 0 0 0 8px rgba(255,74,28,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,74,28,0); }
+}
+
+/* --- نقطة "متصل" الخضراء --- */
+.ai-online-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: #25d366;
+    border-radius: 50%;
+    margin-left: 5px;
+    vertical-align: middle;
+    animation: onlineBlink 2s infinite;
+}
+@keyframes onlineBlink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+}
+.ai-status-info p { color: #25d366; display: flex; align-items: center; gap: 4px; }
+
+/* --- زر القائمة السريعة في الهيدر --- */
+.chat-menu-btn {
+    background: rgba(255,255,255,0.08);
+    border: none;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.3s;
+    flex-shrink: 0;
+}
+.chat-menu-btn:hover { background: rgba(255,74,28,0.3); }
+.chat-menu-btn svg { width: 16px; height: 16px; fill: #aaa; }
+
+/* --- Quick Reply Chips --- */
+.quick-replies-bar {
+    padding: 8px 12px;
+    background: #0f0f0f;
+    border-top: 1px solid #1e1e1e;
+    display: flex;
+    gap: 7px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.quick-replies-bar::-webkit-scrollbar { display: none; }
+.qr-chip {
+    white-space: nowrap;
+    background: #1e1e1e;
+    color: #bbb;
+    border: 1px solid #2e2e2e;
+    border-radius: 20px;
+    padding: 6px 13px;
+    font-size: 0.78rem;
+    font-family: 'Cairo', sans-serif;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+}
+.qr-chip:hover {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* --- Context Suggestion Strip (تظهر بعد رسالة البوت) --- */
+.bot-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+    direction: rtl;
+}
+.bot-suggestion-btn {
+    background: rgba(255,74,28,0.12);
+    color: #ff7a50;
+    border: 1px solid rgba(255,74,28,0.3);
+    border-radius: 14px;
+    padding: 5px 11px;
+    font-size: 0.77rem;
+    font-family: 'Cairo', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.bot-suggestion-btn:hover {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+/* --- Timestamp على الرسائل --- */
+.msg-timestamp {
+    font-size: 0.65rem;
+    color: #555;
+    margin-top: 4px;
+    text-align: left;
+    direction: ltr;
+}
+.bot-msg .msg-timestamp { text-align: right; }
+
+/* --- Progress indicator في الهيدر --- */
+.chat-progress-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-color), #ffad00);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+}
+.chat-progress-bar.loading { transform: scaleX(1); }
+
+/* --- Glow effect لنافذة الشات عند الفتح --- */
+.ai-chat-window.open {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+    pointer-events: auto !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(255,74,28,0.1) !important;
+}
+
+/* --- Character counter for input --- */
+.chat-char-count {
+    font-size: 0.65rem;
+    color: #444;
+    align-self: center;
+    white-space: nowrap;
+    transition: color 0.3s;
+}
+.chat-char-count.warn { color: var(--accent-color); }
 
 /* تنسيقات قسم شهادات العملاء */
 .testimonial-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; position: relative; z-index: 2; }
