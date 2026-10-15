@@ -2640,9 +2640,298 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 
               footer { text-align: center; padding: 40px; font-size: 0.9rem; color: var(--text-muted); border-top: 1px solid #222; background-color: #080808; }
 
-              @media (max-width: 900px) {
-                  .price-card.popular { transform: scale(1); }
-                  .price-card.popular:hover { transform: scale(1) translateY(-5px); }
+              /* ========================================================
+                 خريطة مواقع التصوير الميداني التفاعلية (Drone & Shooting Map)
+                 ======================================================== */
+              .drone-map-section {
+                  padding: 90px 8%;
+                  background: radial-gradient(circle at center, #141414 0%, #080808 100%);
+                  border-top: 1px solid #1a1a1a;
+                  position: relative;
+                  overflow: hidden;
+              }
+              .map-glow-sphere {
+                  position: absolute;
+                  top: 20%;
+                  left: 50%;
+                  transform: translate(-50%, -20%);
+                  width: 500px;
+                  height: 350px;
+                  background: radial-gradient(circle, rgba(255, 74, 28, 0.12) 0%, transparent 70%);
+                  filter: blur(80px);
+                  pointer-events: none;
+                  z-index: 1;
+              }
+              .drone-map-container {
+                  position: relative;
+                  z-index: 2;
+                  max-width: 1200px;
+                  margin: 0 auto;
+              }
+              .map-interactive-board {
+                  display: grid;
+                  grid-template-columns: 1fr 1.2fr;
+                  gap: 35px;
+                  background: rgba(18, 18, 18, 0.7);
+                  border: 1px solid rgba(255, 255, 255, 0.08);
+                  border-radius: 24px;
+                  padding: 35px;
+                  backdrop-filter: blur(20px);
+                  -webkit-backdrop-filter: blur(20px);
+                  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+                  margin-top: 35px;
+              }
+              .map-cities-list {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 12px;
+              }
+              .city-map-card {
+                  background: rgba(255, 255, 255, 0.03);
+                  border: 1px solid rgba(255, 255, 255, 0.07);
+                  border-radius: 14px;
+                  padding: 16px 20px;
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                  position: relative;
+                  overflow: hidden;
+              }
+              .city-map-card::before {
+                  content: '';
+                  position: absolute;
+                  right: 0;
+                  top: 0;
+                  bottom: 0;
+                  width: 3px;
+                  background: transparent;
+                  transition: background 0.3s ease;
+              }
+              .city-map-card:hover {
+                  background: rgba(255, 255, 255, 0.06);
+                  border-color: rgba(255, 74, 28, 0.3);
+                  transform: translateX(-4px);
+              }
+              .city-map-card.active {
+                  background: rgba(255, 74, 28, 0.09);
+                  border-color: var(--accent-color);
+                  box-shadow: 0 8px 25px rgba(255, 74, 28, 0.15);
+              }
+              .city-map-card.active::before {
+                  background: var(--accent-color);
+              }
+              .city-card-left {
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+              }
+              .city-icon-pill {
+                  width: 38px;
+                  height: 38px;
+                  background: rgba(255, 255, 255, 0.05);
+                  border-radius: 10px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 1.15rem;
+                  transition: transform 0.3s ease;
+              }
+              .city-map-card:hover .city-icon-pill, .city-map-card.active .city-icon-pill {
+                  transform: scale(1.1);
+                  background: rgba(255, 74, 28, 0.2);
+              }
+              .city-meta h4 {
+                  margin: 0;
+                  font-size: 1.05rem;
+                  color: #fff;
+                  font-weight: 700;
+              }
+              .city-meta span {
+                  font-size: 0.78rem;
+                  color: var(--text-muted);
+              }
+              .city-count-badge {
+                  background: rgba(255, 255, 255, 0.06);
+                  color: #ddd;
+                  padding: 4px 10px;
+                  border-radius: 20px;
+                  font-size: 0.72rem;
+                  font-weight: 600;
+                  border: 1px solid rgba(255, 255, 255, 0.08);
+              }
+              .city-map-card.active .city-count-badge {
+                  background: var(--accent-color);
+                  color: white;
+                  border-color: var(--accent-color);
+              }
+              .map-display-visual {
+                  display: flex;
+                  flex-direction: column;
+                  background: #0d0d0d;
+                  border: 1px solid #262626;
+                  border-radius: 18px;
+                  overflow: hidden;
+                  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+                  position: relative;
+              }
+              .map-radar-header {
+                  padding: 14px 20px;
+                  background: #141414;
+                  border-bottom: 1px solid #222;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+              }
+              .radar-status {
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 8px;
+                  font-size: 0.82rem;
+                  color: #25d366;
+                  font-weight: 600;
+              }
+              .radar-dot {
+                  width: 8px;
+                  height: 8px;
+                  background: #25d366;
+                  border-radius: 50%;
+                  box-shadow: 0 0 10px #25d366;
+                  animation: radarPulse 1.8s infinite;
+              }
+              @keyframes radarPulse {
+                  0%, 100% { opacity: 1; transform: scale(1); }
+                  50% { opacity: 0.4; transform: scale(1.3); }
+              }
+              .map-screen-body {
+                  padding: 25px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 18px;
+                  flex: 1;
+                  justify-content: center;
+              }
+              .map-spotlight-preview {
+                  position: relative;
+                  border-radius: 14px;
+                  overflow: hidden;
+                  aspect-ratio: 16/9;
+                  background: #000;
+                  border: 1px solid rgba(255, 255, 255, 0.1);
+              }
+              .map-spotlight-preview img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  transition: transform 0.5s ease;
+              }
+              .map-spotlight-preview:hover img {
+                  transform: scale(1.04);
+              }
+              .map-spotlight-overlay {
+                  position: absolute;
+                  bottom: 0;
+                  left: 0;
+                  right: 0;
+                  padding: 15px 18px;
+                  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: flex-end;
+              }
+              .map-spotlight-title {
+                  color: white;
+                  font-size: 1rem;
+                  font-weight: 700;
+                  line-height: 1.4;
+                  max-width: 80%;
+              }
+              .map-play-pill {
+                  background: var(--accent-color);
+                  color: white;
+                  border: none;
+                  padding: 8px 14px;
+                  border-radius: 8px;
+                  font-family: 'Cairo', sans-serif;
+                  font-size: 0.78rem;
+                  font-weight: 700;
+                  cursor: pointer;
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 6px;
+                  transition: all 0.3s ease;
+                  box-shadow: 0 4px 15px rgba(255, 74, 28, 0.4);
+              }
+              .map-play-pill:hover {
+                  background: #ff6036;
+                  transform: scale(1.05);
+              }
+              .map-city-highlights {
+                  display: grid;
+                  grid-template-columns: repeat(3, 1fr);
+                  gap: 12px;
+              }
+              .map-city-badge {
+                  background: rgba(255, 255, 255, 0.03);
+                  border: 1px solid rgba(255, 255, 255, 0.06);
+                  padding: 12px 14px;
+                  border-radius: 10px;
+                  text-align: center;
+              }
+              .map-city-badge .badge-val {
+                  display: block;
+                  font-family: 'Syne', sans-serif;
+                  font-size: 1.15rem;
+                  font-weight: 800;
+                  color: var(--accent-color);
+                  margin-bottom: 3px;
+              }
+              .map-city-badge .badge-label {
+                  font-size: 0.72rem;
+                  color: var(--text-muted);
+              }
+              .map-cta-action {
+                  display: flex;
+                  gap: 12px;
+                  margin-top: 5px;
+              }
+              .btn-map-request {
+                  flex: 1;
+                  background: linear-gradient(135deg, var(--accent-color), #d6370e);
+                  color: white;
+                  border: none;
+                  border-radius: 10px;
+                  padding: 12px 20px;
+                  font-family: 'Cairo', sans-serif;
+                  font-weight: 700;
+                  font-size: 0.9rem;
+                  text-decoration: none;
+                  text-align: center;
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 8px;
+                  transition: all 0.3s ease;
+              }
+              .btn-map-request:hover {
+                  transform: translateY(-2px);
+                  box-shadow: 0 8px 25px rgba(255, 74, 28, 0.35);
+                  color: white;
+              }
+              @media screen and (max-width: 900px) {
+                  .map-interactive-board {
+                      grid-template-columns: 1fr;
+                      padding: 22px 18px;
+                      gap: 24px;
+                  }
+                  .drone-map-section {
+                      padding: 60px 5%;
+                  }
+                  .map-city-highlights {
+                      grid-template-columns: 1fr;
+                      gap: 8px;
+                  }
               }
     </style>
     
@@ -2773,6 +3062,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         <a href="#templates">قوالب</a>
         <a href="#grading">التلوين</a>
         <a href="#portfolio">أعمالي</a>
+        <a href="#droneMap">خريطة التصوير 🛸</a>
         <a href="#mre" style="color: var(--accent-color); font-weight: 800;">مغاربة العالم 🌍</a>
         <a href="#contactSection">التواصل</a>
       </nav>
@@ -3622,6 +3912,161 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
             <h3>شقق فاخرة في الشارع الرئيسي بالدريوش.. مجموعة أزحاف تطلق وحدات سكنية عصرية</h3>
           </div>
         </a>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         خريطة مواقع التصوير الميداني والدرون التفاعلية (Drone & Shooting Map)
+         ======================================================== -->
+    <section class="drone-map-section" id="droneMap">
+      <div class="map-glow-sphere"></div>
+      <div class="drone-map-container">
+        <center>
+          <div class="estimator-badge" style="background: rgba(255, 74, 28, 0.1); border-color: rgba(255, 74, 28, 0.3); color: var(--accent-color);">
+            <span>🛰️</span>
+            <span>تغطية ميدانية وجوية واسعة عبر أقاليم المملكة</span>
+          </div>
+          <h2 class="section-title">خريطة مواقع التصوير الميداني والدرون</h2>
+          <p class="section-subtitle" style="max-width: 680px; margin: -15px auto 10px; color: var(--text-muted); font-size: 1.05rem;">
+            تجوّل بين المدن والمواقع التي أبدعنا بتصويرها وتغطيتها سينمائياً بالدرون والكاميرات الاحترافية. اختر أي مدينة لمشاهدة العمل المنفذ وتفاصيل التغطية:
+          </p>
+        </center>
+
+        <div class="map-interactive-board">
+          <!-- قائمة المدن والمواقع -->
+          <div class="map-cities-list">
+            <!-- 1. الدريوش -->
+            <div class="city-map-card active" 
+                 data-city="driouch"
+                 data-title='شقق فاخرة في الشارع الرئيسي بالدريوش.. مجموعة أزحاف'
+                 data-img="https://img.youtube.com/vi/5TftyYFJ4q4/maxresdefault.jpg"
+                 data-vid="5TftyYFJ4q4"
+                 data-count="8+ أعمال ميدانية"
+                 data-altitude="120 متر (Drone 4K)"
+                 data-type="عقارات وتغطيات وافتتاحات"
+                 data-desc="مركز ومقر الاستوديو، قمنا بتغطية كبرى الافتتاحات والمشاريع العقارية والمحلات التجارية بتصوير جوي وأرضي فائق الدقة.">
+              <div class="city-card-left">
+                <div class="city-icon-pill">📍</div>
+                <div class="city-meta">
+                  <h4>إقليم الدريوش (المقر الرئيسي)</h4>
+                  <span>الشارع الرئيسي · امطالسا · بن الطيب</span>
+                </div>
+              </div>
+              <span class="city-count-badge">8 مشاريع</span>
+            </div>
+
+            <!-- 2. مكناس -->
+            <div class="city-map-card" 
+                 data-city="meknes"
+                 data-title='فيديو إعلاني سينمائي لوكالة Red Med Cars لكراء السيارات بمكناس'
+                 data-img="https://img.youtube.com/vi/QBYhDwN2Ky0/maxresdefault.jpg"
+                 data-vid="QBYhDwN2Ky0"
+                 data-count="إنتاج تجاري للسيارات"
+                 data-altitude="أرضي سينمائي + درون"
+                 data-type="إعلانات تجارية وتصوير سيارات"
+                 data-desc="تصوير إعلاني احترافي سريع وديناميكي لوكالة كراء سيارات مع لقطات حركة (Tracking Shots) وتلوين سينمائي جذاب.">
+              <div class="city-card-left">
+                <div class="city-icon-pill">🏎️</div>
+                <div class="city-meta">
+                  <h4>مدينة مكناس الإسماعيلية</h4>
+                  <span>تصوير إعلاني وتجاري للشركات</span>
+                </div>
+              </div>
+              <span class="city-count-badge">إعلان تجاري</span>
+            </div>
+
+            <!-- 3. بن الطيب وامطالسا -->
+            <div class="city-map-card" 
+                 data-city="bentayeb"
+                 data-title='افتتاح فرع مجموعة مدارس القربى بمدخل مدينة بن الطيب'
+                 data-img="https://img.youtube.com/vi/Win0r8n8xq4/maxresdefault.jpg"
+                 data-vid="Win0r8n8xq4"
+                 data-count="مؤسسات تعليمية وعقارية"
+                 data-altitude="150 متر لقطات جوية واسعة"
+                 data-type="تغطية مؤسساتية وترويج عقاري"
+                 data-desc="تغطية كاملة مع لقطات مساحات كبرى بالدرون لإبراز المنشآت الهندسية والمشاريع الاستراتيجية بالريف.">
+              <div class="city-card-left">
+                <div class="city-icon-pill">🏫</div>
+                <div class="city-meta">
+                  <h4>بن الطيب & امطالسا</h4>
+                  <span>مؤسسات كبرى ومشاريع عقارية</span>
+                </div>
+              </div>
+              <span class="city-count-badge">مشاريع استراتيجية</span>
+            </div>
+
+            <!-- 4. الناظور والشمال -->
+            <div class="city-map-card" 
+                 data-city="nador"
+                 data-title='تغطية وتصوير جوي لمشاريع الجالية والاستثمار بالناظور'
+                 data-img="showcase-cinematic.jpg"
+                 data-vid="wegLioS0g6Q"
+                 data-count="تغطيات وسواحل ومشاريع"
+                 data-altitude="طائرات درون متطورة"
+                 data-type="تصوير مشاريع ومغاربة العالم"
+                 data-desc="جاهزون للتنقل والتصوير الجوي الشامل في الناظور، السعيدية، الحسيمة ومحيط المنطقة الشرقية والشمالية.">
+              <div class="city-card-left">
+                <div class="city-icon-pill">🌊</div>
+                <div class="city-meta">
+                  <h4>الناظور والشريط الساحلي</h4>
+                  <span>مشاريع استثمارية وسياحية</span>
+                </div>
+              </div>
+              <span class="city-count-badge">تغطية شاملة</span>
+            </div>
+          </div>
+
+          <!-- شاشة الرادار والعرض المباشر للعمل المنفذ -->
+          <div class="map-display-visual">
+            <div class="map-radar-header">
+              <div class="radar-status">
+                <span class="radar-dot"></span>
+                <span id="mapCityIndicator">إقليم الدريوش - تغطية نشطة</span>
+              </div>
+              <span style="font-size: 0.75rem; color: #777; font-family: 'Syne', sans-serif;">GPS / 4K DRONE FEED</span>
+            </div>
+
+            <div class="map-screen-body">
+              <div class="map-spotlight-preview">
+                <img id="mapPreviewImg" src="https://img.youtube.com/vi/5TftyYFJ4q4/maxresdefault.jpg" alt="معاينة العمل الميداني">
+                <div class="map-spotlight-overlay">
+                  <div class="map-spotlight-title" id="mapPreviewTitle">شقق فاخرة في الشارع الرئيسي بالدريوش.. مجموعة أزحاف</div>
+                  <button type="button" class="map-play-pill" id="mapPlayVideoBtn">
+                    <span>تشغيل</span>
+                    <span>▶</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- بطاقات مؤشرات التغطية -->
+              <div class="map-city-highlights">
+                <div class="map-city-badge">
+                  <span class="badge-val" id="mapBadgeAlt">120 متر</span>
+                  <span class="badge-label">أقصى ارتفاع لقطات جوية</span>
+                </div>
+                <div class="map-city-badge">
+                  <span class="badge-val" id="mapBadgeType">عقارات وافتتاح</span>
+                  <span class="badge-label">طبيعة الإنتاج الميداني</span>
+                </div>
+                <div class="map-city-badge">
+                  <span class="badge-val" id="mapBadgeCount">8+ أعمال</span>
+                  <span class="badge-label">مستوى الحضور والخبرة</span>
+                </div>
+              </div>
+
+              <p id="mapCityDesc" style="color: #aaa; font-size: 0.88rem; line-height: 1.7; margin: 0;">
+                مركز ومقر الاستوديو، قمنا بتغطية كبرى الافتتاحات والمشاريع العقارية والمحلات التجارية بتصوير جوي وأرضي فائق الدقة.
+              </p>
+
+              <div class="map-cta-action">
+                <a href="https://wa.me/212629703283?text=مرحباً أسامة، أود حجز تصوير ميداني / درون لمشروعي في منطقتي" target="_blank" class="btn-map-request" id="mapBookCta">
+                  <span>طلب تصوير ميداني أو درون في هذه المنطقة</span>
+                  <span>🛸</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -5849,6 +6294,79 @@ window.addEventListener('scroll', function() {
         });
     }
 
+    // ========================================================
+    // نظام خريطة التصوير الميداني والدرون التفاعلية (Drone & Field Map)
+    // ========================================================
+    function initDroneShootingMap() {
+        const cityCards = document.querySelectorAll('.city-map-card');
+        const previewImg = document.getElementById('mapPreviewImg');
+        const previewTitle = document.getElementById('mapPreviewTitle');
+        const cityIndicator = document.getElementById('mapCityIndicator');
+        const badgeAlt = document.getElementById('mapBadgeAlt');
+        const badgeType = document.getElementById('mapBadgeType');
+        const badgeCount = document.getElementById('mapBadgeCount');
+        const cityDesc = document.getElementById('mapCityDesc');
+        const bookCta = document.getElementById('mapBookCta');
+        const playBtn = document.getElementById('mapPlayVideoBtn');
+
+        if (!cityCards.length || !previewImg) return;
+
+        let currentVid = '5TftyYFJ4q4';
+
+        cityCards.forEach(card => {
+            card.addEventListener('click', () => {
+                cityCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+
+                const title = card.getAttribute('data-title') || '';
+                const img = card.getAttribute('data-img') || '';
+                const vid = card.getAttribute('data-vid') || '';
+                const count = card.getAttribute('data-count') || '';
+                const alt = card.getAttribute('data-altitude') || '';
+                const type = card.getAttribute('data-type') || '';
+                const desc = card.getAttribute('data-desc') || '';
+                const cityName = card.querySelector('.city-meta h4') ? card.querySelector('.city-meta h4').textContent : 'المنطقة';
+
+                currentVid = vid;
+
+                // تحديث الشاشة المرئية بنعومة
+                previewImg.style.opacity = '0.4';
+                setTimeout(() => {
+                    previewImg.src = img;
+                    previewImg.style.opacity = '1';
+                }, 150);
+
+                if (previewTitle) previewTitle.textContent = title;
+                if (cityIndicator) cityIndicator.textContent = `${cityName} - تغطية نشطة`;
+                if (badgeAlt) badgeAlt.textContent = alt;
+                if (badgeType) badgeType.textContent = type;
+                if (badgeCount) badgeCount.textContent = count;
+                if (cityDesc) cityDesc.textContent = desc;
+
+                if (bookCta) {
+                    const msg = encodeURIComponent(`مرحباً أسامة، أود حجز تصوير ميداني / درون لمشروعي في ${cityName}`);
+                    bookCta.href = `https://wa.me/212629703283?text=${msg}`;
+                }
+            });
+        });
+
+        // زر تشغيل الفيديو المباشر عبر المودال المدمج
+        if (playBtn) {
+            playBtn.addEventListener('click', () => {
+                const modal = document.getElementById('videoLightboxModal');
+                const iframe = document.getElementById('lightboxVideoIframe');
+                const titleEl = document.getElementById('lightboxVideoTitle');
+                if (!modal || !iframe) return;
+
+                if (titleEl && previewTitle) titleEl.textContent = previewTitle.textContent;
+                iframe.src = `https://www.youtube-nocookie.com/embed/${currentVid}?autoplay=1&rel=0&enablejsapi=1`;
+                modal.style.display = 'flex';
+                requestAnimationFrame(() => modal.classList.add('active'));
+                document.body.style.overflow = 'hidden';
+            });
+        }
+    }
+
     // تشغيل الميزات عند اكتمال تحميل الصفحة
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
@@ -5858,6 +6376,7 @@ window.addEventListener('scroll', function() {
             initCostEstimator();
             initPricingSwitcher();
             initMreLanguageSwitcher();
+            initDroneShootingMap();
         });
     } else {
         initMobileMenu();
@@ -5866,6 +6385,7 @@ window.addEventListener('scroll', function() {
         initCostEstimator();
         initPricingSwitcher();
         initMreLanguageSwitcher();
+        initDroneShootingMap();
     }
 </script>
 
