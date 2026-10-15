@@ -76,124 +76,358 @@
 .maintenance-text { font-size: 1.1rem; color: var(--text-muted); max-width: 550px; line-height: 1.8; }
 /* ============================================================
    📱 التجاوب الشامل للهواتف – Mobile First Responsive Design
-   يغطي: الهيدر، الهيرو، الأقسام، البطاقات، الشات، الفورم
+   يغطي: الهيدر، الهيرو، الأقسام، البطاقات، الشات، الفورم، القائمة الجانبية
    ============================================================ */
+
+/* تنسيقات أزرار الهيدر العامة */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.mobile-menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1002;
+}
+.mobile-menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+    background: var(--accent-color);
+}
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+    background: var(--accent-color);
+}
 
 /* ---- 768px: الهواتف والتابلت الصغير ---- */
 @media screen and (max-width: 768px) {
 
-    /* === الهيدر === */
+    /* === الهيدر وقائمة الهواتف الذكية === */
     header {
-        padding: 10px 5% !important;
+        padding: 12px 5% !important;
         flex-direction: row !important;
         justify-content: space-between !important;
         align-items: center !important;
-        gap: 8px !important;
     }
-    .logo { font-size: 18px !important; }
-    nav { gap: 6px !important; }
-    nav a { display: none !important; }
+    .logo { font-size: 20px !important; }
+    
+    .mobile-menu-toggle {
+        display: flex !important;
+    }
+
+    /* قائمة التنقل كدرج متحرك فخم من الأعلى */
+    nav#mainNav {
+        position: fixed !important;
+        top: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        background: rgba(10, 10, 10, 0.98) !important;
+        backdrop-filter: blur(25px) !important;
+        -webkit-backdrop-filter: blur(25px) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 18px !important;
+        padding: 80px 20px 40px !important;
+        z-index: 1001 !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transform: translateY(-20px) !important;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    nav#mainNav.open {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: translateY(0) !important;
+    }
+    nav#mainNav a {
+        display: block !important;
+        margin: 0 !important;
+        font-size: 1.15rem !important;
+        font-weight: 700 !important;
+        padding: 8px 20px !important;
+        color: #eee !important;
+        border-radius: 10px !important;
+        transition: all 0.3s ease !important;
+    }
+    nav#mainNav a:hover, nav#mainNav a:active {
+        color: var(--accent-color) !important;
+        background: rgba(255, 74, 28, 0.08) !important;
+        transform: scale(1.05) !important;
+    }
+
     .btn-phone-header {
         padding: 7px 12px !important;
         font-size: 0.75rem !important;
         margin-top: 0 !important;
+        gap: 6px !important;
     }
 
     /* === القسم الرئيسي Hero === */
     .hero {
-        padding: 100px 6% 60px !important;
+        padding: 110px 6% 60px !important;
         height: auto !important;
         min-height: 100svh !important;
-    }
-    .hero h1 {
-        font-size: 2.2rem !important;
-        line-height: 1.25 !important;
-        margin-bottom: 16px !important;
-    }
-    .hero p {
-        font-size: 1rem !important;
-        line-height: 1.7 !important;
-        margin-bottom: 28px !important;
-    }
-    .hero-buttons {
+        display: flex !important;
         flex-direction: column !important;
-        gap: 12px !important;
-        width: 100% !important;
-    }
-    .hero-buttons a,
-    .hero-buttons button {
-        width: 100% !important;
-        text-align: center !important;
         justify-content: center !important;
     }
-    .hero-stats {
-        flex-wrap: wrap !important;
-        gap: 16px !important;
-        margin-top: 30px !important;
+    .hero h1 {
+        font-size: 1.95rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 18px !important;
+        letter-spacing: -0.5px !important;
     }
-    .hero-stat { width: calc(50% - 8px) !important; }
+    .hero h1 span {
+        display: inline-block !important;
+    }
+    .hero p {
+        font-size: 0.98rem !important;
+        line-height: 1.75 !important;
+        margin-bottom: 28px !important;
+        color: #bbb !important;
+    }
+    .hero .btn {
+        width: 100% !important;
+        max-width: 300px !important;
+        padding: 16px 28px !important;
+        font-size: 1.05rem !important;
+        text-align: center !important;
+        box-shadow: 0 10px 30px rgba(255, 74, 28, 0.3) !important;
+    }
 
     /* === عناوين الأقسام العامة === */
     .section-title, h2 {
-        font-size: 1.8rem !important;
+        font-size: 1.75rem !important;
         line-height: 1.3 !important;
+        margin-bottom: 15px !important;
     }
     .section-subtitle {
-        font-size: 0.95rem !important;
-        margin-bottom: 30px !important;
+        font-size: 0.92rem !important;
+        margin-bottom: 28px !important;
+        padding: 0 5px !important;
     }
 
-    /* === أقسام عامة: padding === */
+    /* === أقسام عامة: مساحات مثالية للهاتف === */
     section,
     .services, .portfolio, .process, .pricing,
     .contact, .testimonials, .templates,
     .why-us, .partners-section, .cta-section,
-    .mre-section {
-        padding: 60px 5% !important;
+    .mre-section, .about, .software-section {
+        padding: 65px 5% !important;
     }
 
-    /* === شبكة الخدمات / البطاقات === */
-    .services-grid,
+    /* === قسم من أنا (About) === */
+    .about p {
+        font-size: 0.95rem !important;
+        line-height: 1.85 !important;
+        color: #ccc !important;
+    }
+
+    /* === بطاقات الخدمات والبرامج === */
+    .software-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+    .software-card {
+        padding: 24px 20px !important;
+    }
+
+    /* === شبكة لماذا نحن والقوالب والآراء === */
     .why-us-grid,
     .templates-grid,
     .testimonials-grid {
         grid-template-columns: 1fr !important;
-        gap: 20px !important;
+        gap: 18px !important;
+    }
+    .why-card {
+        padding: 28px 20px !important;
     }
 
-    /* === معرض الأعمال === */
+    /* === معرض الأعمال بالفيديو === */
+    .portfolio-filters {
+        display: flex !important;
+        overflow-x: auto !important;
+        scrollbar-width: none !important;
+        gap: 8px !important;
+        padding: 5px 0 15px !important;
+        justify-content: flex-start !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    .portfolio-filters::-webkit-scrollbar { display: none !important; }
+    .filter-btn {
+        white-space: nowrap !important;
+        padding: 8px 16px !important;
+        font-size: 0.82rem !important;
+        flex-shrink: 0 !important;
+    }
     .portfolio-grid {
         grid-template-columns: 1fr !important;
-        gap: 16px !important;
+        gap: 20px !important;
     }
-    .portfolio-item { border-radius: 12px !important; }
+    .portfolio-card {
+        border-radius: 16px !important;
+    }
+    .thumbnail-container {
+        height: 210px !important;
+    }
 
     /* === خطوات العمل Process === */
-    .process-steps {
-        flex-direction: column !important;
-        gap: 20px !important;
-    }
-    .process-step { width: 100% !important; }
-    .step-connector { display: none !important; }
-
-    /* === الأسعار Pricing === */
-    .pricing-grid,
-    .plans-grid {
+    .process-line { display: none !important; }
+    .process-grid-interactive {
         grid-template-columns: 1fr !important;
-        gap: 20px !important;
+        gap: 40px !important;
+        margin-top: 35px !important;
     }
-    .pricing-card, .plan-card {
-        padding: 25px 20px !important;
+    .process-card-premium {
+        text-align: center !important;
+        padding: 35px 20px 25px !important;
+    }
+    .process-badge-circle {
+        right: 50% !important;
+        transform: translateX(50%) !important;
+        top: -24px !important;
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 1.1rem !important;
+    }
+    .card-top-indicator { left: 15px !important; right: 15px !important; }
+
+    /* === الأسعار وبطاقات العروض === */
+    .pricing-grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+    .price-card {
+        padding: 30px 20px !important;
+        border-radius: 18px !important;
+    }
+    .price-card.popular {
+        transform: none !important;
+        border-color: var(--accent-color) !important;
     }
     .pricing-switcher {
         flex-wrap: wrap !important;
         gap: 8px !important;
+        justify-content: center !important;
+    }
+    .switch-btn {
+        padding: 10px 18px !important;
+        font-size: 0.85rem !important;
     }
 
-    /* === قسم التواصل Form === */
-    form {
-        padding: 28px 20px !important;
+    /* === حاسبة التكلفة التفاعلية (Estimator) === */
+    .estimator-grid {
+        grid-template-columns: 1fr !important;
+        gap: 25px !important;
+    }
+    .estimator-container {
+        padding: 24px 18px !important;
         border-radius: 18px !important;
+    }
+    .pill-group {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 7px !important;
+    }
+    .pill-btn {
+        font-size: 0.8rem !important;
+        padding: 8px 12px !important;
+    }
+    .estimator-summary-card {
+        position: static !important;
+        padding: 20px !important;
+    }
+    .summary-price-num {
+        font-size: 2.2rem !important;
+    }
+
+    /* === سلايدر مقارنة الألوان (Before/After) === */
+    .comparison-container {
+        height: 250px !important;
+        border-radius: 14px !important;
+    }
+    .comp-badge {
+        font-size: 0.68rem !important;
+        padding: 4px 10px !important;
+        bottom: 10px !important;
+    }
+    .comp-badge-after { right: 8px !important; }
+    .comp-badge-before { left: 8px !important; }
+    .handle-button { width: 34px !important; height: 34px !important; }
+    .grading-features {
+        flex-direction: column !important;
+        gap: 12px !important;
+        margin-top: 25px !important;
+    }
+    .grading-stat {
+        width: 100% !important;
+        padding: 15px !important;
+    }
+
+    /* === قسم الجالية MRE === */
+    .mre-lang-switcher {
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+        justify-content: center !important;
+    }
+    .mre-lang-btn {
+        padding: 7px 14px !important;
+        font-size: 0.8rem !important;
+    }
+    .mre-content-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+    .mre-feature-card {
+        padding: 22px 18px !important;
+    }
+
+    /* === القوالب الجاهزة === */
+    .template-card {
+        border-radius: 16px !important;
+    }
+    .template-info {
+        padding: 20px 18px !important;
+    }
+    .template-footer {
+        flex-direction: column !important;
+        gap: 12px !important;
+        align-items: stretch !important;
+        text-align: center !important;
+    }
+    .template-footer .btn-price {
+        width: 100% !important;
+    }
+
+    /* === نموذج التواصل والفورم === */
+    form {
+        padding: 28px 18px !important;
+        border-radius: 20px !important;
+        gap: 15px !important;
+    }
+    input, textarea, select {
+        padding: 13px !important;
+        font-size: 0.95rem !important;
     }
     .btn-submit-container {
         flex-direction: column !important;
@@ -203,6 +437,8 @@
     .btn-email-secondary {
         flex: none !important;
         width: 100% !important;
+        padding: 14px 20px !important;
+        font-size: 0.95rem !important;
     }
     .contact-methods {
         flex-direction: column !important;
@@ -211,71 +447,23 @@
     }
     .contact-item {
         width: 100% !important;
-        max-width: 360px !important;
+        max-width: 100% !important;
+        padding: 12px 18px !important;
         justify-content: flex-start !important;
     }
 
-    /* === CTA Section === */
-    .cta-content {
-        padding: 35px 20px !important;
-        border-radius: 20px !important;
-    }
-    .cta-content h2 { font-size: 1.8rem !important; }
-    .cta-content p { font-size: 1rem !important; margin-bottom: 25px !important; }
-    .cta-btn {
-        padding: 15px 35px !important;
-        font-size: 1rem !important;
-    }
-
-    /* === شركاء النجاح === */
-    .partners-grid {
-        gap: 14px !important;
-    }
-    .partner-card {
-        padding: 14px 22px !important;
-        font-size: 1rem !important;
-    }
-
-    /* === شهادات العملاء === */
-    .testimonial-card {
-        padding: 25px 18px !important;
-    }
-
-    /* === قسم الجالية MRE === */
-    .mre-lang-switcher {
-        flex-wrap: wrap !important;
-        gap: 8px !important;
-        justify-content: center !important;
-    }
-    .mre-lang-btn {
-        padding: 8px 18px !important;
-        font-size: 0.85rem !important;
-    }
-    .mre-content-grid,
-    .mre-grid {
-        grid-template-columns: 1fr !important;
-        gap: 20px !important;
-    }
-
-    /* === مقارنة الألوان Slider === */
-    .color-grading-slider-wrapper,
-    .comparison-container {
-        border-radius: 12px !important;
-    }
-
-    /* === القوالب Templates === */
-    .template-card { border-radius: 14px !important; }
-    .template-info { padding: 18px !important; }
-    .template-footer {
-        flex-direction: column !important;
-        gap: 12px !important;
-        align-items: flex-start !important;
-    }
-
-    /* === المساعد الذكي Chat === */
+    /* === المساعد الذكي ونافذة الشات === */
     .ai-chat-widget {
-        bottom: 18px !important;
-        right: 18px !important;
+        bottom: 16px !important;
+        right: 16px !important;
+    }
+    .ai-chat-trigger {
+        width: 52px !important;
+        height: 52px !important;
+    }
+    .ai-chat-trigger svg {
+        width: 22px !important;
+        height: 22px !important;
     }
     .ai-chat-window {
         position: fixed !important;
@@ -284,33 +472,48 @@
         left: 0 !important;
         width: 100% !important;
         height: 85svh !important;
-        border-radius: 24px 24px 0 0 !important;
+        border-radius: 22px 22px 0 0 !important;
         max-height: 85svh !important;
     }
     .chat-callout {
         right: 0 !important;
-        width: 220px !important;
-        font-size: 0.85rem !important;
+        bottom: 70px !important;
+        width: 200px !important;
+        font-size: 0.8rem !important;
+        padding: 10px 14px !important;
     }
 
-    /* === Footer === */
-    footer {
-        padding: 25px 5% !important;
-        font-size: 0.8rem !important;
-        line-height: 2 !important;
+    /* === أداة الصوت السينمائي (Sensory Widget) === */
+    .sensory-widget-container {
+        bottom: 16px !important;
+        left: 16px !important;
     }
-    footer a { display: block; margin: 4px 0 !important; }
+    .sensory-btn {
+        padding: 6px 12px 6px 10px !important;
+        gap: 8px !important;
+    }
+    .sensory-title {
+        font-size: 0.72rem !important;
+    }
+
+    /* === الفوتر Footer === */
+    footer {
+        padding: 30px 5% 90px !important; /* مساحة إضافية حتى لا تغطيه أيقونات الشات */
+        font-size: 0.82rem !important;
+        line-height: 1.9 !important;
+    }
 }
 
 /* ---- 480px: الهواتف الصغيرة جداً ---- */
 @media screen and (max-width: 480px) {
-    .logo { font-size: 16px !important; }
-    .hero h1 { font-size: 1.75rem !important; }
-    .section-title, h2 { font-size: 1.5rem !important; }
+    .logo { font-size: 17px !important; }
+    .btn-phone-header span { display: none; } /* يظهر فقط أيقونة الواتساب لتوفير المساحة */
+    .btn-phone-header { padding: 8px !important; border-radius: 50% !important; }
+    .hero h1 { font-size: 1.65rem !important; }
+    .section-title, h2 { font-size: 1.45rem !important; }
     .ai-chat-window { height: 90svh !important; }
     .qr-chip { font-size: 0.72rem !important; padding: 5px 10px !important; }
-    .ai-chat-header { padding: 12px !important; }
-    .ai-status-info h4 { font-size: 0.85rem !important; }
+    .comparison-container { height: 210px !important; }
 }
       .contact { padding: 100px 8%; background: radial-gradient(circle at center, #141414 0%, #050505 100%); text-align: center; position: relative; overflow: hidden; border-top: 1px solid #161616; }
 .cta-glow-blur { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: #ff4a1c; filter: blur(140px); opacity: 0.15; pointer-events: none; z-index: 1; }
@@ -405,8 +608,6 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
     100% { box-shadow: 0 0 0 0 rgba(155, 89, 182, 0); }
 }
 .ai-chat-input-area button svg { width: 18px; height: 18px; fill: white; transform: scaleX(-1); }
-@media (max-width: 480px) { .ai-chat-window { width: 300px; height: 420px; right: -10px; } }
-@media (max-width: 480px) { .ai-chat-window { width: 320px; height: 80vh; right: -10px; } }
 
 /* --- جديد: ستايل رسالة الترحيب الاستباقية --- */
 .chat-callout {
@@ -2443,23 +2644,6 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
                   .price-card.popular { transform: scale(1); }
                   .price-card.popular:hover { transform: scale(1) translateY(-5px); }
               }
-
-              @media (max-width: 768px) {
-                  header { padding: 20px 5%; flex-direction: column; gap: 15px; text-align: center; }
-                  nav { margin-bottom: 5px; flex-wrap: wrap; justify-content: center; gap: 10px; } nav a { margin: 0 5px; }
-                  .hero h1 { font-size: 2.2rem; }
-                  .portfolio-grid { grid-template-columns: 1fr; }
-                  .contact-methods { flex-direction: column; gap: 15px; }
-                  .software-grid { grid-template-columns: 1fr; }
-                  .btn-submit-container { flex-direction: column; }
-                  .process-line { display: none; }
-                  .process-grid-interactive { grid-template-columns: 1fr; gap: 45px; }
-                  .process-card-premium { text-align: center; padding-top: 40px; }
-                  .process-badge-circle { right: 50%; transform: translateX(50%); top: -28px; }
-                  .process-card-premium:hover .process-badge-circle { transform: translateX(50%) scale(1.1); }
-                  .card-top-indicator { left: 15px; right: 15px; }
-                  .pricing-grid { grid-template-columns: 1fr; }
-              }
     </style>
     
   </head>
@@ -2579,7 +2763,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
       <div class="logo-container">
         <a href="#" class="logo" id="dynamicLogo">LitKing<span>LTK</span></a>
       </div>
-      <nav>
+      <nav id="mainNav">
         <a href="#">الرئيسية</a>
         <a href="#about">عني</a>
         <a href="#tools">الخدمات</a>
@@ -2592,18 +2776,25 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         <a href="#mre" style="color: var(--accent-color); font-weight: 800;">مغاربة العالم 🌍</a>
         <a href="#contactSection">التواصل</a>
       </nav>
-      <a
-        href="https://wa.me/212629703283"
-        target="_blank"
-        class="btn-phone-header"
-      >
-        <svg viewBox="0 0 24 24">
-          <path
-            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.4.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.734-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.863-9.755.002-2.609-1.012-5.062-2.859-6.91-1.847-1.848-4.301-2.86-6.911-2.861-5.442 0-9.866 4.372-9.869 9.756-.002 1.763.473 3.486 1.378 5.022l-.998 3.645 3.738-.97-.164.218z"
-          />
-        </svg>
-        <span>+212 629-703283</span>
-      </a>
+      <div class="header-actions">
+        <a
+          href="https://wa.me/212629703283"
+          target="_blank"
+          class="btn-phone-header"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.4.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.734-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.863-9.755.002-2.609-1.012-5.062-2.859-6.91-1.847-1.848-4.301-2.86-6.911-2.861-5.442 0-9.866 4.372-9.869 9.756-.002 1.763.473 3.486 1.378 5.022l-.998 3.645 3.738-.97-.164.218z"
+            />
+          </svg>
+          <span>تواصل واتساب</span>
+        </a>
+        <button class="mobile-menu-toggle" id="mobileMenuBtn" aria-label="فتح القائمة" type="button">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </header>
 
     <section class="hero">
@@ -5610,9 +5801,58 @@ window.addEventListener('scroll', function() {
         });
     }
 
+    // ========================================================
+    // نظام القائمة الذكية للهواتف (Mobile Drawer Navigation)
+    // ========================================================
+    function initMobileMenu() {
+        const toggleBtn = document.getElementById('mobileMenuBtn');
+        const nav = document.getElementById('mainNav');
+        if (!toggleBtn || !nav) return;
+
+        function toggleMenu() {
+            const isOpen = nav.classList.contains('open');
+            if (isOpen) {
+                nav.classList.remove('open');
+                toggleBtn.classList.remove('active');
+                document.body.style.overflow = '';
+            } else {
+                nav.classList.add('open');
+                toggleBtn.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMenu();
+        });
+
+        // إغلاق القائمة تلقائياً عند الضغط على أي رابط بداخلها
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (nav.classList.contains('open')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // إغلاق القائمة عند النقر خارجها أو الضغط على Escape
+        document.addEventListener('click', (e) => {
+            if (nav.classList.contains('open') && !nav.contains(e.target) && !toggleBtn.contains(e.target)) {
+                toggleMenu();
+            }
+        });
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && nav.classList.contains('open')) {
+                toggleMenu();
+            }
+        });
+    }
+
     // تشغيل الميزات عند اكتمال تحميل الصفحة
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
+            initMobileMenu();
             initColorGradingSlider();
             initPortfolioAndLightbox();
             initCostEstimator();
@@ -5620,6 +5860,7 @@ window.addEventListener('scroll', function() {
             initMreLanguageSwitcher();
         });
     } else {
+        initMobileMenu();
         initColorGradingSlider();
         initPortfolioAndLightbox();
         initCostEstimator();
