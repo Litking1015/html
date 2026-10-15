@@ -887,6 +887,50 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
               .card-info h3 { font-size: 1.15rem; margin-top: 5px; margin-bottom: 10px; line-height: 1.4; }
               .card-info span { background-color: rgba(255, 74, 28, 0.1); color: var(--accent-color); font-size: 0.8rem; font-weight: 700; padding: 4px 10px; border-radius: 4px; display: inline-block; }
 
+              .grading-stat {
+                  background: rgba(255, 255, 255, 0.04);
+                  border: 1px solid rgba(255, 255, 255, 0.08);
+                  border-radius: 14px;
+                  padding: 18px 25px;
+                  text-align: center;
+                  backdrop-filter: blur(10px);
+                  -webkit-backdrop-filter: blur(10px);
+                  flex: 1;
+                  min-width: 250px;
+                  max-width: 320px;
+                  transition: transform 0.3s ease, border-color 0.3s ease;
+              }
+              .grading-stat:hover {
+                  transform: translateY(-4px);
+                  border-color: rgba(255, 74, 28, 0.3);
+              }
+              .stat-num {
+                  display: block;
+                  color: var(--accent-color);
+                  font-family: 'Syne', sans-serif;
+                  font-weight: 800;
+                  font-size: 1.1rem;
+                  margin-bottom: 5px;
+              }
+              .stat-desc {
+                  color: var(--text-muted);
+                  font-size: 0.85rem;
+                  line-height: 1.5;
+              }
+              @media (max-width: 768px) {
+                  .comparison-container {
+                      height: 320px;
+                  }
+                  .comp-badge {
+                      font-size: 0.72rem;
+                      padding: 5px 12px;
+                      bottom: 12px;
+                  }
+                  .comp-badge-after { right: 10px; }
+                  .comp-badge-before { left: 10px; }
+                  .handle-button { width: 38px; height: 38px; }
+              }
+
               /* --- جديد: نظام حماية الصور من التحميل (Image Shield) --- */
               .image-shield-overlay {
                   position: absolute;
@@ -1085,8 +1129,9 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         <a href="#process">سير العمل</a>
         <a href="#pricing">الأسعار</a>
         <a href="#templates">قوالب</a>
+        <a href="#grading">التلوين</a>
         <a href="#portfolio">أعمالي</a>
-        <a href="#contact">التواصل</a>
+        <a href="#contactSection">التواصل</a>
       </nav>
       <a
         href="https://wa.me/212629703283"
@@ -1524,14 +1569,84 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         </div>
     </div>
 
+    <!-- ========================================================
+         قسم المقارنة السينمائية: قبل وبعد التلوين (Before/After)
+         ======================================================== -->
+    <section class="color-grading-showcase" id="grading">
+      <div class="grading-glow"></div>
+      <center>
+        <h2 class="section-title">المقارنة السينمائية: قبل وبعد التلوين</h2>
+        <p class="section-subtitle" style="max-width: 650px; margin: -20px auto 35px; color: var(--text-muted); font-size: 1.05rem;">
+          حرّك المؤشر لمشاهدة التحول المذهل بين اللقطة الخام المسطحة (LOG Footage) والنتيجة بعد تصحيح الألوان السينمائي الفاخر في DaVinci Resolve.
+        </p>
+      </center>
+
+      <div class="comparison-container" id="comparisonSlider">
+        <!-- الصورة بعد التلوين الكامل -->
+        <div class="comp-image comp-after">
+          <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?q=80&w=1920&auto=format&fit=crop" alt="سينمائي بعد التلوين" />
+          <span class="comp-badge comp-badge-after">✨ بعد التلوين السينمائي (Color Graded)</span>
+        </div>
+
+        <!-- الصورة قبل التلوين (الخام LOG) -->
+        <div class="comp-image comp-before" id="compBefore">
+          <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?q=80&w=1920&auto=format&fit=crop" alt="خام قبل التلوين" class="log-simulation-img" />
+          <span class="comp-badge comp-badge-before">🎥 اللقطة الخام المسطحة (Flat LOG)</span>
+        </div>
+
+        <!-- مقبض السحب التفاعلي -->
+        <div class="comp-handle" id="compHandle">
+          <div class="handle-button">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="white">
+              <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="grading-features">
+        <div class="grading-stat">
+          <span class="stat-num">DaVinci Resolve Studio</span>
+          <span class="stat-desc">بيئة التلوين السينمائي المعيارية في السينما العالمية</span>
+        </div>
+        <div class="grading-stat">
+          <span class="stat-num">10-Bit Color Science</span>
+          <span class="stat-desc">تدرجات ألوان فائقة النعومة بدون أي تكسر أو تشويش</span>
+        </div>
+        <div class="grading-stat">
+          <span class="stat-num">Custom Tailored LUTs</span>
+          <span class="stat-desc">بصمة وهوية بصرية سينمائية مخصصة لكل علامة تجارية</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         معرض الأعمال الاحترافي مع الفلترة التفاعلية والمشغل الداخلي
+         ======================================================== -->
     <section class="portfolio" id="portfolio">
-      <center><h2 class="section-title">معرض الأعمال الاحترافي</h2></center>
+      <center>
+        <h2 class="section-title">معرض الأعمال الاحترافي</h2>
+        <p class="section-subtitle" style="color: var(--text-muted); max-width: 600px; margin: -20px auto 10px; font-size: 1.05rem;">
+          انقر على أي عمل لمشاهدته فوراً بجودة عالية داخل مشغلنا السينمائي المدمج:
+        </p>
+      </center>
+
+      <!-- أزرار التصنيف والفلترة السريعة -->
+      <div class="portfolio-filters">
+        <button class="filter-btn active" data-filter="all">جميع الأعمال</button>
+        <button class="filter-btn" data-filter="ads">إعلانات تجارية</button>
+        <button class="filter-btn" data-filter="realestate">تصوير عقاري</button>
+        <button class="filter-btn" data-filter="events">تغطيات وافتتاحات</button>
+      </div>
 
       <div class="portfolio-grid">
         <a
           href="http://www.youtube.com/watch?v=QBYhDwN2Ky0"
           target="_blank"
           class="portfolio-card"
+          data-video-id="QBYhDwN2Ky0"
+          data-category="ads"
+          data-title='فيديو إعلاني لوكالة "Red Med Cars" لكراء السيارات بمكناس والدريوش'
         >
           <div class="thumbnail-container">
             <div class="play-overlay">▶</div>
@@ -1552,6 +1667,9 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
           href="https://www.youtube.com/watch?v=wegLioS0g6Q"
           target="_blank"
           class="portfolio-card"
+          data-video-id="wegLioS0g6Q"
+          data-category="realestate"
+          data-title="فيديو ترويجي لعرض عقاري استراتيجي بجماعة امطالسا"
         >
           <div class="thumbnail-container">
             <div class="play-overlay">▶</div>
@@ -1570,6 +1688,9 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
           href="https://www.youtube.com/watch?v=uV1oAnJbJ-8"
           target="_blank"
           class="portfolio-card"
+          data-video-id="uV1oAnJbJ-8"
+          data-category="events"
+          data-title='فيديو افتتاح محل "بيت الهدايا - Gift House" بالدريوش'
         >
           <div class="thumbnail-container">
             <div class="play-overlay">▶</div>
@@ -1588,6 +1709,9 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
           href="https://www.youtube.com/watch?v=Vr5n4iYUlRc"
           target="_blank"
           class="portfolio-card"
+          data-video-id="Vr5n4iYUlRc"
+          data-category="ads events"
+          data-title="فيديو ترويجي لافتتاح فرع شركة BRICO MIM بالدريوش"
         >
           <div class="thumbnail-container">
             <div class="play-overlay">▶</div>
@@ -1606,6 +1730,9 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
           href="https://youtu.be/BrkKEQtdX_U"
           target="_blank"
           class="portfolio-card"
+          data-video-id="BrkKEQtdX_U"
+          data-category="events"
+          data-title="بوتيك جمال المرأة بالدريوش"
         >
           <div class="thumbnail-container">
             <div class="play-overlay">▶</div>
@@ -1624,12 +1751,14 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
           href="https://youtu.be/8zPtamllifc"
           target="_blank"
           class="portfolio-card"
+          data-video-id="8zPtamllifc"
+          data-category="events"
+          data-title="فيديو تغطية لافتتاح عيادة للطب العام بالدريوش"
         >
           <div class="thumbnail-container">
             <div class="play-overlay">▶</div>
             <img
               src="https://img.youtube.com/vi/8zPtamllifc/maxresdefault.jpg"
-              alt="إعلان تجاري لمحل هواتف"
               alt="تغطية افتتاح عيادة طب عام بالدريوش"
             />
           </div>
@@ -3098,6 +3227,187 @@ window.addEventListener('scroll', function() {
         wpBtn.querySelector('span').textContent = "تأكيد وتحميل الفاتورة عبر واتساب";
         // --- جديد: إعادة تفعيل زر التحقق ---
         document.getElementById('verifyCodeBtn').disabled = false;
+    }
+</script>
+
+    <!-- ========================================================
+         نافذة مشغل الفيديو السينمائي المدمج (Video Lightbox Modal)
+         ======================================================== -->
+    <div id="video-lightbox-modal" role="dialog" aria-modal="true">
+      <div class="lightbox-container">
+        <button class="lightbox-close-btn" id="closeLightboxBtn" title="إغلاق">✕</button>
+        <div class="lightbox-video-wrap">
+          <iframe id="lightboxIframe" src="" title="مشغل الفيديو" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div id="fileNoticeBanner">
+          ℹ️ <b>تنبيه فني:</b> يوتيوب يتطلب تشغيل الموقع عبر خادم ويب (مثل Live Server أو رابط الموقع المنشور) ليعمل المشغل المضمن بلا قيود (Error 153). إذا كنت تتصفح محلياً عبر <code>file://</code>، يمكنك النقر على <b>"مشاهدة على YouTube ↗"</b> لفتح الفيديو مباشرة.
+        </div>
+        <div class="lightbox-details">
+          <h3 class="lightbox-title" id="lightboxTitle">معاينة العمل السينمائي</h3>
+          <div class="lightbox-actions">
+            <a href="https://www.youtube.com" target="_blank" class="lightbox-btn-yt" id="lightboxYtBtn">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>مشاهدة على YouTube ↗</span>
+            </a>
+            <a href="https://wa.me/212629703283" target="_blank" class="lightbox-btn-order" id="lightboxOrderBtn">
+              <span>طلب فيديو إعلاني مماثل</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.4.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.734-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.863-9.755.002-2.609-1.012-5.062-2.859-6.91-1.847-1.848-4.301-2.86-6.911-2.861-5.442 0-9.866 4.372-9.869 9.756-.002 1.763.473 3.486 1.378 5.022l-.998 3.645 3.738-.97-.164.218z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<script>
+    // ========================================================
+    // سلايدر مقارنة التلوين السينمائي (Before/After Slider)
+    // ========================================================
+    function initColorGradingSlider() {
+        const container = document.getElementById('comparisonSlider');
+        const handle = document.getElementById('compHandle');
+        if (!container || !handle) return;
+
+        let isDragging = false;
+
+        function updateSlider(clientX) {
+            const rect = container.getBoundingClientRect();
+            let posX = clientX - rect.left;
+            if (posX < 0) posX = 0;
+            if (posX > rect.width) posX = rect.width;
+            
+            const percent = Math.max(0, Math.min(100, (posX / rect.width) * 100));
+            container.style.setProperty('--slider-pos', percent + '%');
+        }
+
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            updateSlider(e.clientX);
+        });
+
+        window.addEventListener('mouseup', () => { isDragging = false; });
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            updateSlider(e.clientX);
+        });
+
+        // دعم الشاشات اللمسية (الهواتف والأجهزة اللوحية)
+        container.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            if (e.touches && e.touches[0]) updateSlider(e.touches[0].clientX);
+        }, { passive: true });
+
+        window.addEventListener('touchend', () => { isDragging = false; });
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging || !e.touches || !e.touches[0]) return;
+            updateSlider(e.touches[0].clientX);
+        }, { passive: true });
+    }
+
+    // ========================================================
+    // نظام فلترة معرض الأعمال ومودال الفيديو السينمائي
+    // ========================================================
+    function initPortfolioAndLightbox() {
+        // 1. فلترة وتصنيف بطاقات المعرض
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.portfolio-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.getAttribute('data-filter');
+
+                cards.forEach(card => {
+                    const category = card.getAttribute('data-category') || '';
+                    if (filter === 'all' || category.includes(filter)) {
+                        card.style.display = 'block';
+                        requestAnimationFrame(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0) scale(1)';
+                        });
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(15px) scale(0.96)';
+                        setTimeout(() => {
+                            if (card.style.opacity === '0') card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // 2. مشغل الفيديو الداخلي (Video Lightbox)
+        const modal = document.getElementById('video-lightbox-modal');
+        const iframe = document.getElementById('lightboxIframe');
+        const titleEl = document.getElementById('lightboxTitle');
+        const closeBtn = document.getElementById('closeLightboxBtn');
+        const orderBtn = document.getElementById('lightboxOrderBtn');
+        const ytBtn = document.getElementById('lightboxYtBtn');
+        const noticeBanner = document.getElementById('fileNoticeBanner');
+
+        // كشف ما إذا كان الموقع مفتوحاً محلياً ببروتوكول file://
+        if (noticeBanner && window.location.protocol === 'file:') {
+            noticeBanner.style.display = 'block';
+        }
+
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                const videoId = card.getAttribute('data-video-id');
+                if (!videoId) return;
+
+                e.preventDefault();
+                const title = card.getAttribute('data-title') || 'معاينة العمل';
+                if (titleEl) titleEl.textContent = title;
+                
+                // استخدام نطاق youtube-nocookie ومعلمات التشغيل المحدثة
+                iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1`;
+                
+                if (ytBtn) {
+                    ytBtn.href = `https://www.youtube.com/watch?v=${videoId}`;
+                }
+
+                if (orderBtn) {
+                    const msg = encodeURIComponent(`مرحباً أسامة، أود الاستفسار وطلب فيديو إعلاني باحترافية مشابهة لعمل: "${title}"`);
+                    orderBtn.href = `https://wa.me/212629703283?text=${msg}`;
+                }
+
+                modal.style.display = 'flex';
+                requestAnimationFrame(() => modal.classList.add('active'));
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                iframe.src = ''; // إيقاف صوت وتشغيل الفيديو فوراً
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+        });
+    }
+
+    // تشغيل الميزات عند اكتمال تحميل الصفحة
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            initColorGradingSlider();
+            initPortfolioAndLightbox();
+        });
+    } else {
+        initColorGradingSlider();
+        initPortfolioAndLightbox();
     }
 </script>
 
