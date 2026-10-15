@@ -74,45 +74,243 @@
 .maintenance-logo span { color: var(--accent-color); }
 .maintenance-title { font-size: 2.2rem; color: #fff; margin-bottom: 15px; }
 .maintenance-text { font-size: 1.1rem; color: var(--text-muted); max-width: 550px; line-height: 1.8; }
-      /* ========================================================
-   كود التجاوب المخصص للهواتف والأجهزة الذكية فقط (Media Queries)
-   لا يغير أي شيء في مظهر الحاسوب، فقط ينسق الهواتف بشكل احترافي
-   ======================================================== */
+/* ============================================================
+   📱 التجاوب الشامل للهواتف – Mobile First Responsive Design
+   يغطي: الهيدر، الهيرو، الأقسام، البطاقات، الشات، الفورم
+   ============================================================ */
+
+/* ---- 768px: الهواتف والتابلت الصغير ---- */
 @media screen and (max-width: 768px) {
-    /* تعديل الهيدر وقائمة التنقل */
-    /* تعديل الهيدر وقائمة التنقل في الهاتف ليصبح نحيفاً ومثالياً */
+
+    /* === الهيدر === */
     header {
-        padding: 10px 4%; /* تقليل الحشو لجعله نحيفاً */
-        flex-direction: row !important; /* جعل الشعار والزر بجانب بعضهما أفقياً */
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    /* تصغير حجم الشعار ليناسب شاشة الهاتف */
-    .logo {
-        font-size: 20px !important;
-    }
-    
-    /* جعل أزرار التنقل صغيرة ومصطفة بشكل لا يأخذ مساحة كبيرة */
-    nav {
-        display: flex;
+        padding: 10px 5% !important;
         flex-direction: row !important;
-        gap: 8px;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 8px !important;
     }
-    
-    nav a {
-        margin: 0 4px !important;
-        font-size: 0.75rem !important; /* تصغير الخط */
-        display: none; /* (اختياري) يمكنك تفعيلها إذا كنت تريد إخفاء الروابط والاعتماد على زر الواتساب فقط */
-    }
-    
-    /* تنسيق زر الاتصال في الهيدر ليكون متناسقاً ونحيفاً */
+    .logo { font-size: 18px !important; }
+    nav { gap: 6px !important; }
+    nav a { display: none !important; }
     .btn-phone-header {
-        padding: 6px 12px !important;
-        font-size: 0.8rem !important;
+        padding: 7px 12px !important;
+        font-size: 0.75rem !important;
         margin-top: 0 !important;
     }
+
+    /* === القسم الرئيسي Hero === */
+    .hero {
+        padding: 100px 6% 60px !important;
+        height: auto !important;
+        min-height: 100svh !important;
+    }
+    .hero h1 {
+        font-size: 2.2rem !important;
+        line-height: 1.25 !important;
+        margin-bottom: 16px !important;
+    }
+    .hero p {
+        font-size: 1rem !important;
+        line-height: 1.7 !important;
+        margin-bottom: 28px !important;
+    }
+    .hero-buttons {
+        flex-direction: column !important;
+        gap: 12px !important;
+        width: 100% !important;
+    }
+    .hero-buttons a,
+    .hero-buttons button {
+        width: 100% !important;
+        text-align: center !important;
+        justify-content: center !important;
+    }
+    .hero-stats {
+        flex-wrap: wrap !important;
+        gap: 16px !important;
+        margin-top: 30px !important;
+    }
+    .hero-stat { width: calc(50% - 8px) !important; }
+
+    /* === عناوين الأقسام العامة === */
+    .section-title, h2 {
+        font-size: 1.8rem !important;
+        line-height: 1.3 !important;
+    }
+    .section-subtitle {
+        font-size: 0.95rem !important;
+        margin-bottom: 30px !important;
+    }
+
+    /* === أقسام عامة: padding === */
+    section,
+    .services, .portfolio, .process, .pricing,
+    .contact, .testimonials, .templates,
+    .why-us, .partners-section, .cta-section,
+    .mre-section {
+        padding: 60px 5% !important;
+    }
+
+    /* === شبكة الخدمات / البطاقات === */
+    .services-grid,
+    .why-us-grid,
+    .templates-grid,
+    .testimonials-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+
+    /* === معرض الأعمال === */
+    .portfolio-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    .portfolio-item { border-radius: 12px !important; }
+
+    /* === خطوات العمل Process === */
+    .process-steps {
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+    .process-step { width: 100% !important; }
+    .step-connector { display: none !important; }
+
+    /* === الأسعار Pricing === */
+    .pricing-grid,
+    .plans-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    .pricing-card, .plan-card {
+        padding: 25px 20px !important;
+    }
+    .pricing-switcher {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+
+    /* === قسم التواصل Form === */
+    form {
+        padding: 28px 20px !important;
+        border-radius: 18px !important;
+    }
+    .btn-submit-container {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    .btn-whatsapp-premium,
+    .btn-email-secondary {
+        flex: none !important;
+        width: 100% !important;
+    }
+    .contact-methods {
+        flex-direction: column !important;
+        gap: 12px !important;
+        align-items: center !important;
+    }
+    .contact-item {
+        width: 100% !important;
+        max-width: 360px !important;
+        justify-content: flex-start !important;
+    }
+
+    /* === CTA Section === */
+    .cta-content {
+        padding: 35px 20px !important;
+        border-radius: 20px !important;
+    }
+    .cta-content h2 { font-size: 1.8rem !important; }
+    .cta-content p { font-size: 1rem !important; margin-bottom: 25px !important; }
+    .cta-btn {
+        padding: 15px 35px !important;
+        font-size: 1rem !important;
+    }
+
+    /* === شركاء النجاح === */
+    .partners-grid {
+        gap: 14px !important;
+    }
+    .partner-card {
+        padding: 14px 22px !important;
+        font-size: 1rem !important;
+    }
+
+    /* === شهادات العملاء === */
+    .testimonial-card {
+        padding: 25px 18px !important;
+    }
+
+    /* === قسم الجالية MRE === */
+    .mre-lang-switcher {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        justify-content: center !important;
+    }
+    .mre-lang-btn {
+        padding: 8px 18px !important;
+        font-size: 0.85rem !important;
+    }
+    .mre-content-grid,
+    .mre-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+
+    /* === مقارنة الألوان Slider === */
+    .color-grading-slider-wrapper,
+    .comparison-container {
+        border-radius: 12px !important;
+    }
+
+    /* === القوالب Templates === */
+    .template-card { border-radius: 14px !important; }
+    .template-info { padding: 18px !important; }
+    .template-footer {
+        flex-direction: column !important;
+        gap: 12px !important;
+        align-items: flex-start !important;
+    }
+
+    /* === المساعد الذكي Chat === */
+    .ai-chat-widget {
+        bottom: 18px !important;
+        right: 18px !important;
+    }
+    .ai-chat-window {
+        position: fixed !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 85svh !important;
+        border-radius: 24px 24px 0 0 !important;
+        max-height: 85svh !important;
+    }
+    .chat-callout {
+        right: 0 !important;
+        width: 220px !important;
+        font-size: 0.85rem !important;
+    }
+
+    /* === Footer === */
+    footer {
+        padding: 25px 5% !important;
+        font-size: 0.8rem !important;
+        line-height: 2 !important;
+    }
+    footer a { display: block; margin: 4px 0 !important; }
+}
+
+/* ---- 480px: الهواتف الصغيرة جداً ---- */
+@media screen and (max-width: 480px) {
+    .logo { font-size: 16px !important; }
+    .hero h1 { font-size: 1.75rem !important; }
+    .section-title, h2 { font-size: 1.5rem !important; }
+    .ai-chat-window { height: 90svh !important; }
+    .qr-chip { font-size: 0.72rem !important; padding: 5px 10px !important; }
+    .ai-chat-header { padding: 12px !important; }
+    .ai-status-info h4 { font-size: 0.85rem !important; }
 }
       .contact { padding: 100px 8%; background: radial-gradient(circle at center, #141414 0%, #050505 100%); text-align: center; position: relative; overflow: hidden; border-top: 1px solid #161616; }
 .cta-glow-blur { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: #ff4a1c; filter: blur(140px); opacity: 0.15; pointer-events: none; z-index: 1; }
