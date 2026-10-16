@@ -187,35 +187,41 @@
 
     /* === القسم الرئيسي Hero === */
     .hero {
-        padding: 110px 6% 60px !important;
+        padding: 120px 6% 70px !important;
         height: auto !important;
         min-height: 100svh !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
     }
     .hero h1 {
-        font-size: 1.95rem !important;
+        font-size: 2rem !important;
         line-height: 1.3 !important;
         margin-bottom: 18px !important;
         letter-spacing: -0.5px !important;
     }
     .hero h1 span {
-        display: inline-block !important;
+        display: block !important;
+        margin-bottom: 4px !important;
     }
     .hero p {
-        font-size: 0.98rem !important;
-        line-height: 1.75 !important;
-        margin-bottom: 28px !important;
+        font-size: 1rem !important;
+        line-height: 1.8 !important;
+        margin-bottom: 32px !important;
         color: #bbb !important;
+        max-width: 100% !important;
     }
     .hero .btn {
-        width: 100% !important;
-        max-width: 300px !important;
-        padding: 16px 28px !important;
+        display: inline-block !important;
+        width: auto !important;
+        min-width: 220px !important;
+        padding: 16px 36px !important;
         font-size: 1.05rem !important;
         text-align: center !important;
-        box-shadow: 0 10px 30px rgba(255, 74, 28, 0.3) !important;
+        border-radius: 50px !important;
+        box-shadow: 0 12px 32px rgba(255, 74, 28, 0.38) !important;
     }
 
     /* === عناوين الأقسام العامة === */
@@ -457,40 +463,116 @@
         justify-content: flex-start !important;
     }
 
-    /* === المساعد الذكي ونافذة الشات === */
+    /* ===================================================
+       💬 المساعد الذكي - Bottom Sheet كامل الشاشة
+       نافذة الشات تظهر كـ Bottom Sheet تصعد من أسفل
+       =================================================== */
     .ai-chat-widget {
-        bottom: 16px !important;
+        bottom: 20px !important;
         right: 16px !important;
+        z-index: 10000 !important;
     }
     .ai-chat-trigger {
-        width: 52px !important;
-        height: 52px !important;
+        width: 56px !important;
+        height: 56px !important;
+        box-shadow: 0 8px 28px rgba(255, 74, 28, 0.55) !important;
     }
     .ai-chat-trigger svg {
-        width: 22px !important;
-        height: 22px !important;
+        width: 24px !important;
+        height: 24px !important;
     }
+    /* نافذة الشات: Bottom Sheet يصعد من أسفل الشاشة */
     .ai-chat-window {
         position: fixed !important;
         bottom: 0 !important;
         right: 0 !important;
         left: 0 !important;
+        top: auto !important;
         width: 100% !important;
-        height: 85svh !important;
+        height: 82svh !important;
+        max-height: 82svh !important;
+        min-height: 400px !important;
         border-radius: 22px 22px 0 0 !important;
-        max-height: 85svh !important;
+        z-index: 100000 !important;
+        /* الخدعة: نخفيه بتحريكه للأسفل بدل opacity */
+        transform: translateY(110%) !important;
+        opacity: 1 !important;
+        pointer-events: none !important;
+        transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 74, 28, 0.06) !important;
     }
+    .ai-chat-window.open {
+        transform: translateY(0) !important;
+        pointer-events: auto !important;
+    }
+    /* هيدر الشات مع مقبض السحب */
+    .ai-chat-header {
+        padding: 14px 14px 12px !important;
+        position: relative !important;
+    }
+    /* مقبض السحب (drag handle) في أعلى النافذة */
+    .ai-chat-header::before {
+        content: '' !important;
+        position: absolute !important;
+        top: 6px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 38px !important;
+        height: 4px !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+        border-radius: 4px !important;
+    }
+    /* منطقة الرسائل */
+    .ai-chat-messages {
+        padding: 12px 14px !important;
+        gap: 10px !important;
+    }
+    .msg {
+        font-size: 0.88rem !important;
+        padding: 10px 14px !important;
+        max-width: 88% !important;
+    }
+    /* حقل الإدخال */
+    .ai-chat-input-area {
+        padding: 10px 12px !important;
+        padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+        gap: 7px !important;
+    }
+    .ai-chat-input-area input {
+        font-size: 1rem !important;
+        padding: 12px 14px !important;
+        border-radius: 12px !important;
+    }
+    .ai-chat-input-area button {
+        width: 44px !important;
+        height: 44px !important;
+        border-radius: 12px !important;
+        flex-shrink: 0 !important;
+    }
+    /* الاقتراحات السريعة */
+    .quick-replies-bar {
+        padding: 6px 10px !important;
+        gap: 6px !important;
+        overflow-x: auto !important;
+    }
+    .qr-chip {
+        font-size: 0.78rem !important;
+        padding: 6px 12px !important;
+        flex-shrink: 0 !important;
+    }
+    /* فقاعة الترحيب */
     .chat-callout {
         right: 0 !important;
-        bottom: 70px !important;
-        width: 200px !important;
-        font-size: 0.8rem !important;
+        bottom: 72px !important;
+        width: 210px !important;
+        font-size: 0.82rem !important;
         padding: 10px 14px !important;
     }
 
     /* === أداة الصوت السينمائي (Sensory Widget) === */
+    /* نرفعها فوق زر الشات لتجنب التداخل */
     .sensory-widget-container {
-        bottom: 16px !important;
+        bottom: 88px !important;
         left: 16px !important;
     }
     .sensory-btn {
@@ -501,9 +583,55 @@
         font-size: 0.72rem !important;
     }
 
+    /* === Toast Notifications === */
+    .custom-toast {
+        min-width: unset !important;
+        width: calc(100vw - 32px) !important;
+        font-size: 0.88rem !important;
+        padding: 12px 16px !important;
+    }
+
+    /* === Lightbox الفيديو على الهاتف === */
+    #video-lightbox-modal {
+        padding: 0 !important;
+        align-items: flex-end !important;
+    }
+    .lightbox-container {
+        border-radius: 20px 20px 0 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    .lightbox-details {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 14px 16px !important;
+        gap: 12px !important;
+    }
+    .lightbox-title {
+        font-size: 0.92rem !important;
+    }
+    .lightbox-actions {
+        width: 100% !important;
+        justify-content: space-between !important;
+    }
+    .lightbox-btn-yt,
+    .lightbox-btn-order {
+        flex: 1 !important;
+        justify-content: center !important;
+        font-size: 0.84rem !important;
+        padding: 10px 10px !important;
+    }
+    .lightbox-close-btn {
+        top: 10px !important;
+        left: 10px !important;
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 18px !important;
+    }
+
     /* === الفوتر Footer === */
     footer {
-        padding: 30px 5% 90px !important; /* مساحة إضافية حتى لا تغطيه أيقونات الشات */
+        padding: 30px 5% 90px !important;
         font-size: 0.82rem !important;
         line-height: 1.9 !important;
     }
@@ -512,13 +640,18 @@
 /* ---- 480px: الهواتف الصغيرة جداً ---- */
 @media screen and (max-width: 480px) {
     .logo { font-size: 17px !important; }
-    .btn-phone-header span { display: none; } /* يظهر فقط أيقونة الواتساب لتوفير المساحة */
+    .btn-phone-header span { display: none; }
     .btn-phone-header { padding: 8px !important; border-radius: 50% !important; }
     .hero h1 { font-size: 1.65rem !important; }
+    .hero p { font-size: 0.92rem !important; }
     .section-title, h2 { font-size: 1.45rem !important; }
-    .ai-chat-window { height: 90svh !important; }
+    /* الشات: شاشة أكبر على الهواتف الصغيرة */
+    .ai-chat-window { height: 88svh !important; max-height: 88svh !important; }
     .qr-chip { font-size: 0.72rem !important; padding: 5px 10px !important; }
     .comparison-container { height: 210px !important; }
+    .estimator-header h3 { font-size: 1.6rem !important; }
+    .pricing-switch-btn { padding: 9px 14px !important; font-size: 0.78rem !important; }
+    .pill-btn { font-size: 0.76rem !important; padding: 8px 11px !important; }
 }
       .contact { padding: 100px 8%; background: radial-gradient(circle at center, #141414 0%, #050505 100%); text-align: center; position: relative; overflow: hidden; border-top: 1px solid #161616; }
 .cta-glow-blur { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: #ff4a1c; filter: blur(140px); opacity: 0.15; pointer-events: none; z-index: 1; }
@@ -794,6 +927,25 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
     transform: translateY(0) scale(1) !important;
     pointer-events: auto !important;
     box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(255,74,28,0.1) !important;
+}
+
+/* --- Backdrop خلف الشات على الهاتف --- */
+.chat-mobile-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 99998;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+@media screen and (max-width: 768px) {
+    .chat-mobile-backdrop.show {
+        display: block;
+        opacity: 1;
+    }
 }
 
 /* --- Character counter for input --- */
@@ -4377,6 +4529,9 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         </div>
     </form>
 </section>
+
+<!-- Backdrop للشات على الهاتف -->
+<div class="chat-mobile-backdrop" id="chatBackdrop" onclick="toggleChatWindow()"></div>
 
 <div class="ai-chat-widget">
     <div class="chat-callout" id="chatCallout">
