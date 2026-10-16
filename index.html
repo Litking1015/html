@@ -120,12 +120,15 @@
 
     /* === الهيدر وقائمة الهواتف الذكية === */
     header {
-        padding: 12px 5% !important;
+        top: 12px !important;
+        width: calc(100% - 24px) !important;
+        padding: 10px 18px !important;
         flex-direction: row !important;
         justify-content: space-between !important;
         align-items: center !important;
+        border-radius: 40px !important;
     }
-    .logo { font-size: 20px !important; }
+    .logo { font-size: 19px !important; }
     
     .mobile-menu-toggle {
         display: flex !important;
@@ -1112,34 +1115,52 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
                   z-index: 10;
               }
 
-              /* الهيدر وقائمة التنقل */
+              /* ========================================================
+                 تصميم الهيدر الزجاجي الفاخر العائم (Floating Glass Pill Header)
+                 ======================================================== */
               header {
                   display: flex;
                   justify-content: space-between;
                   align-items: center;
-                  padding: 15px 8%;
-                  background-color: rgba(13, 13, 13, 0.5); /* زيادة الشفافية */
-                  backdrop-filter: blur(18px); /* زيادة الضبابية */
-                  -webkit-backdrop-filter: blur(18px);
+                  padding: 10px 24px;
+                  background: rgba(15, 15, 15, 0.65);
+                  backdrop-filter: blur(24px);
+                  -webkit-backdrop-filter: blur(24px);
                   position: fixed;
-                  width: 100%;
-                  top: 0;
+                  top: 18px;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  width: calc(100% - 48px);
+                  max-width: 1320px;
                   z-index: 1000;
-                  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* حد أكثر وضوحاً */
-                  perspective: 1000px;
+                  border: 1px solid rgba(255, 255, 255, 0.1);
+                  border-radius: 50px;
+                  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+                  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+              }
+
+              /* تأثير الانكماش الفخم عند النزول */
+              header.scrolled {
+                  top: 10px;
+                  padding: 8px 20px;
+                  background: rgba(10, 10, 10, 0.88);
+                  border-color: rgba(255, 74, 28, 0.25);
+                  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 74, 28, 0.12);
               }
 
               /* هندسة شعار الـ 3D Perspective المطور */
               .logo-container {
                   perspective: 500px;
-                  display: inline-block;
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 10px;
               }
 
               .logo {
                   font-family: 'Syne', sans-serif;
-                  font-size: 26px;
+                  font-size: 23px;
                   font-weight: 800;
-                  letter-spacing: 1px;
+                  letter-spacing: 0.5px;
                   color: var(--text-color);
                   text-decoration: none;
                   display: inline-block;
@@ -1157,36 +1178,66 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
               }
 
               .logo:hover {
-                  text-shadow: 0 5px 15px rgba(255, 74, 28, 0.4);
+                  text-shadow: 0 5px 15px rgba(255, 74, 28, 0.5);
               }
 
-              nav { display: flex; align-items: center; }
-              nav a { color: var(--text-color); text-decoration: none; margin-left: 20px; font-weight: 700; transition: color 0.3s; font-size: 0.95rem; }
-              nav a:hover { color: var(--accent-color); }
+              /* شريط روابط التنقل بتصميم الحبوب الزجاجية */
+              nav { 
+                  display: flex; 
+                  align-items: center; 
+                  gap: 4px;
+                  background: rgba(255, 255, 255, 0.03);
+                  padding: 4px 8px;
+                  border-radius: 40px;
+                  border: 1px solid rgba(255, 255, 255, 0.05);
+              }
+              nav a { 
+                  color: #ccc; 
+                  text-decoration: none; 
+                  padding: 6px 12px;
+                  border-radius: 25px;
+                  font-weight: 600; 
+                  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); 
+                  font-size: 0.86rem; 
+                  white-space: nowrap;
+              }
+              nav a:hover { 
+                  color: #fff; 
+                  background: rgba(255, 255, 255, 0.08);
+                  transform: translateY(-1px);
+              }
+              nav a.active-link {
+                  color: white;
+                  background: var(--accent-color);
+                  box-shadow: 0 4px 15px rgba(255, 74, 28, 0.35);
+              }
 
               /* زر الواتساب الاحترافي السريع في الهيدر */
               .btn-phone-header {
-                  background-color: transparent;
-                  color: var(--text-color);
-                  border: 1px solid var(--whatsapp-color);
-                  padding: 8px 18px;
-                  border-radius: 5px;
-                  font-size: 0.95rem;
+                  background: rgba(37, 211, 102, 0.12);
+                  color: #fff;
+                  border: 1px solid rgba(37, 211, 102, 0.35);
+                  padding: 8px 16px;
+                  border-radius: 30px;
+                  font-size: 0.86rem;
                   font-weight: 700;
                   text-decoration: none;
-                  transition: all 0.3s ease;
+                  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
                   direction: ltr;
                   display: inline-flex;
                   align-items: center;
                   gap: 8px;
+                  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.15);
               }
-              .btn-phone-header svg { width: 16px; height: 16px; fill: var(--whatsapp-color); transition: fill 0.3s; }
+              .btn-phone-header svg { width: 15px; height: 15px; fill: #25d366; transition: all 0.3s ease; }
               .btn-phone-header:hover {
                   background-color: var(--whatsapp-color);
                   color: white;
-                  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+                  border-color: var(--whatsapp-color);
+                  transform: translateY(-2px);
+                  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.4);
               }
-              .btn-phone-header:hover svg { fill: white; }
+              .btn-phone-header:hover svg { fill: white; transform: rotate(15deg); }
 
               /* القسم الرئيسي */
               .hero {
@@ -6367,9 +6418,162 @@ window.addEventListener('scroll', function() {
         }
     }
 
+    // ========================================================
+    // 🎵 الموسيقى التصويرية السينمائية التوليدية (Procedural AI Cinematic Soundtrack)
+    // مولدة بالكامل بالذكاء الاصطناعي وبتقنية Web Audio API دون أي ملفات خارجية
+    // تقدم ألحاناً دافئة، أصوات Drone سينمائية، وسلماً موسيقياً هادئاً يمنح فخامة للموقع
+    // ========================================================
+    function initCinematicAudio() {
+        const toggleBtn = document.getElementById('sensoryToggleBtn');
+        const statusText = document.getElementById('sensoryStatusText');
+        const equalizer = document.getElementById('sensoryEqualizer');
+        if (!toggleBtn) return;
+
+        let audioCtx = null;
+        let isPlaying = false;
+        let masterGain = null;
+        let activeNodes = [];
+        let chordInterval = null;
+
+        // السلم الموسيقي السينمائي الهادئ (D Minor Cinematic Chords)
+        // ترددات نوتات الأوكتاف الدافئة: D, F, A, C, G
+        const chords = [
+            [73.42, 146.83, 220.00, 261.63, 349.23], // Dm7 (غموض سينمائي وفخامة)
+            [65.41, 130.81, 196.00, 261.63, 329.63], // Cmaj9 (أمل وهدوء بصري)
+            [58.27, 116.54, 174.61, 233.08, 349.23], // Bbmaj7 (دراما وتأمل)
+            [87.31, 174.61, 220.00, 261.63, 392.00]  // Fadd9 (اتساع وعظمة المشهد)
+        ];
+        let currentChordIndex = 0;
+
+        function startAudioEngine() {
+            try {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContextClass) return;
+                
+                audioCtx = new AudioContextClass();
+
+                // Master Gain للتحكم في مستوى الصوت (تم رفع المستوى ليكون مسموعاً وواضحاً وفخماً)
+                masterGain = audioCtx.createGain();
+                masterGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+                masterGain.gain.exponentialRampToValueAtTime(0.38, audioCtx.currentTime + 2); // مستوى مسموع وغني
+
+                // ضاغط ديناميكي (Dynamics Compressor) يمنع التشويش ويعطي امتلاءً سينمائياً
+                const compressor = audioCtx.createDynamicsCompressor();
+                compressor.threshold.setValueAtTime(-20, audioCtx.currentTime);
+                compressor.knee.setValueAtTime(15, audioCtx.currentTime);
+                compressor.ratio.setValueAtTime(4, audioCtx.currentTime);
+                compressor.attack.setValueAtTime(0.05, audioCtx.currentTime);
+                compressor.release.setValueAtTime(0.25, audioCtx.currentTime);
+
+                // فلتر الصوت السينمائي (تم توسيع التردد إلى 850Hz لسماع النغمات بوضوح تام مع الدفء)
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(850, audioCtx.currentTime);
+                filter.Q.setValueAtTime(1.5, audioCtx.currentTime);
+
+                // تأثير الفلتر التموجي الهادئ (Slow Filter Modulation)
+                const lfo = audioCtx.createOscillator();
+                const lfoGain = audioCtx.createGain();
+                lfo.frequency.setValueAtTime(0.08, audioCtx.currentTime); // دورة كل 12 ثانية
+                lfoGain.gain.setValueAtTime(220, audioCtx.currentTime);
+                lfo.connect(filter.frequency);
+                lfo.start();
+
+                filter.connect(compressor);
+                compressor.connect(masterGain);
+                masterGain.connect(audioCtx.destination);
+
+                // طبقة الـ Deep Sub-Bass Drone المستمرة
+                const subBass = audioCtx.createOscillator();
+                const subGain = audioCtx.createGain();
+                subBass.type = 'sine';
+                subBass.frequency.setValueAtTime(45.0, audioCtx.currentTime); // تردد بيز عميق وواضح
+                subGain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+                subBass.connect(filter);
+                subBass.start();
+                activeNodes.push(subBass, lfo);
+
+                // دالة تشغيل الترددات الموسيقية للوتر الحالي بتدرج وانسيابية
+                function playNextChord() {
+                    if (!isPlaying || !audioCtx) return;
+                    const chordFreqs = chords[currentChordIndex];
+                    currentChordIndex = (currentChordIndex + 1) % chords.length;
+
+                    chordFreqs.forEach((freq, i) => {
+                        const osc = audioCtx.createOscillator();
+                        const oscGain = audioCtx.createGain();
+
+                        // دمج موجات جيبية ومثلثية لملمس هوليوودي دافئ
+                        osc.type = (i % 2 === 0) ? 'sine' : 'triangle';
+                        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+                        // فك تناغم طفيف جداً (Micro-detuning) لإعطاء صوت كورال واسع (Stereo Chorus Feel)
+                        osc.detune.setValueAtTime((Math.random() - 0.5) * 10, audioCtx.currentTime);
+
+                        // هجوم صوتي ناعم ونهاية متلاشية بصوت مسموع وواضح
+                        const now = audioCtx.currentTime;
+                        const targetVol = 0.12 / (1 + (i * 0.25));
+                        oscGain.gain.setValueAtTime(0.0001, now);
+                        oscGain.gain.linearRampToValueAtTime(targetVol, now + 2.5);
+                        oscGain.gain.setValueAtTime(targetVol, now + 5.5);
+                        oscGain.gain.linearRampToValueAtTime(0.0001, now + 9.0);
+
+                        osc.connect(oscGain);
+                        oscGain.connect(filter);
+
+                        osc.start(now);
+                        osc.stop(now + 9.5);
+                    });
+                }
+
+                // تشغيل أول كورد والتكرار كل 7 ثوانٍ بتداخل سلس (Cross-Fade)
+                playNextChord();
+                chordInterval = setInterval(playNextChord, 7000);
+
+            } catch (err) {
+                console.warn('Audio Engine Notice:', err);
+            }
+        }
+
+        function stopAudioEngine() {
+            if (masterGain && audioCtx) {
+                const now = audioCtx.currentTime;
+                masterGain.gain.linearRampToValueAtTime(0.0001, now + 1.5);
+                setTimeout(() => {
+                    clearInterval(chordInterval);
+                    activeNodes.forEach(node => {
+                        try { node.stop(); node.disconnect(); } catch(e){}
+                    });
+                    activeNodes = [];
+                    if (audioCtx && audioCtx.state !== 'closed') {
+                        audioCtx.close();
+                    }
+                    audioCtx = null;
+                }, 1600);
+            } else {
+                clearInterval(chordInterval);
+            }
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                toggleBtn.classList.add('active');
+                if (statusText) statusText.textContent = 'شغال 🎶';
+                startAudioEngine();
+            } else {
+                toggleBtn.classList.remove('active');
+                if (statusText) statusText.textContent = 'إيقاف';
+                stopAudioEngine();
+            }
+        });
+    }
+
     // تشغيل الميزات عند اكتمال تحميل الصفحة
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
+            initCinematicAudio();
+            initFloatingHeader();
             initMobileMenu();
             initColorGradingSlider();
             initPortfolioAndLightbox();
@@ -6379,6 +6583,8 @@ window.addEventListener('scroll', function() {
             initDroneShootingMap();
         });
     } else {
+        initCinematicAudio();
+        initFloatingHeader();
         initMobileMenu();
         initColorGradingSlider();
         initPortfolioAndLightbox();
