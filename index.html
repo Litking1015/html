@@ -328,11 +328,13 @@
         transform: none !important;
         border-color: var(--accent-color) !important;
     }
+    .pricing-mode-switcher,
     .pricing-switcher {
         flex-wrap: wrap !important;
         gap: 8px !important;
         justify-content: center !important;
     }
+    .pricing-switch-btn,
     .switch-btn {
         padding: 10px 18px !important;
         font-size: 0.85rem !important;
@@ -3589,7 +3591,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
                 <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
                   <path d="M12.008.01c-6.608 0-11.95 5.34-11.95 11.947 0 2.107.546 4.152 1.587 5.956L0 24l6.19-1.624a11.895 11.895 0 005.818 1.503h.005c6.608 0 11.957-5.34 11.957-11.948 0-3.192-1.243-6.193-3.504-8.455C18.204 1.25 15.207.01 12.008.01z"/>
                 </svg>
-                <span>طلب هذا الععرض عبر واتساب</span>
+                <span>طلب هذا العرض عبر واتساب</span>
               </a>
             </div>
           </div>
@@ -6172,6 +6174,25 @@ window.addEventListener('scroll', function() {
     }
 
     // ========================================================
+    // نظام الهيدر العائم والزجاجي التفاعلي (Floating Glassmorphism Header)
+    // ========================================================
+    function initFloatingHeader() {
+        const header = document.querySelector('header');
+        if (!header) return;
+
+        const updateHeader = () => {
+            if (window.scrollY > 30) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        };
+
+        window.addEventListener('scroll', updateHeader, { passive: true });
+        updateHeader();
+    }
+
+    // ========================================================
     // نظام حاسبة الميزانية التفاعلية الفورية (Instant Cost Estimator)
     // ========================================================
     function initCostEstimator() {
@@ -6207,25 +6228,28 @@ window.addEventListener('scroll', function() {
             const sumVoice = document.getElementById('summaryVoice');
             const sumDelivery = document.getElementById('summaryDelivery');
 
-            if (sumType) sumType.textContent = details['optProjectType'] || '';
-            if (sumDuration) sumDuration.textContent = details['optDuration'] || '';
-            if (sumDrone) sumDrone.textContent = details['optDrone'] || '';
-            if (sumVoice) sumVoice.textContent = details['optVoice'] || '';
-            if (sumDelivery) sumDelivery.textContent = details['optDelivery'] || '';
+            if (sumType) sumType.textContent = details['optProjectType'] || 'غير محدد';
+            if (sumDuration) sumDuration.textContent = details['optDuration'] || 'غير محدد';
+            if (sumDrone) sumDrone.textContent = details['optDrone'] || 'غير محدد';
+            if (sumVoice) sumVoice.textContent = details['optVoice'] || 'غير محدد';
+            if (sumDelivery) sumDelivery.textContent = details['optDelivery'] || 'غير محدد';
 
             // صياغة رسالة الواتساب المجهزة بنقرة واحدة
-            const wpMessage = `*طلب عرض ميزانية فورية لمشروعي (LitKingLTK)* 🎥%0A` +
-                `━━━━━━━━━━━━━━━━━━━━%0A` +
-                `📌 *نوع المشروع:* ${encodeURIComponent(details['optProjectType'] || '')}%0A` +
-                `⏱️ *مدة الفيديو:* ${encodeURIComponent(details['optDuration'] || '')}%0A` +
-                `🛸 *تصوير الدرون:* ${encodeURIComponent(details['optDrone'] || '')}%0A` +
-                `🎙️ *التعليق الصوتي:* ${encodeURIComponent(details['optVoice'] || '')}%0A` +
-                `⚡ *موعد التسليم:* ${encodeURIComponent(details['optDelivery'] || '')}%0A` +
-                `━━━━━━━━━━━━━━━━━━━━%0A` +
-                `💰 *الميزانية التقديرية الحالية:* ${total} درهم مغربي%0A%0A` +
-                `مرحباً أسامة، أود مناقشة تفاصيل هذا العرض والبدء معكم!`;
+            const wpText = [
+                '*طلب تقدير ميزانية فورية (LitKingLTK)* 🎥',
+                '━━━━━━━━━━━━━━━━━━━━',
+                `📌 *نوع المشروع:* ${details['optProjectType'] || ''}`,
+                `⏱️ *مدة الفيديو:* ${details['optDuration'] || ''}`,
+                `🛸 *تصوير الدرون:* ${details['optDrone'] || ''}`,
+                `🎙️ *التعليق الصوتي:* ${details['optVoice'] || ''}`,
+                `⚡ *موعد التسليم:* ${details['optDelivery'] || ''}`,
+                '━━━━━━━━━━━━━━━━━━━━',
+                `💰 *الميزانية التقديرية الحالية:* ${total.toLocaleString('en-US')} درهم مغربي`,
+                '',
+                'مرحباً أسامة، أود مناقشة تفاصيل هذا المشروع المخصص والبدء معكم!'
+            ].join('\n');
 
-            wpBtn.href = `https://wa.me/212629703283?text=${wpMessage}`;
+            wpBtn.href = `https://wa.me/212629703283?text=${encodeURIComponent(wpText)}`;
         }
 
         groups.forEach(groupId => {
@@ -6234,7 +6258,8 @@ window.addEventListener('scroll', function() {
             const buttons = container.querySelectorAll('.pill-btn');
 
             buttons.forEach(btn => {
-                btn.addEventListener('click', () => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
                     buttons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     calculateTotal();
@@ -6254,21 +6279,46 @@ window.addEventListener('scroll', function() {
         const views = document.querySelectorAll('.pricing-view');
         if (!switchBtns.length || !views.length) return;
 
-        switchBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                switchBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+        function switchView(targetId) {
+            switchBtns.forEach(btn => {
+                if (btn.getAttribute('data-target') === targetId) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
 
+            views.forEach(view => {
+                if (view.id === targetId) {
+                    view.classList.add('active');
+                } else {
+                    view.classList.remove('active');
+                }
+            });
+        }
+
+        switchBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
                 const targetId = btn.getAttribute('data-target');
-                views.forEach(view => {
-                    if (view.id === targetId) {
-                        view.classList.add('active');
-                    } else {
-                        view.classList.remove('active');
-                    }
-                });
+                if (targetId) switchView(targetId);
             });
         });
+
+        // دعم فتح الحاسبة فوراً إذا تم الوصول برابط مباشر أو هاش
+        const checkHash = () => {
+            const hash = window.location.hash;
+            if (hash === '#estimatorView' || hash === '#costEstimator' || hash === '#calculator' || hash === '#estimator') {
+                switchView('estimatorView');
+                const targetEl = document.getElementById('costEstimator') || document.getElementById('pricing');
+                if (targetEl) {
+                    targetEl.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        };
+
+        checkHash();
+        window.addEventListener('hashchange', checkHash);
     }
 
     // ========================================================
@@ -6569,29 +6619,35 @@ window.addEventListener('scroll', function() {
         });
     }
 
-    // تشغيل الميزات عند اكتمال تحميل الصفحة
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-            initCinematicAudio();
-            initFloatingHeader();
-            initMobileMenu();
-            initColorGradingSlider();
-            initPortfolioAndLightbox();
-            initCostEstimator();
-            initPricingSwitcher();
-            initMreLanguageSwitcher();
-            initDroneShootingMap();
+    // ========================================================
+    // تشغيل آمن ومحصن لكافة ميزات ووحدات الموقع (Fault-Tolerant Bootstrap)
+    // ========================================================
+    function bootstrapApp() {
+        const modules = [
+            ['CinematicAudio', initCinematicAudio],
+            ['FloatingHeader', initFloatingHeader],
+            ['MobileMenu', initMobileMenu],
+            ['ColorGradingSlider', initColorGradingSlider],
+            ['PortfolioAndLightbox', initPortfolioAndLightbox],
+            ['CostEstimator', initCostEstimator],
+            ['PricingSwitcher', initPricingSwitcher],
+            ['MreLanguageSwitcher', initMreLanguageSwitcher],
+            ['DroneShootingMap', initDroneShootingMap]
+        ];
+
+        modules.forEach(([name, fn]) => {
+            try {
+                if (typeof fn === 'function') fn();
+            } catch (err) {
+                console.error(`[Bootstrap Error] ${name}:`, err);
+            }
         });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bootstrapApp);
     } else {
-        initCinematicAudio();
-        initFloatingHeader();
-        initMobileMenu();
-        initColorGradingSlider();
-        initPortfolioAndLightbox();
-        initCostEstimator();
-        initPricingSwitcher();
-        initMreLanguageSwitcher();
-        initDroneShootingMap();
+        bootstrapApp();
     }
 </script>
 
