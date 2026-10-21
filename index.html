@@ -1,4 +1,4 @@
-<!--
+﻿<!--
 ================================================================================
 ================================================================================
 ||                                                                            ||
@@ -1186,12 +1186,25 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
               }
 
               html, body {
+                  -webkit-user-select: none;
+                  -moz-user-select: none;
+                  -ms-user-select: none;
+                  user-select: none;
                   background-color: var(--bg-color);
                   color: var(--text-color);
                   font-family: 'Cairo', sans-serif;
                   overflow-x: hidden;
                   width: 100%;
                   max-width: 100vw;
+              }
+
+
+              /* Allow text selection in form inputs and chat */
+              input, textarea, [contenteditable="true"], .ai-chat-messages, .ai-chat-input-area {
+                  -webkit-user-select: text;
+                  -moz-user-select: text;
+                  -ms-user-select: text;
+                  user-select: text;
               }
 
               /* ========================================================
@@ -2871,156 +2884,125 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
               footer { text-align: center; padding: 40px; font-size: 0.9rem; color: var(--text-muted); border-top: 1px solid #222; background-color: #080808; }
 
               /* ========================================================
-                 خريطة مواقع التصوير الميداني التفاعلية (Drone & Shooting Map)
+                 خريطة نطاق التغطية الجوية والميدانية بالمغرب (Morocco Coverage & Radar Map)
                  ======================================================== */
               .drone-map-section {
                   padding: 90px 8%;
-                  background: radial-gradient(circle at center, #141414 0%, #080808 100%);
-                  border-top: 1px solid #1a1a1a;
+                  background: radial-gradient(circle at center, #151515 0%, #080808 100%);
+                  border-top: 1px solid #1f1f1f;
                   position: relative;
                   overflow: hidden;
               }
               .map-glow-sphere {
                   position: absolute;
-                  top: 20%;
+                  top: 25%;
                   left: 50%;
-                  transform: translate(-50%, -20%);
-                  width: 500px;
-                  height: 350px;
+                  transform: translate(-50%, -25%);
+                  width: 580px;
+                  height: 400px;
                   background: radial-gradient(circle, rgba(255, 74, 28, 0.12) 0%, transparent 70%);
-                  filter: blur(80px);
+                  filter: blur(90px);
                   pointer-events: none;
                   z-index: 1;
               }
               .drone-map-container {
                   position: relative;
                   z-index: 2;
-                  max-width: 1200px;
+                  max-width: 1240px;
                   margin: 0 auto;
               }
+
+              /* شريط التبديل السريع بين المناطق (Coverage Pills Bar) */
+              .coverage-pills-bar {
+                  display: flex;
+                  justify-content: center;
+                  flex-wrap: wrap;
+                  gap: 10px;
+                  margin: 25px auto 35px;
+                  max-width: 1050px;
+              }
+              .coverage-pill {
+                  background: rgba(255, 255, 255, 0.04);
+                  border: 1px solid rgba(255, 255, 255, 0.09);
+                  color: #ccc;
+                  padding: 10px 18px;
+                  border-radius: 30px;
+                  font-family: 'Cairo', sans-serif;
+                  font-size: 0.88rem;
+                  font-weight: 700;
+                  cursor: pointer;
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 8px;
+                  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                  backdrop-filter: blur(10px);
+                  -webkit-backdrop-filter: blur(10px);
+              }
+              .coverage-pill .pill-dot {
+                  width: 7px;
+                  height: 7px;
+                  border-radius: 50%;
+                  background: #555;
+                  transition: all 0.3s ease;
+              }
+              .coverage-pill:hover {
+                  background: rgba(255, 255, 255, 0.08);
+                  border-color: rgba(255, 74, 28, 0.4);
+                  color: #fff;
+                  transform: translateY(-2px);
+              }
+              .coverage-pill.active {
+                  background: rgba(255, 74, 28, 0.14);
+                  border-color: var(--accent-color);
+                  color: #fff;
+                  box-shadow: 0 4px 20px rgba(255, 74, 28, 0.25);
+              }
+              .coverage-pill.active .pill-dot {
+                  background: #25d366;
+                  box-shadow: 0 0 8px #25d366;
+              }
+
+              /* اللوحة التفاعلية المقسمة إلى عمودين */
               .map-interactive-board {
                   display: grid;
-                  grid-template-columns: 1fr 1.2fr;
-                  gap: 35px;
-                  background: rgba(18, 18, 18, 0.7);
+                  grid-template-columns: 1.15fr 1fr;
+                  gap: 30px;
+                  align-items: start;
+                  background: rgba(18, 18, 18, 0.75);
                   border: 1px solid rgba(255, 255, 255, 0.08);
-                  border-radius: 24px;
-                  padding: 35px;
-                  backdrop-filter: blur(20px);
-                  -webkit-backdrop-filter: blur(20px);
-                  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-                  margin-top: 35px;
+                  border-radius: 26px;
+                  padding: 30px;
+                  backdrop-filter: blur(25px);
+                  -webkit-backdrop-filter: blur(25px);
+                  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
               }
-              .map-cities-list {
-                  display: flex;
-                  flex-direction: column;
-                  gap: 12px;
-              }
-              .city-map-card {
-                  background: rgba(255, 255, 255, 0.03);
-                  border: 1px solid rgba(255, 255, 255, 0.07);
-                  border-radius: 14px;
-                  padding: 16px 20px;
-                  cursor: pointer;
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-                  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-                  position: relative;
-                  overflow: hidden;
-              }
-              .city-map-card::before {
-                  content: '';
-                  position: absolute;
-                  right: 0;
-                  top: 0;
-                  bottom: 0;
-                  width: 3px;
-                  background: transparent;
-                  transition: background 0.3s ease;
-              }
-              .city-map-card:hover {
-                  background: rgba(255, 255, 255, 0.06);
-                  border-color: rgba(255, 74, 28, 0.3);
-                  transform: translateX(-4px);
-              }
-              .city-map-card.active {
-                  background: rgba(255, 74, 28, 0.09);
-                  border-color: var(--accent-color);
-                  box-shadow: 0 8px 25px rgba(255, 74, 28, 0.15);
-              }
-              .city-map-card.active::before {
-                  background: var(--accent-color);
-              }
-              .city-card-left {
-                  display: flex;
-                  align-items: center;
-                  gap: 12px;
-              }
-              .city-icon-pill {
-                  width: 38px;
-                  height: 38px;
-                  background: rgba(255, 255, 255, 0.05);
-                  border-radius: 10px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  font-size: 1.15rem;
-                  transition: transform 0.3s ease;
-              }
-              .city-map-card:hover .city-icon-pill, .city-map-card.active .city-icon-pill {
-                  transform: scale(1.1);
-                  background: rgba(255, 74, 28, 0.2);
-              }
-              .city-meta h4 {
-                  margin: 0;
-                  font-size: 1.05rem;
-                  color: #fff;
-                  font-weight: 700;
-              }
-              .city-meta span {
-                  font-size: 0.78rem;
-                  color: var(--text-muted);
-              }
-              .city-count-badge {
-                  background: rgba(255, 255, 255, 0.06);
-                  color: #ddd;
-                  padding: 4px 10px;
+
+              /* إطار خريطة المغرب والرادار */
+              .morocco-map-radar-frame {
+                  background: #0c0d10;
+                  border: 1px solid #24272e;
                   border-radius: 20px;
-                  font-size: 0.72rem;
-                  font-weight: 600;
-                  border: 1px solid rgba(255, 255, 255, 0.08);
-              }
-              .city-map-card.active .city-count-badge {
-                  background: var(--accent-color);
-                  color: white;
-                  border-color: var(--accent-color);
-              }
-              .map-display-visual {
+                  overflow: hidden;
                   display: flex;
                   flex-direction: column;
-                  background: #0d0d0d;
-                  border: 1px solid #262626;
-                  border-radius: 18px;
-                  overflow: hidden;
-                  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+                  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.85);
                   position: relative;
               }
-              .map-radar-header {
+              .radar-header-bar {
                   padding: 14px 20px;
-                  background: #141414;
-                  border-bottom: 1px solid #222;
+                  background: #121418;
+                  border-bottom: 1px solid #1f232b;
                   display: flex;
                   justify-content: space-between;
                   align-items: center;
               }
-              .radar-status {
+              .radar-live-status {
                   display: inline-flex;
                   align-items: center;
                   gap: 8px;
                   font-size: 0.82rem;
                   color: #25d366;
-                  font-weight: 600;
+                  font-weight: 700;
               }
               .radar-dot {
                   width: 8px;
@@ -3030,123 +3012,499 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
                   box-shadow: 0 0 10px #25d366;
                   animation: radarPulse 1.8s infinite;
               }
-              @keyframes radarPulse {
-                  0%, 100% { opacity: 1; transform: scale(1); }
-                  50% { opacity: 0.4; transform: scale(1.3); }
+              .radar-coords-tag {
+                  font-size: 0.72rem;
+                  color: #777;
+                  font-family: 'Syne', sans-serif;
+                  font-weight: 700;
+                  letter-spacing: 0.5px;
               }
-              .map-screen-body {
-                  padding: 25px;
+              .morocco-svg-viewport {
+                  position: relative;
+                  width: 100%;
+                  padding: 15px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  min-height: 460px;
+              }
+              .morocco-svg-map {
+                  width: 100%;
+                  height: auto;
+                  max-height: 520px;
+                  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.9));
+              }
+
+              /* تنسيق تضاريس وخطوط الخريطة (خريطة منطقة الريف) */
+              .rif-map {
+                  width: 100%;
+                  height: auto;
+                  max-height: 520px;
+                  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.9));
+              }
+              .rif-land {
+                  fill: url(#rifLandGradient);
+                  stroke: #25d366;
+                  stroke-width: 1.8;
+                  stroke-linejoin: round;
+                  stroke-linecap: round;
+                  filter: drop-shadow(0 0 12px rgba(37, 211, 102, 0.25));
+                  transition: stroke 0.4s ease;
+              }
+              .rif-coastline {
+                  fill: none;
+                  stroke: #38bdf8;
+                  stroke-width: 2.2;
+                  filter: drop-shadow(0 0 6px #38bdf8);
+              }
+              .marchica-lagoon {
+                  fill: #0b1a2e;
+                  stroke: #38bdf8;
+                  stroke-width: 1.5;
+                  filter: drop-shadow(0 0 4px #38bdf8);
+              }
+              .rif-mountain-ridge {
+                  fill: none;
+                  stroke: rgba(255, 74, 28, 0.25);
+                  stroke-width: 1.2;
+                  stroke-dasharray: 4 5;
+              }
+              .rif-border-div {
+                  fill: none;
+                  stroke: rgba(255, 255, 255, 0.08);
+                  stroke-width: 1;
+                  stroke-dasharray: 4 6;
+              }
+              .rif-geo-label {
+                  font-family: 'Cairo', sans-serif;
+                  font-size: 10px;
+                  font-weight: 700;
+                  fill: rgba(255, 255, 255, 0.25);
+                  text-anchor: middle;
+                  pointer-events: none;
+              }
+              .rif-geo-label.center {
+                  fill: rgba(255, 74, 28, 0.45);
+                  font-size: 11px;
+              }
+              .morocco-land {
+                  fill: url(#moroccoLandGradient);
+                  stroke: #ff4a1c;
+                  stroke-width: 2.2;
+                  stroke-linejoin: round;
+                  stroke-linecap: round;
+                  filter: drop-shadow(0 0 10px rgba(255, 74, 28, 0.35));
+                  transition: stroke 0.4s ease;
+              }
+              .morocco-internal-line {
+                  fill: none;
+                  stroke: rgba(255, 255, 255, 0.08);
+                  stroke-width: 1;
+                  stroke-dasharray: 3 4;
+              }
+
+              /* دوائر نطاق الرادار وشعاع المسح */
+              .radar-range-circle {
+                  fill: none;
+                  stroke: rgba(255, 74, 28, 0.12);
+                  stroke-width: 1;
+                  stroke-dasharray: 4 6;
+                  pointer-events: none;
+              }
+              .radar-range-circle.range-1 { stroke: rgba(255, 74, 28, 0.25); }
+              .radar-sweep-beam {
+                  stroke: url(#hqGlowGradient);
+                  stroke-width: 2.5;
+                  opacity: 0.7;
+                  transform-origin: 510px 260px !important;
+                  animation: radarSweep 7s linear infinite;
+                  pointer-events: none;
+              }
+              @keyframes radarSweep {
+                  from { transform: rotate(0deg); }
+                  to { transform: rotate(360deg); }
+              }
+
+              /* دبابيس الرادار التفاعلية (Radar Hotspot Pins) */
+              .radar-hotspot-pin {
+                  cursor: pointer;
+                  outline: none;
+                  touch-action: manipulation;
+                  -webkit-tap-highlight-color: transparent;
+                  user-select: none;
+              }
+              .pin-outer-ring {
+                  fill: none;
+                  stroke: var(--accent-color);
+                  stroke-width: 2;
+                  filter: drop-shadow(0 0 6px var(--accent-color));
+                  transition: stroke 0.25s ease, stroke-width 0.25s ease, filter 0.25s ease;
+              }
+              .pin-center-core {
+                  fill: #fff;
+                  filter: drop-shadow(0 0 4px #fff);
+                  transition: fill 0.25s ease, filter 0.25s ease;
+              }
+              .pin-wave-pulse {
+                  fill: none;
+                  stroke: var(--accent-color);
+                  stroke-width: 1.5;
+                  animation: hotspotPing 2.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+                  transform-origin: 0 0;
+                  pointer-events: none;
+              }
+              .pin-halo-pulse {
+                  fill: rgba(255, 74, 28, 0.2);
+                  animation: beaconPulse 2.5s ease-out infinite;
+                  transform-origin: 0 0;
+                  pointer-events: none;
+              }
+
+              /* تأثير التحويم بدون أي transform scale لمنع زعزعة الإحداثيات نهائياً */
+              .radar-hotspot-pin:hover .pin-badge-bg {
+                  stroke: #ff4a1c;
+                  stroke-width: 1.8;
+                  filter: drop-shadow(0 0 8px rgba(255, 74, 28, 0.85));
+              }
+              .radar-hotspot-pin:hover .pin-badge-text {
+                  fill: #ff8463;
+              }
+              .radar-hotspot-pin:hover .pin-outer-ring {
+                  stroke: #fff;
+                  stroke-width: 2.8;
+                  filter: drop-shadow(0 0 8px #fff);
+              }
+              .radar-hotspot-pin:hover .pin-center-core {
+                  fill: #25d366;
+                  filter: drop-shadow(0 0 6px #25d366);
+              }
+
+              /* تسميات وشارات الدبابيس */
+              .pin-badge-group {
+                  pointer-events: none;
+              }
+              .pin-badge-bg {
+                  fill: rgba(15, 17, 20, 0.92);
+                  stroke: rgba(255, 255, 255, 0.2);
+                  stroke-width: 1;
+                  transition: stroke 0.25s ease, fill 0.25s ease, filter 0.25s ease;
+              }
+              .pin-badge-bg.hq {
+                  fill: rgba(255, 74, 28, 0.2);
+                  stroke: var(--accent-color);
+                  stroke-width: 1.4;
+              }
+              .pin-badge-bg.secondary {
+                  fill: rgba(10, 12, 15, 0.85);
+                  stroke: rgba(255, 255, 255, 0.12);
+              }
+              .pin-badge-text {
+                  font-family: 'Cairo', sans-serif;
+                  font-size: 11px;
+                  font-weight: 700;
+                  fill: #fff;
+                  text-anchor: middle;
+                  dominant-baseline: central;
+                  pointer-events: none;
+                  transition: fill 0.25s ease;
+              }
+              .pin-badge-text.hq {
+                  fill: #ff8463;
+                  font-weight: 800;
+              }
+              .pin-badge-text.secondary {
+                  fill: #bbb;
+                  font-size: 9.5px;
+              }
+
+              /* حالة النشاط للدبوس المحدد */
+              .radar-hotspot-pin.active .pin-outer-ring {
+                  stroke: #25d366;
+                  stroke-width: 2.8;
+                  filter: drop-shadow(0 0 10px #25d366);
+              }
+              .radar-hotspot-pin.active .pin-center-core {
+                  fill: #25d366;
+                  filter: drop-shadow(0 0 8px #25d366);
+              }
+              .radar-hotspot-pin.active .pin-badge-bg {
+                  fill: rgba(37, 211, 102, 0.25);
+                  stroke: #25d366;
+                  stroke-width: 1.5;
+                  filter: drop-shadow(0 0 8px rgba(37, 211, 102, 0.45));
+              }
+              .radar-hotspot-pin.active .pin-badge-text {
+                  fill: #25d366;
+                  font-weight: 800;
+              }
+
+              @keyframes hotspotPing {
+                  0% { r: 5; opacity: 1; }
+                  100% { r: 24; opacity: 0; }
+              }
+              @keyframes beaconPulse {
+                  0%, 100% { r: 20; opacity: 0.3; }
+                  50% { r: 34; opacity: 0.7; }
+              }
+
+              /* شريط مفتاح الخريطة (Legend) */
+              .map-legend-bar {
+                  padding: 12px 20px;
+                  background: #0f1115;
+                  border-top: 1px solid #1a1e26;
+                  display: flex;
+                  justify-content: center;
+                  gap: 20px;
+                  flex-wrap: wrap;
+                  font-size: 0.76rem;
+                  color: #aaa;
+                  font-weight: 600;
+              }
+              .legend-item {
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 7px;
+              }
+              .legend-dot {
+                  width: 8px;
+                  height: 8px;
+                  border-radius: 50%;
+                  display: inline-block;
+              }
+              .legend-dot.hq {
+                  background: var(--accent-color);
+                  box-shadow: 0 0 8px var(--accent-color);
+              }
+              .legend-dot.active {
+                  background: #25d366;
+                  box-shadow: 0 0 8px #25d366;
+              }
+              .legend-dot.coastal {
+                  background: #38bdf8;
+                  box-shadow: 0 0 8px #38bdf8;
+              }
+              .legend-dot.mobility {
+                  background: #ff4a1c;
+                  box-shadow: 0 0 8px #ff4a1c;
+              }
+
+              /* لوحة تفاصيل التغطية (HUD Panel) */
+              .map-hud-column {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-start;
+              }
+              .coverage-hud-card {
+                  background: rgba(14, 15, 18, 0.85);
+                  border: 1px solid rgba(255, 255, 255, 0.08);
+                  border-radius: 20px;
+                  padding: 28px;
                   display: flex;
                   flex-direction: column;
                   gap: 18px;
-                  flex: 1;
-                  justify-content: center;
-              }
-              .map-spotlight-preview {
+                  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
                   position: relative;
-                  border-radius: 14px;
                   overflow: hidden;
-                  aspect-ratio: 16/9;
-                  background: #000;
-                  border: 1px solid rgba(255, 255, 255, 0.1);
+                  min-height: 520px;
               }
-              .map-spotlight-preview img {
-                  width: 100%;
-                  height: 100%;
-                  object-fit: cover;
-                  transition: transform 0.5s ease;
-              }
-              .map-spotlight-preview:hover img {
-                  transform: scale(1.04);
-              }
-              .map-spotlight-overlay {
+              .coverage-hud-card::before {
+                  content: '';
                   position: absolute;
-                  bottom: 0;
-                  left: 0;
+                  top: 0;
                   right: 0;
-                  padding: 15px 18px;
-                  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+                  left: 0;
+                  height: 3px;
+                  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+              }
+              .hud-card-header {
                   display: flex;
-                  justify-content: space-between;
-                  align-items: flex-end;
+                  flex-direction: column;
+                  gap: 8px;
               }
-              .map-spotlight-title {
-                  color: white;
-                  font-size: 1rem;
+              .hud-badge-pill {
+                  align-self: flex-start;
+                  background: rgba(37, 211, 102, 0.12);
+                  border: 1px solid rgba(37, 211, 102, 0.35);
+                  color: #25d366;
+                  padding: 5px 12px;
+                  border-radius: 20px;
+                  font-size: 0.76rem;
                   font-weight: 700;
-                  line-height: 1.4;
-                  max-width: 80%;
-              }
-              .map-play-pill {
-                  background: var(--accent-color);
-                  color: white;
-                  border: none;
-                  padding: 8px 14px;
-                  border-radius: 8px;
-                  font-family: 'Cairo', sans-serif;
-                  font-size: 0.78rem;
-                  font-weight: 700;
-                  cursor: pointer;
                   display: inline-flex;
                   align-items: center;
                   gap: 6px;
-                  transition: all 0.3s ease;
-                  box-shadow: 0 4px 15px rgba(255, 74, 28, 0.4);
               }
-              .map-play-pill:hover {
-                  background: #ff6036;
-                  transform: scale(1.05);
+              .badge-dot-live {
+                  width: 6px;
+                  height: 6px;
+                  border-radius: 50%;
+                  background: #25d366;
+                  box-shadow: 0 0 6px #25d366;
+                  animation: radarPulse 1.5s infinite;
               }
-              .map-city-highlights {
+              .hud-region-title {
+                  margin: 0;
+                  font-size: 1.35rem;
+                  font-weight: 800;
+                  color: #fff;
+                  line-height: 1.4;
+              }
+              .hud-region-tagline {
+                  margin: 0;
+                  font-size: 0.9rem;
+                  color: #aaa;
+                  line-height: 1.6;
+                  min-height: 44px;
+              }
+
+              /* قائمة المناطق والبلديات المشمولة */
+              .hud-zones-block {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 8px;
+              }
+              .hud-block-label {
+                  font-size: 0.8rem;
+                  font-weight: 700;
+                  color: #ddd;
+              }
+              .zone-chips-wrap {
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 7px;
+                  min-height: 60px;
+                  align-content: flex-start;
+              }
+              .zone-chip {
+                  background: rgba(255, 255, 255, 0.05);
+                  border: 1px solid rgba(255, 255, 255, 0.08);
+                  color: #eee;
+                  padding: 5px 11px;
+                  border-radius: 8px;
+                  font-size: 0.78rem;
+                  font-weight: 600;
+                  transition: all 0.25s ease;
+              }
+              .zone-chip:hover {
+                  background: rgba(255, 74, 28, 0.15);
+                  border-color: rgba(255, 74, 28, 0.4);
+                  color: #fff;
+                  transform: translateY(-1px);
+              }
+
+              /* شبكة المؤشرات الميدانية */
+              .hud-metrics-grid {
                   display: grid;
                   grid-template-columns: repeat(3, 1fr);
-                  gap: 12px;
+                  gap: 10px;
               }
-              .map-city-badge {
+              .hud-metric-box {
                   background: rgba(255, 255, 255, 0.03);
                   border: 1px solid rgba(255, 255, 255, 0.06);
-                  padding: 12px 14px;
-                  border-radius: 10px;
+                  border-radius: 12px;
+                  padding: 12px 10px;
                   text-align: center;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 3px;
+                  align-items: center;
               }
-              .map-city-badge .badge-val {
-                  display: block;
-                  font-family: 'Syne', sans-serif;
-                  font-size: 1.15rem;
+              .hud-metric-icon {
+                  font-size: 1.1rem;
+                  margin-bottom: 2px;
+              }
+              .hud-metric-val {
+                  font-family: 'Syne', 'Cairo', sans-serif;
+                  font-size: 0.88rem;
                   font-weight: 800;
                   color: var(--accent-color);
-                  margin-bottom: 3px;
+                  line-height: 1.3;
               }
-              .map-city-badge .badge-label {
-                  font-size: 0.72rem;
-                  color: var(--text-muted);
+              .hud-metric-lbl {
+                  font-size: 0.68rem;
+                  color: #888;
+                  font-weight: 600;
               }
-              .map-cta-action {
+
+              /* قائمة الخدمات المتاحة */
+              .hud-services-block {
                   display: flex;
+                  flex-direction: column;
+                  gap: 8px;
+              }
+              .hud-services-list {
+                  margin: 0;
+                  padding: 0 16px 0 0;
+                  list-style: none;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 6px;
+              }
+              .hud-services-list li {
+                  position: relative;
+                  font-size: 0.84rem;
+                  color: #bbb;
+                  line-height: 1.5;
+                  padding-right: 14px;
+              }
+              .hud-services-list li::before {
+                  content: '◀';
+                  position: absolute;
+                  right: 0;
+                  top: 2px;
+                  font-size: 0.65rem;
+                  color: var(--accent-color);
+              }
+
+              /* إشعار التنقل للموقع */
+              .hud-mobility-notice {
+                  background: rgba(255, 74, 28, 0.08);
+                  border: 1px dashed rgba(255, 74, 28, 0.3);
+                  border-radius: 12px;
+                  padding: 12px 16px;
+                  display: flex;
+                  align-items: flex-start;
                   gap: 12px;
+              }
+              .mobility-icon {
+                  font-size: 1.3rem;
+                  line-height: 1;
+              }
+              .mobility-text {
+                  font-size: 0.82rem;
+                  color: #ccc;
+                  line-height: 1.5;
+              }
+              .mobility-text strong {
+                  color: #ff8463;
+              }
+
+              /* زر طلب التصوير عبر واتساب */
+              .hud-cta-action {
                   margin-top: 5px;
               }
               .btn-map-request {
-                  flex: 1;
+                  width: 100%;
                   background: linear-gradient(135deg, var(--accent-color), #d6370e);
                   color: white;
                   border: none;
-                  border-radius: 10px;
-                  padding: 12px 20px;
+                  border-radius: 12px;
+                  padding: 14px 24px;
                   font-family: 'Cairo', sans-serif;
-                  font-weight: 700;
-                  font-size: 0.9rem;
+                  font-weight: 800;
+                  font-size: 0.95rem;
                   text-decoration: none;
                   text-align: center;
                   display: inline-flex;
                   align-items: center;
                   justify-content: center;
-                  gap: 8px;
-                  transition: all 0.3s ease;
+                  gap: 10px;
+                  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                  box-shadow: 0 6px 25px rgba(255, 74, 28, 0.35);
               }
               .btn-map-request:hover {
                   transform: translateY(-2px);
-                  box-shadow: 0 8px 25px rgba(255, 74, 28, 0.35);
+                  box-shadow: 0 10px 30px rgba(255, 74, 28, 0.5);
                   color: white;
               }
               /* ==========================================================================
@@ -3332,68 +3690,96 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
                       font-size: 0.68rem !important;
                   }
 
-                  /* --- 3. خريطة التصوير الميداني بالدرون (#droneMap) بنظام السحب الأفقي --- */
+                  /* --- 3. خريطة نطاق التغطية الجوية والميدانية بالمغرب (#droneMap) --- */
                   .drone-map-section {
-                      padding: 60px 4% !important;
+                      padding: 55px 4% !important;
                   }
-                  .map-interactive-board {
-                      grid-template-columns: 1fr !important;
-                      padding: 16px 14px !important;
-                      gap: 16px !important;
-                      border-radius: 20px !important;
-                  }
-                  .map-cities-list {
+                  .coverage-pills-bar {
                       display: flex !important;
                       overflow-x: auto !important;
-                      gap: 10px !important;
-                      padding: 4px 2px 12px !important;
+                      flex-wrap: nowrap !important;
+                      justify-content: flex-start !important;
+                      gap: 8px !important;
+                      padding: 4px 6px 14px !important;
                       scroll-snap-type: x mandatory !important;
                       -webkit-overflow-scrolling: touch !important;
                       scrollbar-width: none !important;
+                      margin: 15px -4% 22px !important;
+                      padding-inline: 4% !important;
                   }
-                  .map-cities-list::-webkit-scrollbar { display: none !important; }
-                  .city-map-card {
-                      flex: 0 0 240px !important;
-                      min-width: 240px !important;
-                      scroll-snap-align: start !important;
-                      padding: 12px 14px !important;
-                      margin-bottom: 0 !important;
-                      border-radius: 14px !important;
+                  .coverage-pills-bar::-webkit-scrollbar { display: none !important; }
+                  .coverage-pill {
+                      flex: 0 0 auto !important;
+                      scroll-snap-align: center !important;
+                      padding: 8px 14px !important;
+                      font-size: 0.8rem !important;
+                      border-radius: 25px !important;
+                      white-space: nowrap !important;
                   }
-                  .city-count-badge {
-                      display: none !important;
+                  .map-interactive-board {
+                      grid-template-columns: 1fr !important;
+                      padding: 16px 12px !important;
+                      gap: 20px !important;
+                      border-radius: 20px !important;
                   }
-                  .city-meta h4 {
-                      font-size: 0.88rem !important;
+                  .morocco-map-radar-frame {
+                      border-radius: 16px !important;
                   }
-                  .city-meta span {
-                      font-size: 0.72rem !important;
+                  .radar-header-bar {
+                      padding: 10px 14px !important;
                   }
-                  .map-screen-body {
-                      padding: 14px !important;
-                      border-radius: 14px !important;
+                  .radar-live-status {
+                      font-size: 0.74rem !important;
                   }
-                  .map-spotlight-preview {
-                      height: 200px !important;
-                      border-radius: 12px !important;
+                  .radar-coords-tag {
+                      font-size: 0.65rem !important;
                   }
-                  .map-spotlight-title {
-                      font-size: 0.88rem !important;
+                  .morocco-svg-viewport {
+                      min-height: 380px !important;
+                      padding: 8px !important;
                   }
-                  .map-city-highlights {
-                      grid-template-columns: repeat(3, 1fr) !important;
-                      gap: 6px !important;
-                      margin-top: 14px !important;
+                  .morocco-svg-map {
+                      max-height: 420px !important;
                   }
-                  .map-city-badge {
-                      padding: 10px 4px !important;
-                      text-align: center !important;
+                  .map-legend-bar {
+                      padding: 10px 12px !important;
+                      gap: 12px !important;
+                      font-size: 0.7rem !important;
                   }
-                  .badge-val {
+                  .coverage-hud-card {
+                      padding: 18px 14px !important;
+                      border-radius: 16px !important;
+                      gap: 16px !important;
+                  }
+                  .hud-region-title {
+                      font-size: 1.15rem !important;
+                  }
+                  .hud-region-tagline {
                       font-size: 0.82rem !important;
                   }
-                  .badge-label {
-                      font-size: 0.64rem !important;
+                  .hud-metrics-grid {
+                      grid-template-columns: repeat(3, 1fr) !important;
+                      gap: 6px !important;
+                  }
+                  .hud-metric-box {
+                      padding: 10px 4px !important;
+                  }
+                  .hud-metric-val {
+                      font-size: 0.76rem !important;
+                  }
+                  .hud-metric-lbl {
+                      font-size: 0.62rem !important;
+                  }
+                  .zone-chip {
+                      padding: 4px 9px !important;
+                      font-size: 0.72rem !important;
+                  }
+                  .hud-services-list li {
+                      font-size: 0.78rem !important;
+                  }
+                  .btn-map-request {
+                      padding: 12px 18px !important;
+                      font-size: 0.88rem !important;
                   }
 
                   /* --- 4. حاسبة الميزانية الفورية (#costEstimator) --- */
@@ -3520,71 +3906,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         </div>
     </div>
 
-    <!-- ========================================================
-         شاشة حجب الموقع عن متصفح Safari على أجهزة iOS
-         ======================================================== -->
-    <div id="safari-blocker" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #0d0d0d; z-index: 999999; color: white; text-align: center; flex-direction: column; justify-content: center; align-items: center; padding: 20px; font-family: 'Cairo', sans-serif;">
-        <h2 style="font-family: 'Syne', sans-serif; font-size: 2rem; color: var(--accent-color); margin-bottom: 20px;">عذراً، الموقع غير متاح على متصفح Safari</h2>
-        <p style="font-size: 1.1rem; max-width: 500px; line-height: 1.7; color: var(--text-muted);">
-            لأفضل تجربة تصفح وأداء، نوصي باستخدام متصفح آخر مثل Google Chrome أو Firefox على جهازك.
-            <br><br>
-            نحن نعمل على تحسين التوافق مع جميع المتصفحات قريباً. شكراً لتفهمك.
-        </p>
-    </div>
 
-    <!-- ========================================================
-         شاشة حظر المستخدم بسبب النشاط غير المعتاد (تصميم احترافي)
-         ======================================================== -->
-    <div id="user-blocker" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 999999; color: white; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; font-family: 'Cairo', sans-serif; opacity: 0; transition: opacity 0.5s ease;">
-        <div class="blocker-content" style="background: linear-gradient(145deg, #1e1e1e, #121212); padding: 50px; border-radius: 24px; border: 1px solid #333; text-align: center; max-width: 500px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.7); transform: scale(0.95); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
-            <div style="font-size: 4rem; margin-bottom: 20px; color: #e74c3c; line-height: 1;">🚫</div>
-            <h2 style="font-family: 'Syne', sans-serif; font-size: 2.2rem; color: #fff; margin-bottom: 15px;">تم تقييد الوصول</h2>
-            <p style="font-size: 1.1rem; max-width: 400px; margin: 0 auto; line-height: 1.8; color: var(--text-muted);">
-                لقد رصد نظام الحماية لدينا نشاطاً غير معتاد من جهازك. لحماية الموقع، تم تقييد وصولك مؤقتاً.
-                <br><br>
-                إذا كنت تعتقد أن هذا الإجراء تم عن طريق الخطأ، يرجى التواصل مع الدعم الفني.
-            </p>
-            <div id="blocker-timer" style="margin-top: 30px; font-family: 'Syne', sans-serif; font-size: 1.5rem; color: var(--accent-color); font-weight: bold; line-height: 1.5;"></div>
-        </div>
-    </div>
-
-    <div id="whatsapp-gate" style="display: none; position:fixed; top:0; left:0; width:100%; height: 100dvh; background:rgba(10, 10, 10, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index:9998; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:'Cairo', sans-serif; padding: 20px; opacity: 1; transition: opacity 0.5s ease, backdrop-filter 0.5s ease;">
-        <div id="gate-modal" style="background: linear-gradient(145deg, #1a1a1a, #101010); padding: 40px; border-radius: 24px; border: 1px solid #2a2a2a; text-align: center; max-width: 420px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255, 74, 28, 0.1); position: relative; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease; transform: translateY(20px) scale(0.95); opacity: 0;">
-            <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 4px; background: var(--accent-color); border-radius: 0 0 5px 5px; box-shadow: 0 0 15px var(--accent-color);"></div>
-            <div class="loader-logo" style="font-size: 2.5rem; opacity: 1; transform: none; animation: none; margin-bottom: 20px; text-shadow: 0 0 15px rgba(255, 74, 28, 0.3);">LitKing<span>LTK</span></div>
-            <h2 style="font-family: 'Syne', sans-serif; font-size: 1.5rem; margin-bottom: 10px; color: #fff;">🔐 Exclusive Access</h2>
-            <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1rem;">للدخول للموقع، يرجى تفعيل حسابك عبر الواتساب.</p>
-            
-            <div id="phone-area" style="transition: opacity 0.4s ease, transform 0.4s ease; opacity: 1; position: relative;">
-                <input type="tel" id="user-phone" placeholder="أدخل رقمك مع رمز الدولة (مثال: 2126...)" style="width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 12px; border: 1px solid #333; background: #0a0a0a; color: white; font-family: 'Cairo', sans-serif; font-size: 1rem; text-align: center; transition: all 0.3s ease;">
-                <button id="send-code-btn" onclick="generateCode()" style="width: 100%; padding: 15px 20px; background: #25d366; color: white; border: none; border-radius: 12px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16.75 13.96c.25.13.41.38.41.66v2.12c0 .41-.34.75-.75.75H7.59c-.41 0-.75-.34-.75-.75v-2.12c0-.28.16-.53.41-.66l4.59-2.45c.33-.18.74-.18 1.07 0l4.59 2.45zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
-                    <span>إرسال كود التفعيل</span>
-                </button>
-            </div>
-            
-            <div id="verification-area" style="transition: opacity 0.4s ease, transform 0.4s ease; opacity: 0; transform: translateY(10px); position: absolute; left: 40px; right: 40px; pointer-events: none;">
-                <p style="color: var(--text-muted); margin-bottom: 15px;">تم إرسال الكود. أدخله هنا للمتابعة:</p>
-                <div id="otp-container" style="display: flex; justify-content: center; gap: 12px; direction: ltr;">
-                    <input type="text" class="otp-input" maxlength="1">
-                    <input type="text" class="otp-input" maxlength="1">
-                    <input type="text" class="otp-input" maxlength="1">
-                    <input type="text" class="otp-input" maxlength="1">
-                </div>
-                <style>
-                    .otp-input {
-                        width: 55px; height: 65px; text-align: center; font-size: 2.2rem; font-family: 'Syne', sans-serif;
-                        border: 1px solid #333; background: #0a0a0a; color: white; border-radius: 10px;
-                        transition: all 0.3s ease; caret-color: var(--accent-color);
-                    }
-                    .otp-input:focus { outline: none; border-color: var(--accent-color); box-shadow: 0 0 10px rgba(255, 74, 28, 0.3); }
-                </style>
-                <button id="verify-code-btn" onclick="verifyAccess()" style="width: 100%; padding: 15px 20px; background: var(--accent-color); color: white; border: none; border-radius: 12px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(255, 74, 28, 0.2); margin-top: 25px;">
-                    <span>تأكيد ودخول</span>
-                </button>
-            </div>
-        </div>
-    </div>
 
     <!-- ========================================================
          شريط التقدم التفاعلي عند التمرير (Scroll Progress Bar)
@@ -4296,7 +4618,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
           class="portfolio-card"
           data-video-id="QBYhDwN2Ky0"
           data-category="ads"
-          data-title='فيديو إعلاني لوكالة "Red Med Cars" لكراء السيارات بمكناس والدريوش'
+          data-title='فيديو إعلاني لوكالة "Red Med Cars" لكراء السيارات بالدريوش'
         >
           <div class="thumbnail-container">
             <div class="play-overlay">▶</div>
@@ -4308,7 +4630,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
           <div class="card-info">
             <span>إعلانات تجارية وسيارات</span>
             <h3>
-              فيديو إعلاني لوكالة "Red Med Cars" لكراء السيارات بمكناس والدريوش
+              فيديو إعلاني لوكالة "Red Med Cars" لكراء السيارات بالدريوش
             </h3>
           </div>
         </a>
@@ -4487,151 +4809,426 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
     </section>
 
     <!-- ========================================================
-         خريطة مواقع التصوير الميداني والدرون التفاعلية (Drone & Shooting Map)
+         خريطة نطاق التغطية الميدانية والجوية بمنطقة الريف (Rif Coverage & Drone Map)
          ======================================================== -->
     <section class="drone-map-section" id="droneMap">
       <div class="map-glow-sphere"></div>
       <div class="drone-map-container">
         <center>
           <div class="estimator-badge" style="background: rgba(255, 74, 28, 0.1); border-color: rgba(255, 74, 28, 0.3); color: var(--accent-color);">
-            <span>🛰️</span>
-            <span>تغطية ميدانية وجوية واسعة عبر أقاليم المملكة</span>
+            <span>⛰️</span>
+            <span>خريطة التغطية الميدانية والجوية الحصرية لمنطقة الريف</span>
           </div>
-          <h2 class="section-title">خريطة مواقع التصوير الميداني والدرون</h2>
-          <p class="section-subtitle" style="max-width: 680px; margin: -15px auto 10px; color: var(--text-muted); font-size: 1.05rem;">
-            تجوّل بين المدن والمواقع التي أبدعنا بتصويرها وتغطيتها سينمائياً بالدرون والكاميرات الاحترافية. اختر أي مدينة لمشاهدة العمل المنفذ وتفاصيل التغطية:
+          <h2 class="section-title">أين نصور؟ نطاق التغطية والإنتاج عبر منطقة الريف</h2>
+          <p class="section-subtitle" style="max-width: 740px; margin: -15px auto 18px; color: var(--text-muted); font-size: 1.05rem;">
+            تغطية يومية دائمة وشاملة بأحدث طائرات الدرون 4K والكاميرات السينمائية عبر أقاليم <strong>الدريوش (المقر الرئيسي)</strong>، <strong>الناظور ومارتشيكا</strong>، <strong>الحسيمة وسواحل الريف</strong>:
           </p>
         </center>
 
+        <!-- شريط التبديل السريع بين أقاليم ومناطق الريف (Rif Region Pills) -->
+        <div class="coverage-pills-bar" id="coveragePillsBar">
+          <button type="button" class="coverage-pill active" data-region="driouch">
+            <span class="pill-dot"></span>
+            <span class="pill-icon">📍</span>
+            <span class="pill-text">إقليم الدريوش (المقر الرئيسي)</span>
+          </button>
+          <button type="button" class="coverage-pill" data-region="nador">
+            <span class="pill-dot"></span>
+            <span class="pill-icon">🌊</span>
+            <span class="pill-text">إقليم الناظور ومارتشيكا</span>
+          </button>
+          <button type="button" class="coverage-pill" data-region="hoceima">
+            <span class="pill-dot"></span>
+            <span class="pill-icon">⛰️</span>
+            <span class="pill-text">إقليم الحسيمة والريف الأوسط</span>
+          </button>
+          <button type="button" class="coverage-pill" data-region="coastal">
+            <span class="pill-dot"></span>
+            <span class="pill-icon">🏖️</span>
+            <span class="pill-text">الشريط الساحلي وشواطئ الريف</span>
+          </button>
+          <button type="button" class="coverage-pill" data-region="allrif">
+            <span class="pill-dot"></span>
+            <span class="pill-icon">🌲</span>
+            <span class="pill-text">عموم بلدات وقرى جبال الريف</span>
+          </button>
+        </div>
+
         <div class="map-interactive-board">
-          <!-- قائمة المدن والمواقع -->
-          <div class="map-cities-list">
-            <!-- 1. الدريوش -->
-            <div class="city-map-card active" 
-                 data-city="driouch"
-                 data-title='شقق فاخرة في الشارع الرئيسي بالدريوش.. مجموعة أزحاف'
-                 data-img="https://img.youtube.com/vi/5TftyYFJ4q4/maxresdefault.jpg"
-                 data-vid="5TftyYFJ4q4"
-                 data-count="8+ أعمال ميدانية"
-                 data-altitude="120 متر (Drone 4K)"
-                 data-type="عقارات وتغطيات وافتتاحات"
-                 data-desc="مركز ومقر الاستوديو، قمنا بتغطية كبرى الافتتاحات والمشاريع العقارية والمحلات التجارية بتصوير جوي وأرضي فائق الدقة.">
-              <div class="city-card-left">
-                <div class="city-icon-pill">📍</div>
-                <div class="city-meta">
-                  <h4>إقليم الدريوش (المقر الرئيسي)</h4>
-                  <span>الشارع الرئيسي · امطالسا · بن الطيب</span>
+          <!-- العمود الأيمن: الخريطة التفاعلية الفخمة لمنطقة الريف (SVG Map) -->
+          <div class="map-visual-column">
+            <div class="morocco-map-radar-frame">
+              <div class="radar-header-bar">
+                <div class="radar-live-status">
+                  <span class="radar-dot"></span>
+                  <span id="mapRadarStatusText">رادار التغطية: إقليم الدريوش (المقر الرئيسي) نشط الآن</span>
                 </div>
+                <div class="radar-coords-tag" id="mapRadarCoords">GPS 35°00'N 03°30'W · RIF 4K DRONE</div>
               </div>
-              <span class="city-count-badge">8 مشاريع</span>
-            </div>
 
-            <!-- 2. مكناس -->
-            <div class="city-map-card" 
-                 data-city="meknes"
-                 data-title='فيديو إعلاني سينمائي لوكالة Red Med Cars لكراء السيارات بمكناس'
-                 data-img="https://img.youtube.com/vi/QBYhDwN2Ky0/maxresdefault.jpg"
-                 data-vid="QBYhDwN2Ky0"
-                 data-count="إنتاج تجاري للسيارات"
-                 data-altitude="أرضي سينمائي + درون"
-                 data-type="إعلانات تجارية وتصوير سيارات"
-                 data-desc="تصوير إعلاني احترافي سريع وديناميكي لوكالة كراء سيارات مع لقطات حركة (Tracking Shots) وتلوين سينمائي جذاب.">
-              <div class="city-card-left">
-                <div class="city-icon-pill">🏎️</div>
-                <div class="city-meta">
-                  <h4>مدينة مكناس الإسماعيلية</h4>
-                  <span>تصوير إعلاني وتجاري للشركات</span>
-                </div>
-              </div>
-              <span class="city-count-badge">إعلان تجاري</span>
-            </div>
+              <div class="morocco-svg-viewport">
+                <svg class="morocco-svg-map rif-map" viewBox="0 0 920 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                  <defs>
+                    <!-- خلفية شبكة رادارية تقنية -->
+                    <pattern id="radarGridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="0.8"/>
+                      <circle cx="20" cy="20" r="1" fill="rgba(255, 255, 255, 0.08)"/>
+                    </pattern>
+                    <!-- تدرج لوني لتضاريس منطقة الريف -->
+                    <linearGradient id="rifLandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#1d222a"/>
+                      <stop offset="45%" stop-color="#161a20"/>
+                      <stop offset="100%" stop-color="#0f1216"/>
+                    </linearGradient>
+                    <!-- تدرج مياه البحر الأبيض المتوسط -->
+                    <linearGradient id="medSeaGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+                      <stop offset="0%" stop-color="#080e18"/>
+                      <stop offset="100%" stop-color="#04070c"/>
+                    </linearGradient>
+                    <!-- تدرج توهج المقر الرئيسي بالدريوش -->
+                    <radialGradient id="hqRifGlow" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="rgba(255, 74, 28, 0.7)"/>
+                      <stop offset="35%" stop-color="rgba(255, 74, 28, 0.25)"/>
+                      <stop offset="100%" stop-color="rgba(255, 74, 28, 0)"/>
+                    </radialGradient>
+                  </defs>
 
-            <!-- 3. بن الطيب وامطالسا -->
-            <div class="city-map-card" 
-                 data-city="bentayeb"
-                 data-title='افتتاح فرع مجموعة مدارس القربى بمدخل مدينة بن الطيب'
-                 data-img="https://img.youtube.com/vi/Win0r8n8xq4/maxresdefault.jpg"
-                 data-vid="Win0r8n8xq4"
-                 data-count="مؤسسات تعليمية وعقارية"
-                 data-altitude="150 متر لقطات جوية واسعة"
-                 data-type="تغطية مؤسساتية وترويج عقاري"
-                 data-desc="تغطية كاملة مع لقطات مساحات كبرى بالدرون لإبراز المنشآت الهندسية والمشاريع الاستراتيجية بالريف.">
-              <div class="city-card-left">
-                <div class="city-icon-pill">🏫</div>
-                <div class="city-meta">
-                  <h4>بن الطيب & امطالسا</h4>
-                  <span>مؤسسات كبرى ومشاريع عقارية</span>
-                </div>
-              </div>
-              <span class="city-count-badge">مشاريع استراتيجية</span>
-            </div>
+                  <!-- مساحة البحر الأبيض المتوسط (Mediterranean Sea Area) -->
+                  <rect x="0" y="0" width="920" height="180" fill="url(#medSeaGradient)" />
+                  <!-- شبكة الرادار -->
+                  <rect width="920" height="540" fill="url(#radarGridPattern)" opacity="0.85"/>
 
-            <!-- 4. الناظور والشمال -->
-            <div class="city-map-card" 
-                 data-city="nador"
-                 data-title='تغطية وتصوير جوي لمشاريع الجالية والاستثمار بالناظور'
-                 data-img="showcase-cinematic.jpg"
-                 data-vid="wegLioS0g6Q"
-                 data-count="تغطيات وسواحل ومشاريع"
-                 data-altitude="طائرات درون متطورة"
-                 data-type="تصوير مشاريع ومغاربة العالم"
-                 data-desc="جاهزون للتنقل والتصوير الجوي الشامل في الناظور، السعيدية، الحسيمة ومحيط المنطقة الشرقية والشمالية.">
-              <div class="city-card-left">
-                <div class="city-icon-pill">🌊</div>
-                <div class="city-meta">
-                  <h4>الناظور والشريط الساحلي</h4>
-                  <span>مشاريع استثمارية وسياحية</span>
+                  <!-- تسمية البحر الأبيض المتوسط -->
+                  <text x="460" y="45" text-anchor="middle" font-family="'Syne', 'Cairo', sans-serif" font-size="12" font-weight="700" fill="rgba(255,255,255,0.18)" letter-spacing="4">
+                    البحر الأبيض المتوسط · MEDITERRANEAN SEA
+                  </text>
+
+                  <!-- دوائر النطاق الراداري انطلاقاً من المقر الرئيسي بالدريوش (510, 260) -->
+                  <g class="radar-range-circles">
+                    <circle cx="510" cy="260" r="70" class="radar-range-circle range-1" />
+                    <circle cx="510" cy="260" r="150" class="radar-range-circle range-2" />
+                    <circle cx="510" cy="260" r="260" class="radar-range-circle range-3" />
+                    <line x1="510" y1="260" x2="680" y2="100" class="radar-sweep-beam" style="transform-origin: 510px 260px;" />
+                  </g>
+
+                  <!-- تضاريس وساحل منطقة الريف (من الجبهة غرباً إلى السعيدية شرقاً، والدريوش في القلب) -->
+                  <g class="rif-territory">
+                    <!-- كتلة أرض منطقة الريف -->
+                    <path class="rif-land" 
+                          d="M 40 160 
+                             C 90 155, 140 145, 190 140 
+                             C 240 135, 275 130, 310 120 
+                             C 340 110, 370 125, 410 130 
+                             C 445 135, 475 125, 510 128 
+                             C 550 130, 585 120, 620 115 
+                             C 645 80, 675 75, 690 100 
+                             C 705 120, 725 125, 755 132 
+                             C 790 140, 830 135, 870 145 
+                             L 890 155 
+                             L 900 480 
+                             C 800 490, 720 500, 620 505 
+                             C 520 510, 420 505, 320 495 
+                             C 220 485, 120 475, 40 460 Z" />
+
+                    <!-- شريط الساحل المتوسطي البارز -->
+                    <path class="rif-coastline" 
+                          d="M 40 160 
+                             C 90 155, 140 145, 190 140 
+                             C 240 135, 275 130, 310 120 
+                             C 340 110, 370 125, 410 130 
+                             C 445 135, 475 125, 510 128 
+                             C 550 130, 585 120, 620 115 
+                             C 645 80, 675 75, 690 100 
+                             C 705 120, 725 125, 755 132 
+                             C 790 140, 830 135, 870 145 L 890 155" />
+
+                    <!-- بحيرة مارتشيكا (Marchica Lagoon) -->
+                    <path class="marchica-lagoon" 
+                          d="M 700 135 C 715 125, 740 130, 748 145 C 740 155, 715 152, 700 135 Z" />
+
+                    <!-- تضاريس وقمم سلسلة جبال الريف -->
+                    <path class="rif-mountain-ridge" d="M 120 300 Q 180 250 240 280 T 360 260 T 480 290 T 600 270 T 720 310" />
+                    <path class="rif-mountain-ridge" d="M 160 360 Q 230 320 300 350 T 440 330 T 560 360 T 680 340" />
+
+                    <!-- حدود الأقاليم الاسترشادية (الحسيمة - الدريوش - الناظور) -->
+                    <path class="rif-border-div" d="M 390 128 C 400 220, 380 330, 360 495" />
+                    <path class="rif-border-div" d="M 610 118 C 605 210, 615 320, 625 505" />
+
+                    <!-- تسميات جغرافية داخلية استرشادية -->
+                    <text x="260" y="440" class="rif-geo-label">إقليم الحسيمة (الريف الأوسط)</text>
+                    <text x="510" y="450" class="rif-geo-label center">إقليم الدريوش (المقر الرئيسي)</text>
+                    <text x="760" y="440" class="rif-geo-label">إقليم الناظور (الريف الشرقي)</text>
+                  </g>
+
+                  <!-- ==============================================
+                       دبابيس ونقاط الرادار التفاعلية عبر مدن وبلدات الريف
+                       ============================================== -->
+
+                  <!-- 1. المقر الرئيسي: الدريوش (Driouch HQ) -->
+                  <g class="radar-hotspot-pin hq-pin active" id="pin-driouch" data-region="driouch" transform="translate(510, 260)">
+                    <circle cx="0" cy="0" r="38" class="pin-halo-pulse" />
+                    <circle cx="0" cy="0" r="22" class="pin-wave-pulse" />
+                    <circle cx="0" cy="0" r="10" class="pin-outer-ring" />
+                    <circle cx="0" cy="0" r="5" class="pin-center-core" />
+                    <g class="pin-badge-group">
+                      <rect x="-62" y="-34" width="124" height="24" rx="12" class="pin-badge-bg hq" />
+                      <text x="0" y="-19" class="pin-badge-text hq">📍 الدريوش (المقر الرئيسي)</text>
+                    </g>
+                  </g>
+
+                  <!-- 2. بن الطيب (Ben Taieb) -->
+                  <g class="radar-hotspot-pin town-pin" id="pin-bentayeb" data-region="driouch" transform="translate(545, 205)">
+                    <circle cx="0" cy="0" r="12" class="pin-wave-pulse" />
+                    <circle cx="0" cy="0" r="6" class="pin-outer-ring" />
+                    <circle cx="0" cy="0" r="3" class="pin-center-core" />
+                    <g class="pin-badge-group">
+                      <rect x="-32" y="-24" width="64" height="18" rx="9" class="pin-badge-bg" />
+                      <text x="0" y="-13" class="pin-badge-text">بن الطيب</text>
+                    </g>
+                  </g>
+
+                  <!-- 3. ميضار (Midar) -->
+                  <g class="radar-hotspot-pin town-pin" id="pin-midar" data-region="driouch" transform="translate(450, 255)">
+                    <circle cx="0" cy="0" r="12" class="pin-wave-pulse" />
+                    <circle cx="0" cy="0" r="6" class="pin-outer-ring" />
+                    <circle cx="0" cy="0" r="3" class="pin-center-core" />
+                    <g class="pin-badge-group">
+                      <rect x="-26" y="-24" width="52" height="18" rx="9" class="pin-badge-bg" />
+                      <text x="0" y="-13" class="pin-badge-text">ميضار</text>
+                    </g>
+                  </g>
+
+                  <!-- 4. تمسمان وبودينار (Temsamane) -->
+                  <g class="radar-hotspot-pin town-pin" id="pin-temsamane" data-region="driouch" transform="translate(455, 175)">
+                    <circle cx="0" cy="0" r="12" class="pin-wave-pulse" />
+                    <circle cx="0" cy="0" r="6" class="pin-outer-ring" />
+                    <circle cx="0" cy="0" r="3" class="pin-center-core" />
+                    <g class="pin-badge-group">
+                      <rect x="-30" y="-24" width="60" height="18" rx="9" class="pin-badge-bg" />
+                      <text x="0" y="-13" class="pin-badge-text">تمسمان</text>
+                    </g>
+                  </g>
+
+                  <!-- 5. امطالسا وعين الزهرة (Mtalsa & Ain Zohra) -->
+                  <g class="radar-hotspot-pin town-pin" id="pin-mtalsa" data-region="driouch" transform="translate(490, 345)">
+                    <circle cx="0" cy="0" r="12" class="pin-wave-pulse" />
+                    <circle cx="0" cy="0" r="6" class="pin-outer-ring" />
+                    <circle cx="0" cy="0" r="3" class="pin-center-core" />
+                    <g class="pin-badge-group">
+                      <rect x="-44" y="-24" width="88" height="18" rx="9" class="pin-badge-bg" />
+                      <text x="0" y="-13" class="pin-badge-text">امطالسا · عين الزهرة</text>
+                    </g>
+                  </g>
+
+                  <!-- 6. إقليم الناظور (Nador City) -->
+                  <g class="radar-hotspot-pin" id="pin-nador" data-region="nador" transform="translate(695, 175)">
+                    <circle cx="0" cy="0" r="16" class="pin-wave-pulse" />
+                    <circle cx="0" cy="0" r="8" class="pin-outer-ring" />
+                    <circle cx="0" cy="0" r="4" class="pin-center-core" />
+                    <g class="pin-badge-group">
+                      <rect x="-42" y="-26" width="84" height="20" rx="10" class="pin-badge-bg" />
+                      <text x="0" y="-14" class="pin-badge-text">🌊 الناظور المدينة</text>
+                    </g>
+                  </g>
+
+                  <!-- 7. بحيرة مارتشيكا وبني انصار (Marchica & Bni Ensar) -->
+                  <g class="radar-hotspot-pin town-pin" id="pin-marchica" data-region="coastal" transform="translate(730, 130)">
+                    <circle cx="0" cy="0" r="12" class="pin-wave-pulse" />
+                    <circle cx="0" cy="0" r="6" class="pin-outer-ring" />
+                    <circle cx="0" cy="0" r="3" class="pin-center-core" />
+                    <g class="pin-badge-group">
+                      <rect x="-38" y="-24" width="76" height="18" rx="9" class="pin-badge-bg" />
+                      <text x="0" y="-13" class="pin-badge-text">مارتشيكا · بني انصار</text>
+                    </g>
+                  </g>
+
+                  <!-- 8. العروي وسلوان (Al Aaroui & Selouane) -->
+                  <g class="radar-hotspot-pin town-pin" id="pin-aaroui" data-region="nador" transform="translate(670, 275)">
+                    <circle cx="0" cy="0" r="12" class="pin-wave-pulse" />
+                    <circle cx="0" cy="0" r="6" class="pin-outer-ring" />
+                    <circle cx="0" cy="0" r="3" class="pin-center-core" />
+                    <g class="pin-badge-group">
+                      <rect x="-36" y="-24" width="72" height="18" rx="9" class="pin-badge-bg" />
+                      <text x="0" y="-13" class="pin-badge-text">العروي · سلوان</text>
+                    </g>
+                  </g>
+
+                  <!-- 9. زايو ورأس الماء (Zaio & Ras El Ma) -->
+                  <g class="radar-hotspot-pin town-pin" id="pin-zaio" data-region="nador" transform="translate(780, 230)">
+                    <circle cx="0" cy="0" r="12" class="pin-wave-pulse" />
+                    <circle cx="0" cy="0" r="6" class="pin-outer-ring" />
+                    <circle cx="0" cy="0" r="3" class="pin-center-core" />
+                    <g class="pin-badge-group">
+                      <rect x="-38" y="-24" width="76" height="18" rx="9" class="pin-badge-bg" />
+                      <text x="0" y="-13" class="pin-badge-text">زايو · رأس الماء</text>
+                    </g>
+                  </g>
+
+                  <!-- 10. إقليم الحسيمة (Al Hoceima City) -->
+                  <g class="radar-hotspot-pin" id="pin-hoceima" data-region="hoceima" transform="translate(320, 135)">
+                    <circle cx="0" cy="0" r="16" class="pin-wave-pulse" />
+                    <circle cx="0" cy="0" r="8" class="pin-outer-ring" />
+                    <circle cx="0" cy="0" r="4" class="pin-center-core" />
+                    <g class="pin-badge-group">
+                      <rect x="-42" y="-26" width="84" height="20" rx="10" class="pin-badge-bg" />
+                      <text x="0" y="-14" class="pin-badge-text">⛰️ الحسيمة المدينة</text>
+                    </g>
+                  </g>
+
+                  <!-- 11. إمزورن وبني بوعياش (Imzouren & Bni Bouayach) -->
+                  <g class="radar-hotspot-pin town-pin" id="pin-imzouren" data-region="hoceima" transform="translate(355, 195)">
+                    <circle cx="0" cy="0" r="12" class="pin-wave-pulse" />
+                    <circle cx="0" cy="0" r="6" class="pin-outer-ring" />
+                    <circle cx="0" cy="0" r="3" class="pin-center-core" />
+                    <g class="pin-badge-group">
+                      <rect x="-44" y="-24" width="88" height="18" rx="9" class="pin-badge-bg" />
+                      <text x="0" y="-13" class="pin-badge-text">إمزورن · بني بوعياش</text>
+                    </g>
+                  </g>
+
+                  <!-- 12. تارجيست والريف الغربي (Targuist) -->
+                  <g class="radar-hotspot-pin town-pin" id="pin-targuist" data-region="hoceima" transform="translate(230, 260)">
+                    <circle cx="0" cy="0" r="12" class="pin-wave-pulse" />
+                    <circle cx="0" cy="0" r="6" class="pin-outer-ring" />
+                    <circle cx="0" cy="0" r="3" class="pin-center-core" />
+                    <g class="pin-badge-group">
+                      <rect x="-42" y="-24" width="84" height="18" rx="9" class="pin-badge-bg" />
+                      <text x="0" y="-13" class="pin-badge-text">تارجيست · إساكن</text>
+                    </g>
+                  </g>
+
+                  <!-- 13. السعيدية (Saidia Beach) -->
+                  <g class="radar-hotspot-pin town-pin" id="pin-saidia" data-region="coastal" transform="translate(855, 160)">
+                    <circle cx="0" cy="0" r="12" class="pin-wave-pulse" />
+                    <circle cx="0" cy="0" r="6" class="pin-outer-ring" />
+                    <circle cx="0" cy="0" r="3" class="pin-center-core" />
+                    <g class="pin-badge-group">
+                      <rect x="-35" y="-24" width="70" height="18" rx="9" class="pin-badge-bg" />
+                      <text x="0" y="-13" class="pin-badge-text">السعيدية الشاطئ</text>
+                    </g>
+                  </g>
+
+                  <!-- 14. الجبهة وبادس (El Jebha Coast) -->
+                  <g class="radar-hotspot-pin town-pin" id="pin-jebha" data-region="coastal" transform="translate(120, 165)">
+                    <circle cx="0" cy="0" r="12" class="pin-wave-pulse" />
+                    <circle cx="0" cy="0" r="6" class="pin-outer-ring" />
+                    <circle cx="0" cy="0" r="3" class="pin-center-core" />
+                    <g class="pin-badge-group">
+                      <rect x="-38" y="-24" width="76" height="18" rx="9" class="pin-badge-bg" />
+                      <text x="0" y="-13" class="pin-badge-text">شواطئ الجبهة</text>
+                    </g>
+                  </g>
+
+                  <!-- بوصلة الرادار -->
+                  <g class="compass-rose" transform="translate(60, 50)">
+                    <circle cx="0" cy="0" r="20" fill="rgba(0,0,0,0.6)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                    <path d="M 0 -16 L 3 0 L 0 3 L -3 0 Z" fill="var(--accent-color)"/>
+                    <path d="M 0 16 L 3 0 L 0 -3 L -3 0 Z" fill="#666"/>
+                    <text x="0" y="-20" text-anchor="middle" font-size="9" font-weight="800" fill="var(--accent-color)" font-family="'Syne', sans-serif">N</text>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- شريط مفتاح الخريطة (Map Legend) -->
+              <div class="map-legend-bar">
+                <div class="legend-item">
+                  <span class="legend-dot hq"></span>
+                  <span>المقر الرئيسي (إقليم الدريوش)</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot active"></span>
+                  <span>تغطية يومية دائمة</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot coastal"></span>
+                  <span>سواحل وشواطئ الريف</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot mobility"></span>
+                  <span>جاهزية التنقل لكافة قرى الريف</span>
                 </div>
               </div>
-              <span class="city-count-badge">تغطية شاملة</span>
             </div>
           </div>
 
-          <!-- شاشة الرادار والعرض المباشر للعمل المنفذ -->
-          <div class="map-display-visual">
-            <div class="map-radar-header">
-              <div class="radar-status">
-                <span class="radar-dot"></span>
-                <span id="mapCityIndicator">إقليم الدريوش - تغطية نشطة</span>
-              </div>
-              <span style="font-size: 0.75rem; color: #777; font-family: 'Syne', sans-serif;">GPS / 4K DRONE FEED</span>
-            </div>
-
-            <div class="map-screen-body">
-              <div class="map-spotlight-preview">
-                <img id="mapPreviewImg" src="https://img.youtube.com/vi/5TftyYFJ4q4/maxresdefault.jpg" alt="معاينة العمل الميداني">
-                <div class="map-spotlight-overlay">
-                  <div class="map-spotlight-title" id="mapPreviewTitle">شقق فاخرة في الشارع الرئيسي بالدريوش.. مجموعة أزحاف</div>
-                  <button type="button" class="map-play-pill" id="mapPlayVideoBtn">
-                    <span>تشغيل</span>
-                    <span>▶</span>
-                  </button>
+          <!-- العمود الأيسر: لوحة تفاصيل التغطية والعتاد بمنطقة الريف (Coverage HUD Panel) -->
+          <div class="map-hud-column">
+            <div class="coverage-hud-card">
+              <!-- رأس اللوحة -->
+              <div class="hud-card-header">
+                <div class="hud-badge-pill" id="hudRegionBadge">
+                  <span class="badge-dot-live"></span>
+                  <span id="hudRegionBadgeText">🟢 تغطية يومية فورية ومباشرة</span>
                 </div>
+                <h3 class="hud-region-title" id="hudRegionTitle">إقليم الدريوش (المقر الرئيسي & قلب الريف)</h3>
+                <p class="hud-region-tagline" id="hudRegionTagline">
+                  قلب الريف والمركز الرئيسي لاستوديو أصوات الدريوش - طاقم متأهب على مدار الساعة بأحدث طائرات درون 4K ومعدات تصوير سينمائي متكاملة.
+                </p>
               </div>
 
-              <!-- بطاقات مؤشرات التغطية -->
-              <div class="map-city-highlights">
-                <div class="map-city-badge">
-                  <span class="badge-val" id="mapBadgeAlt">120 متر</span>
-                  <span class="badge-label">أقصى ارتفاع لقطات جوية</span>
+              <!-- المدن والمراكز المغطاة في الإقليم -->
+              <div class="hud-zones-block">
+                <div class="hud-block-label">
+                  <span>📍 أبرز المراكز والمناطق المشمولة بالتغطية:</span>
                 </div>
-                <div class="map-city-badge">
-                  <span class="badge-val" id="mapBadgeType">عقارات وافتتاح</span>
-                  <span class="badge-label">طبيعة الإنتاج الميداني</span>
-                </div>
-                <div class="map-city-badge">
-                  <span class="badge-val" id="mapBadgeCount">8+ أعمال</span>
-                  <span class="badge-label">مستوى الحضور والخبرة</span>
+                <div class="zone-chips-wrap" id="hudZonesContainer">
+                  <span class="zone-chip">الدريوش المركز</span>
+                  <span class="zone-chip">بن الطيب</span>
+                  <span class="zone-chip">ميضار</span>
+                  <span class="zone-chip">امطالسا</span>
+                  <span class="zone-chip">تمسمان</span>
+                  <span class="zone-chip">عين الزهرة</span>
+                  <span class="zone-chip">تفرسيت</span>
+                  <span class="zone-chip">بودينار</span>
+                  <span class="zone-chip">تسافت</span>
+                  <span class="zone-chip">دار الكبداني</span>
                 </div>
               </div>
 
-              <p id="mapCityDesc" style="color: #aaa; font-size: 0.88rem; line-height: 1.7; margin: 0;">
-                مركز ومقر الاستوديو، قمنا بتغطية كبرى الافتتاحات والمشاريع العقارية والمحلات التجارية بتصوير جوي وأرضي فائق الدقة.
-              </p>
+              <!-- مؤشرات الجاهزية والعتاد الميداني -->
+              <div class="hud-metrics-grid">
+                <div class="hud-metric-box">
+                  <span class="hud-metric-icon">⏱️</span>
+                  <span class="hud-metric-val" id="hudStatSpeed">أقل من 30 دقيقة</span>
+                  <span class="hud-metric-lbl">سرعة الاستجابة والتنقل</span>
+                </div>
+                <div class="hud-metric-box">
+                  <span class="hud-metric-icon">🛸</span>
+                  <span class="hud-metric-val" id="hudStatGear">4K Cinema + FPV</span>
+                  <span class="hud-metric-lbl">عتاد الدرون والتصوير</span>
+                </div>
+                <div class="hud-metric-box">
+                  <span class="hud-metric-icon">🛡️</span>
+                  <span class="hud-metric-val" id="hudStatLegal">مرخص ومؤمن 100%</span>
+                  <span class="hud-metric-lbl">تراخيص الطيران القانونية</span>
+                </div>
+              </div>
 
-              <div class="map-cta-action">
-                <a href="https://wa.me/212629703283?text=مرحباً أسامة، أود حجز تصوير ميداني / درون لمشروعي في منطقتي" target="_blank" class="btn-map-request" id="mapBookCta">
-                  <span>طلب تصوير ميداني أو درون في هذه المنطقة</span>
+              <!-- قائمة الخدمات والإنتاج المتاح في المنطقة -->
+              <div class="hud-services-block">
+                <div class="hud-block-label">
+                  <span>🎬 الخدمات الميدانية المتاحة في هذا النطاق:</span>
+                </div>
+                <ul class="hud-services-list" id="hudServicesList">
+                  <li>تصوير جوي سينمائي فائق الدقة (Drone 4K 60fps) وتوثيق جوي للمساحات الكبرى والمنشآت بالريف.</li>
+                  <li>تغطية افتتاحيات المحلات والمشاريع التجارية والشركات والمؤسسات التعليمية.</li>
+                  <li>إنتاج إعلانات الفيديو التجارية والسينمائية للمحلات ووكالات كراء السيارات.</li>
+                  <li>التسويق العقاري وتصوير الفيلات والمنازل والأراضي للجالية والمستثمرين.</li>
+                </ul>
+              </div>
+
+              <!-- بطاقة ضمان التنقل للموقع بالريف -->
+              <div class="hud-mobility-notice">
+                <span class="mobility-icon">🚗</span>
+                <div class="mobility-text">
+                  <strong>نصل إليك في أي نقطة بالريف:</strong> طاقمنا يتنقل بسيارات دفع رباعي ومعدات الدرون الاحترافية مباشرة إلى عقارك، مزرعتك، أو محلك في أي قرية أو مدينة بالريف.
+                </div>
+              </div>
+
+              <!-- زر طلب التصوير المباشر عبر واتساب -->
+              <div class="hud-cta-action">
+                <a href="https://wa.me/212629703283?text=مرحباً أسامة، أود حجز تصوير ميداني / درون لمشروعي في إقليم الدريوش" target="_blank" class="btn-map-request" id="mapBookCta">
+                  <span id="mapBookCtaText">طلب تصوير ميداني أو درون بإقليم الدريوش</span>
                   <span>🛸</span>
                 </a>
               </div>
@@ -4973,165 +5570,25 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 // إعدادات خدمة EmailJS (مهم جداً: استبدل بالمعرفات الخاصة بك)
 // ========================================================
 (function() {
-    // --- جديد: إزالة علامة التمديد عند التحميل ---
-    sessionStorage.removeItem('lastBanExtension');
-
-    // --- جديد: نظام الحظر عند محاولة الإرسال المتكرر ---
-    // يتحقق عند تحميل الصفحة إذا كان المستخدم محظوراً مؤقتاً
-    const blockUntil = localStorage.getItem('userBlockUntil');
-    if (blockUntil && Date.now() < parseInt(blockUntil)) {
-        const blockEndTime = parseInt(blockUntil); // تخزين وقت الانتهاء
-        const blocker = document.getElementById('user-blocker');
-        if (blocker) {
-            blocker.style.display = 'flex'; // إظهار الحاوية الخلفية
-            document.body.style.overflow = 'hidden'; // منع التمرير
-
-            // بدء مؤقت العد التنازلي على شاشة الحظر
-            startBlockerCountdown(parseInt(blockUntil));
-            startBlockerCountdown(blockEndTime);
-
-            // --- جديد: تفعيل آلية الدفاع ضد العبث بالحظر ---
-            enforceBlockade(blockEndTime);
-
-            // تفعيل الحركة الاحترافية للظهور
-            setTimeout(() => {
-                blocker.style.opacity = '1';
-                const blockerContent = blocker.querySelector('.blocker-content');
-                if (blockerContent) {
-                    blockerContent.style.opacity = '1';
-                    blockerContent.style.transform = 'scale(1)';
-                }
-            }, 50); // تأخير بسيط للسماح بتطبيق الانتقال
-        }
-    } else if (blockUntil) {
-        // إذا انتهت مدة الحظر، يتم مسح البيانات للسماح للمستخدم بالمحاولة مجدداً
+    // تنظيف أي بيانات حظر قديمة من متصفح الزائر
+    try {
         localStorage.removeItem('userBlockUntil');
         localStorage.removeItem('submissionClickCount');
-    }
+        sessionStorage.removeItem('lastBanExtension');
+    } catch(e) {}
 
-    // 1. اذهب إلى موقع emailjs.com وأنشئ حساباً مجانياً.
-    // 2. أضف خدمة بريد (مثل Gmail).
-    // 3. أنشئ قالب بريد إلكتروني جديد.
-    // 4. انسخ المعرفات من حسابك وضعها هنا.
     try {
         if (typeof emailjs !== 'undefined') {
             emailjs.init({
-                publicKey: "r0uB9bjP2dEf8ghHl" // المفتاح العام الصحيح من حسابك
+                publicKey: "r0uB9bjP2dEf8ghHl"
             });
         } else {
             throw new Error("EmailJS library is not defined.");
         }
     } catch (e) {
-        console.error("فشل تهيئة EmailJS. قد تكون المكتبة محجوبة.", e);
-        // وضع علامة للإشارة إلى فشل التهيئة
+        console.error("فشل تهيئة EmailJS.", e);
         window.emailjsInitFailed = true;
     }
-})();
-
-// --- جديد: نظام الحماية من فتح أدوات المطور (Inspector) ---
-(function() {
-    // لا تقم بتشغيل هذا النظام إذا كان المستخدم هو المالك (لتسهيل التطوير) أو إذا كان محظوراً بالفعل
-    const urlParams = new URLSearchParams(window.location.search);
-    const isOwner = urlParams.get('access') === 'owner';
-    const blockUntil = localStorage.getItem('userBlockUntil');
-    const isBlocked = blockUntil && Date.now() < parseInt(blockUntil);
-
-    if (isOwner || isBlocked) {
-        if (isOwner) console.warn("DevTools detection is disabled for owner.");
-        return;
-    }
-
-    function detect() {
-        const threshold = 160;
-        const startTime = new Date();
-        
-        debugger; // هذه النقطة ستتسبب في توقف الكود مؤقتاً إذا كانت أدوات المطور مفتوحة
-        
-        const endTime = new Date();
-        
-        if (endTime.getTime() - startTime.getTime() > threshold) {
-            // إيقاف الفحص لمنع التكرار
-            if (window.devToolsInterval) {
-                clearInterval(window.devToolsInterval);
-            }
-            
-            // تطبيق الحظر
-            showToast("🚫 تم اكتشاف محاولة للعبث بالكود. سيتم تقييد وصولك.", "error");
-            const blockDuration = 5 * 60 * 1000; // 5 دقائق
-            localStorage.setItem('userBlockUntil', Date.now() + blockDuration);
-            setTimeout(() => { window.location.reload(); }, 2500);
-        }
-    }
-
-    window.devToolsInterval = setInterval(detect, 1000);
-})();
-
-// --- جديد: نظام الحماية من السلوك الاستفزازي (النسخ الفوري) ---
-(function() {
-    // استثناء المالك من هذه الحماية
-    const urlParams = new URLSearchParams(window.location.search);
-    const isOwner = urlParams.get('access') === 'owner';
-    const blockUntil = localStorage.getItem('userBlockUntil');
-    const isBlocked = blockUntil && Date.now() < parseInt(blockUntil);
- 
-    if (isOwner || isBlocked) {
-        if(isOwner) console.warn("Copy/Select protection is disabled for owner.");
-        return;
-    }
- 
-    function triggerCopyBan() {
-        // إيقاف المستمع لتجنب التكرار
-        document.removeEventListener('copy', handleCopyAttempt);
-        document.body.style.userSelect = 'auto';
- 
-        showToast("🚫 تم اكتشاف محاولة لنسخ المحتوى. سيتم تقييد وصولك.", "error");
-        const blockDuration = 5 * 60 * 1000; // 5 دقائق
-        localStorage.setItem('userBlockUntil', Date.now() + blockDuration);
-        setTimeout(() => { window.location.reload(); }, 2500);
-    }
- 
-    function handleCopyAttempt(e) {
-        e.preventDefault(); // منع النسخ
-        triggerCopyBan(); // الحظر فوراً
-    }
- 
-    // تعطيل النسخ وتحديد النص، مع السماح بالنقر بالزر الأيمن
-    document.addEventListener('copy', handleCopyAttempt);
-    document.body.style.cssText += 'user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;';
-})();
-
-// --- جديد: نظام الحماية من اختصارات لوحة المفاتيح (عرض المصدر، الحفظ) ---
-(function() {
-    // استثناء المالك من هذه الحماية
-    const urlParams = new URLSearchParams(window.location.search);
-    const isOwner = urlParams.get('access') === 'owner';
-    const blockUntil = localStorage.getItem('userBlockUntil');
-    const isBlocked = blockUntil && Date.now() < parseInt(blockUntil);
- 
-    if (isOwner || isBlocked) {
-        if(isOwner) console.warn("Keyboard shortcut protection is disabled for owner.");
-        return;
-    }
-
-    function triggerShortcutBan(message) {
-        // Prevent this listener from running again to avoid multiple bans
-        document.removeEventListener('keydown', handleShortcutAttempt);
-        
-        showToast(message, "error");
-        const blockDuration = 5 * 60 * 1000; // 5 دقائق
-        localStorage.setItem('userBlockUntil', Date.now() + blockDuration);
-        setTimeout(() => { window.location.reload(); }, 2500);
-    }
-
-    function handleShortcutAttempt(e) {
-        // Ctrl+U (View Source), Ctrl+S (Save Page)
-        if (e.ctrlKey && (e.key.toLowerCase() === 'u' || e.key.toLowerCase() === 's')) {
-            e.preventDefault();
-            triggerShortcutBan("🚫 تم اكتشاف محاولة للوصول إلى كود المصدر. سيتم تقييد وصولك.");
-        }
-    }
-
-    document.addEventListener('keydown', handleShortcutAttempt);
 })();
 
 // دالة إخفاء شاشة التحميل (Preloader)
@@ -5155,9 +5612,23 @@ window.addEventListener('load', function() {
 });
 
 
-// ========================================================
+// ===========================// ==================================================
 // نظام التنبيهات الاحترافي (Custom Toast Notifications)
-// ========================================================
+// ==================================================
+// ==================================================
+// حماية محتوى وتصاميم الموقع من النسخ (بشكل راقى وبدون أي حظر)
+// ==================================================
+document.addEventListener('copy', function(e) {
+    const activeEl = document.activeElement;
+    if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || activeEl.isContentEditable)) {
+        return;
+    }
+    e.preventDefault();
+    if (typeof showToast === 'function') {
+        showToast("⚠️ محتوى وتصاميم الموقع محمية بموجب حقوق النشر © أصوات الدريوش", "info");
+    }
+});
+
 function showToast(message, type = 'info') {
     const container = document.getElementById('custom-toast-container');
     if (!container) return;
@@ -5253,14 +5724,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
     
-    // --- التحقق من حالة التفعيل السابقة ---
-    // ========================================================
-    // تعطيل بوابة التحقق عبر واتساب بشكل كامل لإصلاح مشكلة عدم فتح الموقع
-    // ========================================================
-    const gate = document.getElementById('whatsapp-gate');
-    if (gate) {
-        gate.style.display = 'none';
-    }
+
 
     // ========================================================
     // تأثير تحريك الشعار بالماوس (3D Logo Mouse Effect)
@@ -6344,38 +6808,11 @@ function completeEmailSubmission() {
 // دوال الإرسال الرئيسية التي تبدأ عملية التحقق
 // ========================================================
 
-// --- جديد: دالة حماية من النقرات المتكررة ---
-function checkAndBlockForSpamClicks() {
-    let clickCount = parseInt(localStorage.getItem('submissionClickCount') || '0');
-    clickCount++;
-    localStorage.setItem('submissionClickCount', clickCount);
-
-    if (clickCount >= 3) {
-        showToast("🚫 تم اكتشاف نقرات متكررة وعشوائية. سيتم تقييد وصولك.", "error");
-        // --- جديد: تفعيل حظر مؤقت لمدة 30 ثانية ---
-        const blockDuration = 30 * 1000; // 30 ثانية
-        localStorage.setItem('userBlockUntil', Date.now() + blockDuration);
-        setTimeout(() => { window.location.reload(); }, 2500);
-        return true; // إرجاع "صحيح" للإشارة إلى أنه تم الحظر
-    }
-    return false; // إرجاع "خطأ" للإشارة إلى أن كل شيء على ما يرام
-}
-
 function sendToWhatsApp() {
-    // التحقق من النقرات المتكررة أولاً
-    if (checkAndBlockForSpamClicks()) {
-        return; // إيقاف التنفيذ إذا تم الحظر
-    }
-    // هذه الدالة الآن تستدعي النظام الجديد للتحقق
     initiateOrderVerification('whatsapp');
 }
 
 function sendToEmail() {
-    // التحقق من النقرات المتكررة أولاً
-    if (checkAndBlockForSpamClicks()) {
-        return; // إيقاف التنفيذ إذا تم الحظر
-    }
-    // هذه الدالة الآن تستدعي النظام الجديد للتحقق
     initiateOrderVerification('email');
 }
 
@@ -6411,83 +6848,7 @@ function startCountdownTimer(duration) {
     }, 1000);
 }
 
-// ========================================================
-// نظام مؤقت شاشة الحظر (Blocker Screen Countdown)
-// ========================================================
-function startBlockerCountdown(endTime) {
-    const timerDisplay = document.getElementById('blocker-timer');
-    if (!timerDisplay) return;
 
-    const interval = setInterval(() => {
-        const now = Date.now();
-        const remaining = endTime - now;
-
-        if (remaining <= 0) {
-            clearInterval(interval);
-            timerDisplay.innerHTML = "يمكنك الآن تحديث الصفحة للمتابعة.";
-            // إزالة بيانات الحظر وإعادة تحميل الصفحة تلقائياً
-            localStorage.removeItem('userBlockUntil');
-            localStorage.removeItem('submissionClickCount');
-            setTimeout(() => { window.location.reload(); }, 2000);
-            return;
-        }
-
-        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-
-        const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
-        const formattedSeconds = seconds < 10 ? "0" + seconds : seconds;
-
-        timerDisplay.innerHTML = `يمكنك المحاولة مرة أخرى بعد: <br> <span style="font-size: 2.5rem;">${formattedMinutes}:${formattedSeconds}</span>`;
-    }, 1000);
-}
-
-// ========================================================
-// نظام حماية الحظر من العبث (Blockade Anti-Tamper)
-// ========================================================
-function enforceBlockade(blockEndTime) {
-    const blockadeInterval = setInterval(() => {
-        const startTime = new Date();
-        // هذه النقطة ستجعل من الصعب جداً استخدام أدوات المطور لفك الحظر
-        debugger;
-        const endTime = new Date();
-
-        // --- جديد: زيادة مدة الحظر عند محاولة العبث ---
-        if (endTime.getTime() - startTime.getTime() > 100) {
-            const lastExtension = parseInt(sessionStorage.getItem('lastBanExtension') || '0');
-            if (Date.now() - lastExtension > 5000) { // منع التمديد المتكرر السريع
-                sessionStorage.setItem('lastBanExtension', Date.now());
-                
-                const extensionDuration = 5 * 60 * 1000; // 5 دقائق إضافية
-                const newBlockEndTime = Date.now() + extensionDuration;
-                localStorage.setItem('userBlockUntil', newBlockEndTime);
-                
-                showToast("🚫 تم تمديد مدة الحظر بسبب محاولة العبث بالنظام.", "error");
-                console.warn("Anti-tamper: Ban extended for developer tools access.");
-                
-                setTimeout(() => window.location.reload(), 2500);
-                clearInterval(blockadeInterval);
-            }
-            return;
-        }
-
-        // التحقق مما إذا كان وقت الحظر لم ينته بعد
-        if (Date.now() < blockEndTime) {
-            // إذا حاول المستخدم إزالة مفتاح الحظر من الذاكرة...
-            if (!localStorage.getItem('userBlockUntil')) {
-                // ...نقوم بإعادته فوراً
-                console.warn("Anti-tamper: Block re-enforced.");
-                localStorage.setItem('userBlockUntil', blockEndTime);
-            }
-        } else {
-            // إذا انتهى وقت الحظر، نزيل كل شيء ونعيد تحميل الصفحة
-            clearInterval(blockadeInterval);
-            localStorage.removeItem('userBlockUntil');
-            localStorage.removeItem('submissionClickCount');
-            window.location.reload();
-        }
-    }, 500); // يتم الفحص كل نصف ثانية
-}
 // ========================================================
 // شريط التقدم التفاعلي عند التمرير (Scroll Progress Bar)
 // ========================================================
@@ -6929,76 +7290,241 @@ window.addEventListener('scroll', function() {
     }
 
     // ========================================================
-    // نظام خريطة التصوير الميداني والدرون التفاعلية (Drone & Field Map)
+    // نظام خريطة التغطية الميدانية والجوية لمنطقة الريف (Rif Coverage & Radar Map)
     // ========================================================
     function initDroneShootingMap() {
-        const cityCards = document.querySelectorAll('.city-map-card');
-        const previewImg = document.getElementById('mapPreviewImg');
-        const previewTitle = document.getElementById('mapPreviewTitle');
-        const cityIndicator = document.getElementById('mapCityIndicator');
-        const badgeAlt = document.getElementById('mapBadgeAlt');
-        const badgeType = document.getElementById('mapBadgeType');
-        const badgeCount = document.getElementById('mapBadgeCount');
-        const cityDesc = document.getElementById('mapCityDesc');
+        const coverageData = {
+            driouch: {
+                id: 'driouch',
+                name: 'إقليم الدريوش (المقر الرئيسي & قلب الريف)',
+                badge: '🟢 تغطية يومية فورية ومباشرة',
+                badgeColor: '#25d366',
+                coords: 'GPS 35°00\'N 03°30\'W · HQ STUDIO',
+                pinId: 'pin-driouch',
+                tagline: 'المقر والمركز الميداني الرئيسي لاستوديو أصوات الدريوش - طاقم متأهب على مدار الساعة بأحدث طائرات درون 4K ومعدات تصوير سينمائي كاملة لكافة جماعات وبلدات الإقليم.',
+                zones: ['الدريوش المركز', 'بن الطيب', 'ميضار', 'امطالسا', 'تمسمان', 'عين الزهرة', 'تفرسيت', 'بودينار', 'تسافت', 'دار الكبداني'],
+                stats: {
+                    speed: 'فورية (أقل من 30 دقيقة)',
+                    gear: '4K Cinema + FPV Drone',
+                    legal: 'طيران وتصوير مرخص 100%'
+                },
+                services: [
+                    'تصوير جوي سينمائي فائق الدقة (Drone 4K 60fps) وتوثيق جوي شامل للمساحات الكبرى والمنشآت.',
+                    'تغطية احترافية لافتتاحيات المحلات، الوكالات التجارية، والشركات والمؤسسات بإقليم الدريوش.',
+                    'إنتاج إعلانات الفيديو التجارية والسينمائية (مثل تصوير وكالات السيارات والمحلات التجارية الكبرى).',
+                    'التسويق العقاري وتصوير الفيلات، المنازل، الأراضي والشقق السكنية لمغاربة العالم (الجالية) والمستثمرين.'
+                ],
+                ctaText: 'طلب تصوير ميداني أو درون بإقليم الدريوش',
+                whatsappMsg: 'مرحباً أسامة، أود حجز تصوير ميداني / درون لمشروعي في إقليم الدريوش'
+            },
+            nador: {
+                id: 'nador',
+                name: 'إقليم الناظور ومارتشيكا (الريف الشرقي)',
+                badge: '🟢 تغطية يومية منتظمة وسريعة',
+                badgeColor: '#25d366',
+                coords: 'GPS 35°10\'N 02°56\'W · NADOR & MARCHICA',
+                pinId: 'pin-nador',
+                tagline: 'تغطيات جوية وميدانية شاملة للمشاريع الاستثمارية والسياحية وعقارات الجالية المقيمة بالخارج في الناظور، بحيرة مارتشيكا، العروي وبني انصار.',
+                zones: ['الناظور المدينة', 'كورنيش وبحيرة مارتشيكا', 'بني انصار', 'العروي', 'زايو', 'سلوان', 'أزغنغان', 'قرية أركمان'],
+                stats: {
+                    speed: 'خلال 40 دقيقة',
+                    gear: 'Drone 4K Ultra-HD',
+                    legal: 'عقارات وسياحة واستثمار'
+                },
+                services: [
+                    'تصوير جوي وبحري احترافي لمشاريع مارتشيكا والشواطئ والمنتجعات والفنادق الساحلية.',
+                    'توثيق وإدارة وتصوير أملاك الجالية المغربية المقيمة بالخارج عن بُعد بدقة 4K مع تقارير شاملة.',
+                    'تصوير المنشآت الصناعية والمستودعات والشركات في بني انصار، العروي ومحيط ميناء الناظور غرب المتوسط.',
+                    'إعلانات الفيديو التجارية والمحتوى الرقمي التسويقي للمطاعم والأنشطة الاقتصادية بالناظور.'
+                ],
+                ctaText: 'طلب تصوير في الناظور ومارتشيكا',
+                whatsappMsg: 'مرحباً أسامة، أود حجز تصوير ميداني / درون لمشروعي في إقليم الناظور ومارتشيكا'
+            },
+            hoceima: {
+                id: 'hoceima',
+                name: 'إقليم الحسيمة والريف الأوسط',
+                badge: '🟢 تغطية ميدانية ميسرة وجاهزة',
+                badgeColor: '#25d366',
+                coords: 'GPS 35°15\'N 03°56\'W · CENTRAL RIF',
+                pinId: 'pin-hoceima',
+                tagline: 'لقطات جوية سينمائية ساحرة تجمع زرقة البحر المتوسط وشموخ جبال الريف لتوثيق المشروعات والعقارات بأعلى المعايير العالمية.',
+                zones: ['مدينة الحسيمة', 'إمزورن', 'بني بوعياش', 'تارجيست', 'أجدير', 'إساكن', 'شاطئ كيمادو', 'شاطئ كالا بونيتة'],
+                stats: {
+                    speed: 'تنقل سريع مبرمج',
+                    gear: 'Cinematic 4K + Gimbal',
+                    legal: 'طاقم ميداني متمرس'
+                },
+                services: [
+                    'تصوير ترويجي وسياحي ساحلي فائق الجمال لشواطئ ومنتجعات الحسيمة ومشاريعها السياحية.',
+                    'تغطية المنشآت الهندسية والمشاريع العمرانية والمؤسسات في إمزورن وبني بوعياش وتارجيست.',
+                    'تصوير مشاريع وممتلكات أبناء الجالية والمستثمرين العقاريين مع تسليم تقارير سينمائية دورية.',
+                    'فيديوهات إعلانية سينمائية للمشاريع والأنشطة التجارية والاقتصادية بالريف الأوسط.'
+                ],
+                ctaText: 'طلب تصوير في إقليم الحسيمة',
+                whatsappMsg: 'مرحباً أسامة، أود حجز تصوير ميداني / درون لمشروعي في إقليم الحسيمة'
+            },
+            coastal: {
+                id: 'coastal',
+                name: 'الشريط الساحلي وشواطئ الريف المتوسطية',
+                badge: '🏖️ تغطية الشواطئ والمنتجعات والموانئ',
+                badgeColor: '#38bdf8',
+                coords: 'GPS MEDITERRANEAN COAST · RIF SHORES',
+                pinId: 'pin-marchica',
+                tagline: 'تصوير جوي وبحري متخصص على طول الساحل المتوسطي للريف، من شواطئ الجبهة وبادس غرباً مروراً بالحسيمة ومارتشيكا حتى رأس الماء والسعيدية شرقاً.',
+                zones: ['شواطئ الحسيمة (كيمادو، تلا يوسف، كالا بونيتة)', 'بحيرة وكورنيش مارتشيكا', 'شواطئ رأس الماء', 'السعيدية (الجوهرة الزرقاء)', 'شواطئ الجبهة وتورية', 'ميناء بني انصار وغرب المتوسط'],
+                stats: {
+                    speed: 'جاهزية صيفية ودائمة',
+                    gear: 'Waterproof 4K + Polarizers',
+                    legal: 'ترخيص تصوير ساحلي'
+                },
+                services: [
+                    'تصوير جوي سينمائي فائق الروعة للشواطئ والخلجان واليخوت والأنشطة البحرية بالريف.',
+                    'إنتاج محتوى ترويجي وسياحي للمنتجعات والمجمعات السكنية والشاليهات الساحلية.',
+                    'تصوير الفنادق والمطاعم والمقاهي المطلة على الواجهة البحرية بدقة 4K.',
+                    'توثيق جمال الطبيعة العذراء للشواطئ المعزولة والمناظر البحرية الخلابة.'
+                ],
+                ctaText: 'طلب تصوير على الساحل المتوسطي للريف',
+                whatsappMsg: 'مرحباً أسامة، أود حجز تصوير جوي / بحري لشاطئ أو مشروع ساحلي بالريف'
+            },
+            allrif: {
+                id: 'allrif',
+                name: 'عموم بلدات وقرى ودواوير جبال الريف',
+                badge: '🌲 تغطية شاملة لكافة تضاريس الريف',
+                badgeColor: '#ff4a1c',
+                coords: 'GPS 35°05\'N 03°40\'W · ALL RIF EXPEDITION',
+                pinId: 'all',
+                tagline: 'نصل إلى أصعب التضاريس والقرى والمداشر في قمم وسفوح جبال الريف لتوثيق المنازل، الأراضي الفلاحية، التراث، والمشاريع القروية بأحدث طائرات درون.',
+                zones: ['كافة جماعات الدريوش القروية', 'قرى تمسمان وبني سعيد وتفرسيت', 'جبال إساكن وتارجيست والريف الغربي', 'أرياف الناظور وزايو وكبدانة', 'كافة دواوير ومداشر جبال الريف'],
+                stats: {
+                    speed: 'تنقل بسيارات دفع رباعي',
+                    gear: 'Long-Range Drones + 4K',
+                    legal: 'تغطية جغرافية كاملة'
+                },
+                services: [
+                    'تصوير وتوثيق الأراضي الفلاحية، الضيعات، والمنازل القروية في عمق جبال الريف للجالية والمستثمرين.',
+                    'تصوير جوي للمناظر الطبيعية والمسارات الجبلية والوديان والبحيرات والسدود بالريف.',
+                    'إنتاج أفلام وثائقية وفيديوهات ترويجية لتراث وثقافة وتقاليد منطقة الريف الأصيلة.',
+                    'مسح جوي وطبوغرافي لمشاريع البناء والمسالك الطرقية في المناطق الوعرة.'
+                ],
+                ctaText: 'طلب تصوير في قرى وجبال الريف',
+                whatsappMsg: 'مرحباً أسامة، أود التنسيق لتصوير مشروع في قرى أو جبال الريف'
+            }
+        };
+
+        const pills = document.querySelectorAll('.coverage-pill');
+        const pins = document.querySelectorAll('.radar-hotspot-pin');
+        const hudTitle = document.getElementById('hudRegionTitle');
+        const hudTagline = document.getElementById('hudRegionTagline');
+        const hudBadge = document.getElementById('hudRegionBadge');
+        const hudBadgeText = document.getElementById('hudRegionBadgeText');
+        const hudZones = document.getElementById('hudZonesContainer');
+        const hudStatSpeed = document.getElementById('hudStatSpeed');
+        const hudStatGear = document.getElementById('hudStatGear');
+        const hudStatLegal = document.getElementById('hudStatLegal');
+        const hudServices = document.getElementById('hudServicesList');
         const bookCta = document.getElementById('mapBookCta');
-        const playBtn = document.getElementById('mapPlayVideoBtn');
+        const bookCtaText = document.getElementById('mapBookCtaText');
+        const radarStatusText = document.getElementById('mapRadarStatusText');
+        const radarCoords = document.getElementById('mapRadarCoords');
 
-        if (!cityCards.length || !previewImg) return;
+        function selectRegion(regionKey) {
+            const data = coverageData[regionKey] || coverageData['driouch'];
 
-        let currentVid = '5TftyYFJ4q4';
-
-        cityCards.forEach(card => {
-            card.addEventListener('click', () => {
-                cityCards.forEach(c => c.classList.remove('active'));
-                card.classList.add('active');
-
-                const title = card.getAttribute('data-title') || '';
-                const img = card.getAttribute('data-img') || '';
-                const vid = card.getAttribute('data-vid') || '';
-                const count = card.getAttribute('data-count') || '';
-                const alt = card.getAttribute('data-altitude') || '';
-                const type = card.getAttribute('data-type') || '';
-                const desc = card.getAttribute('data-desc') || '';
-                const cityName = card.querySelector('.city-meta h4') ? card.querySelector('.city-meta h4').textContent : 'المنطقة';
-
-                currentVid = vid;
-
-                // تحديث الشاشة المرئية بنعومة
-                previewImg.style.opacity = '0.4';
-                setTimeout(() => {
-                    previewImg.src = img;
-                    previewImg.style.opacity = '1';
-                }, 150);
-
-                if (previewTitle) previewTitle.textContent = title;
-                if (cityIndicator) cityIndicator.textContent = `${cityName} - تغطية نشطة`;
-                if (badgeAlt) badgeAlt.textContent = alt;
-                if (badgeType) badgeType.textContent = type;
-                if (badgeCount) badgeCount.textContent = count;
-                if (cityDesc) cityDesc.textContent = desc;
-
-                if (bookCta) {
-                    const msg = encodeURIComponent(`مرحباً أسامة، أود حجز تصوير ميداني / درون لمشروعي في ${cityName}`);
-                    bookCta.href = `https://wa.me/212629703283?text=${msg}`;
+            // تحديث كبسولات الأزرار
+            pills.forEach(p => {
+                if (p.getAttribute('data-region') === regionKey) {
+                    p.classList.add('active');
+                } else {
+                    p.classList.remove('active');
                 }
+            });
+
+            // تحديث الدبابيس في خريطة الريف
+            pins.forEach(pin => {
+                const pinRegion = pin.getAttribute('data-region');
+                if (regionKey === 'allrif') {
+                    pin.classList.add('active');
+                } else if (pin.id === data.pinId || pinRegion === regionKey) {
+                    pin.classList.add('active');
+                } else {
+                    pin.classList.remove('active');
+                }
+            });
+
+            // تحديث شريط الرادار
+            if (radarStatusText) {
+                radarStatusText.textContent = `رادار التغطية: ${data.name.split('(')[0].trim()} نشط الآن`;
+            }
+            if (radarCoords) {
+                radarCoords.textContent = data.coords;
+            }
+
+            // تحديث شارة اللوحة والعنوان
+            if (hudBadgeText) hudBadgeText.textContent = data.badge;
+            if (hudBadge) {
+                hudBadge.style.color = data.badgeColor;
+                hudBadge.style.borderColor = data.badgeColor;
+                hudBadge.style.background = data.badgeColor === '#ff4a1c' 
+                    ? 'rgba(255, 74, 28, 0.15)' 
+                    : (data.badgeColor === '#38bdf8' ? 'rgba(56, 189, 248, 0.15)' : 'rgba(37, 211, 102, 0.12)');
+            }
+            if (hudTitle) hudTitle.textContent = data.name;
+            if (hudTagline) hudTagline.textContent = data.tagline;
+
+            // تحديث كبسولات المدن والمناطق
+            if (hudZones) {
+                hudZones.innerHTML = '';
+                data.zones.forEach(z => {
+                    const span = document.createElement('span');
+                    span.className = 'zone-chip';
+                    span.textContent = z;
+                    hudZones.appendChild(span);
+                });
+            }
+
+            // تحديث المؤشرات الإحصائية
+            if (hudStatSpeed) hudStatSpeed.textContent = data.stats.speed;
+            if (hudStatGear) hudStatGear.textContent = data.stats.gear;
+            if (hudStatLegal) hudStatLegal.textContent = data.stats.legal;
+
+            // تحديث قائمة الخدمات
+            if (hudServices) {
+                hudServices.innerHTML = '';
+                data.services.forEach(s => {
+                    const li = document.createElement('li');
+                    li.textContent = s;
+                    hudServices.appendChild(li);
+                });
+            }
+
+            // تحديث زر واتساب المباشر
+            if (bookCta) {
+                const encodedMsg = encodeURIComponent(data.whatsappMsg);
+                bookCta.href = `https://wa.me/212629703283?text=${encodedMsg}`;
+            }
+            if (bookCtaText) {
+                bookCtaText.textContent = data.ctaText;
+            }
+        }
+
+        // الاستماع للنقر على كبسولات التبديل
+        pills.forEach(pill => {
+            pill.addEventListener('click', (e) => {
+                e.preventDefault();
+                const region = pill.getAttribute('data-region');
+                if (region) selectRegion(region);
             });
         });
 
-        // زر تشغيل الفيديو المباشر عبر المودال المدمج
-        if (playBtn) {
-            playBtn.addEventListener('click', () => {
-                const modal = document.getElementById('videoLightboxModal');
-                const iframe = document.getElementById('lightboxVideoIframe');
-                const titleEl = document.getElementById('lightboxVideoTitle');
-                if (!modal || !iframe) return;
-
-                if (titleEl && previewTitle) titleEl.textContent = previewTitle.textContent;
-                iframe.src = `https://www.youtube-nocookie.com/embed/${currentVid}?autoplay=1&rel=0&enablejsapi=1`;
-                modal.style.display = 'flex';
-                requestAnimationFrame(() => modal.classList.add('active'));
-                document.body.style.overflow = 'hidden';
+        // الاستماع للنقر على دبابيس الخريطة
+        pins.forEach(pin => {
+            pin.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const region = pin.getAttribute('data-region');
+                if (region) selectRegion(region);
             });
-        }
+        });
     }
 
     // ========================================================
