@@ -997,15 +997,6 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 .template-price { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--accent-color); }
 .templates { padding: 100px 8%; background-color: transparent; text-align: center; border-top: 1px solid #1a1a1a; }
 
-/* لوحة تحكم الأدمن لتوليد الرموز */
-#admin-panel { display: none; padding: 40px; background: #111; border: 1px solid #333; border-radius: 15px; text-align: center; max-width: 500px; margin: 50px auto; }
-#admin-panel h2 { color: var(--accent-color); margin-bottom: 20px; }
-#admin-panel select { width: 100%; padding: 10px; background: #222; color: white; border: 1px solid #444; border-radius: 8px; margin-bottom: 15px; }
-#admin-panel button { width: 100%; }
-#generated-code-container { margin-top: 20px; background: #0a0a0a; padding: 15px; border-radius: 8px; border: 1px dashed #444; display: none; }
-#generated-code-container p { margin: 0 0 10px 0; color: var(--text-muted); }
-#generated-code { font-family: 'Syne', sans-serif; font-size: 1.5rem; color: var(--accent-color); background: #1a1a1a; padding: 10px; border-radius: 5px; user-select: all; cursor: pointer; }
-
 
 /* نافذة إدخال رمز تحميل القالب */
 #template-code-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 99990; display: none; justify-content: center; align-items: center; padding: 20px; }
@@ -1509,15 +1500,8 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
               .drone .software-icon { color: var(--drone-color); font-size: 2.8rem; }
 
               .software-card h3 { font-size: 1.3rem; margin-bottom: 15px; font-family: 'Cairo', sans-serif; font-weight: 700; position: relative; z-index: 2; }
-              .software-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
-              .skill-bar-container { background-color: #222; border-radius: 10px; height: 6px; width: 100%; position: relative; overflow: hidden; }
-              .skill-bar { height: 100%; border-radius: 10px; width: 0; transition: width 1.5s ease-in-out; }
+              .software-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 0; }
 
-              .pr .skill-bar { background-color: var(--premiere-color); width: 95%; }
-              .dr .skill-bar { background-color: var(--davinci-color); width: 90%; }
-              .ae .skill-bar { background-color: var(--aftereffects-color); width: 85%; }
-              .drone .skill-bar { background-color: var(--drone-color); width: 95%; }
-              .skill-percentage { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px; font-weight: 700; }
 
               /* قسم خطوات سير العمل الاحترافي التفاعلي */
               .process-section { padding: 100px 8%; background-color: transparent; text-align: center; overflow: hidden;}
@@ -4136,10 +4120,6 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
             البرنامج الأساسي في سرد القصص وهيكلة المونتاج الاحترافي، والقص
             متناغم مع الإيقاع الصوتي والسينمائي للإعلانات.
           </p>
-          <div class="skill-percentage">
-            <span>الكفاءة والسرعة</span><span>95%</span>
-          </div>
-          <div class="skill-bar-container"><div class="skill-bar"></div></div>
         </div>
 
         <div class="software-card dr">
@@ -4149,10 +4129,6 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
             الأداة الأقوى عالمياً في التلوين السينمائي (Color Grading)، وتصحيح
             الإضاءة، وضبط التوازن اللوني لتبدو اللقطات مذهلة وفخمة.
           </p>
-          <div class="skill-percentage">
-            <span>التلوين والهندسة</span><span>90%</span>
-          </div>
-          <div class="skill-bar-container"><div class="skill-bar"></div></div>
         </div>
 
         <div class="software-card drone">
@@ -4162,10 +4138,6 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
             توفير لقطات سينمائية جوية مذهلة وحصرية للمشاريع العقارية،
             الافتتاحيات الكبرى، والمقاطع Tرويجية بدقة فائقة الجودة تجذب الأنظار.
           </p>
-          <div class="skill-percentage">
-            <span>التحكم وجودة اللقطات الجوية</span><span>95%</span>
-          </div>
-          <div class="skill-bar-container"><div class="skill-bar"></div></div>
         </div>
 
         <div class="software-card ae">
@@ -4176,10 +4148,6 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
             Graphics) المتقدم لإضافة حيوية واحترافية مطلقة على الفيديوهات
             الإعلانية.
           </p>
-          <div class="skill-percentage">
-            <span>المؤثرات والموشن</span><span>85%</span>
-          </div>
-          <div class="skill-bar-container"><div class="skill-bar"></div></div>
         </div>
       </div>
     </section>
@@ -4525,21 +4493,6 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
         </div>
       </div>
     </section>
-
-    <!-- لوحة تحكم الأدمن لتوليد الرموز (سرية) -->
-    <div id="admin-panel">
-        <h2>لوحة تحكم توليد الرموز</h2>
-        <select id="admin-template-select">
-            <option value="transitions">باقة الانتقالات السينمائية</option>
-            <option value="luts">مجموعة التلوين السينمائي (LUTs)</option>
-            <option value="titles">قوالب نصوص متحركة (Titles)</option>
-        </select>
-        <button onclick="generateAndDisplayCode()" class="btn-price btn-filled">ولّد رابط تحميل ذكي</button>
-        <div id="generated-code-container">
-            <p>الرمز الجديد جاهز. انسخه وأرسله للعميل:</p>
-            <div id="generated-code" onclick="copyCodeToClipboard()"></div>
-        </div>
-    </div>
 
     <!-- ========================================================
          قسم المقارنة السينمائية: قبل وبعد التلوين (Before/After)
@@ -5779,13 +5732,6 @@ const MAINTENANCE_MODE_ENABLED = false;
         }
     }
 
-    // إظهار لوحة تحكم الأدمن إذا كان الرابط يحتوي على مفتاح الوصول الصحيح
-    if (canAccess && isAdmin) {
-        const adminPanel = document.getElementById('admin-panel');
-        if (adminPanel) {
-            adminPanel.style.display = 'block';
-        }
-    }
 })();
 
 // 1. تحميل مكتبة PDF ديناميكياً لتجنب أي تعارض
