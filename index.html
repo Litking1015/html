@@ -1616,7 +1616,167 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
 
               /* قسم باقات الأسعار المحدثة والمرنة */
               .pricing { padding: 100px 8%; background-color: rgba(9, 9, 9, 0.7); text-align: center; }
-              .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; align-items: center; position: relative; z-index: 2; }
+              /* ========================================================
+                 باقات الإنتاج الشاملة: سلايدر سلس وتفاعلي بالكامل (Smooth Pricing Carousel)
+                 ======================================================== */
+              .packages-slider-wrapper {
+                  position: relative;
+                  width: 100%;
+                  margin-top: 45px;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+              }
+
+              .packages-slider-nav-btn {
+                  position: absolute;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  width: 50px;
+                  height: 50px;
+                  border-radius: 50%;
+                  background: rgba(18, 18, 18, 0.88);
+                  border: 1px solid rgba(255, 74, 28, 0.45);
+                  color: #ffffff;
+                  font-size: 1.5rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  cursor: pointer;
+                  z-index: 10;
+                  backdrop-filter: blur(14px);
+                  -webkit-backdrop-filter: blur(14px);
+                  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+                  user-select: none;
+              }
+
+              .packages-slider-nav-btn:hover {
+                  background: var(--accent-color);
+                  color: #fff;
+                  border-color: var(--accent-color);
+                  transform: translateY(-50%) scale(1.12);
+                  box-shadow: 0 10px 30px rgba(255, 74, 28, 0.55);
+              }
+
+              .packages-slider-nav-btn.prev-btn {
+                  right: -15px;
+              }
+
+              .packages-slider-nav-btn.next-btn {
+                  left: -15px;
+              }
+
+              @media (max-width: 1150px) {
+                  .packages-slider-nav-btn.prev-btn { right: 8px; }
+                  .packages-slider-nav-btn.next-btn { left: 8px; }
+              }
+
+              @media (max-width: 768px) {
+                  .packages-slider-nav-btn {
+                      display: none;
+                  }
+              }
+
+              .pricing-grid { 
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: center;
+                  align-items: stretch;
+                  gap: 30px; 
+                  width: 100%;
+                  max-width: 1220px;
+                  margin: 0 auto;
+                  position: relative; 
+                  z-index: 2;
+                  overflow-x: auto;
+                  scroll-behavior: smooth;
+                  -webkit-overflow-scrolling: touch;
+                  scroll-snap-type: x mandatory;
+                  scrollbar-width: none;
+                  -ms-overflow-style: none;
+                  padding: 25px 15px 35px;
+                  cursor: grab;
+              }
+
+              .pricing-grid.is-dragging {
+                  cursor: grabbing;
+                  scroll-snap-type: none;
+                  user-select: none;
+              }
+
+              .pricing-grid::-webkit-scrollbar {
+                  display: none;
+              }
+
+              .price-card {
+                  flex: 0 0 350px;
+                  max-width: 380px;
+                  scroll-snap-align: center;
+                  scroll-snap-stop: always;
+                  background-color: var(--card-bg);
+                  border: 1px solid rgba(255, 255, 255, 0.1);
+                  border-radius: 20px;
+                  padding: 40px 28px;
+                  position: relative;
+                  backdrop-filter: blur(15px);
+                  -webkit-backdrop-filter: blur(15px);
+                  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+              }
+
+              @media (max-width: 768px) {
+                  .pricing-grid {
+                      justify-content: flex-start;
+                      padding: 20px 20px 30px !important;
+                      gap: 20px !important;
+                  }
+                  .price-card {
+                      flex: 0 0 85vw !important;
+                      max-width: 340px !important;
+                      padding: 30px 22px !important;
+                  }
+              }
+
+              /* مؤشرات التنقل النقطية السلسة (Dots) */
+              .packages-slider-dots {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 10px;
+                  margin-top: 15px;
+                  z-index: 5;
+              }
+
+              .package-dot {
+                  width: 10px;
+                  height: 10px;
+                  border-radius: 20px;
+                  background: rgba(255, 255, 255, 0.22);
+                  border: none;
+                  cursor: pointer;
+                  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+                  padding: 0;
+              }
+
+              .package-dot.active {
+                  width: 32px;
+                  background: var(--accent-color);
+                  box-shadow: 0 0 15px rgba(255, 74, 28, 0.6);
+              }
+
+              .packages-drag-hint {
+                  font-size: 0.82rem;
+                  color: var(--text-muted);
+                  margin-top: 10px;
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 6px;
+                  opacity: 0.75;
+                  transition: opacity 0.3s;
+              }
 
               /* ========================================================
                  تنسيقات مركز الاستثمار والإنتاج المرئي (Pricing Hub)
@@ -1671,9 +1831,7 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
                   transform: translateY(0);
               }
               .pricing-view.active.pricing-grid {
-                  display: grid;
-                  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-                  gap: 30px;
+                  display: flex;
                   position: relative;
                   z-index: 2;
               }
@@ -4261,7 +4419,12 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
       </center>
 
       <!-- العرض 1: باقات الإنتاج الجاهزة -->
-      <div class="pricing-view active pricing-grid" id="packagesView">
+      <div class="packages-slider-wrapper">
+        <!-- أزرار التمرير السلس الجانبية -->
+        <button type="button" class="packages-slider-nav-btn prev-btn" id="pkgPrevBtn" aria-label="الباقة السابقة">&#8249;</button>
+        <button type="button" class="packages-slider-nav-btn next-btn" id="pkgNextBtn" aria-label="الباقة التالية">&#8250;</button>
+
+        <div class="pricing-view active pricing-grid" id="packagesView">
         <div class="price-card">
           <h3>باقة التصوير السريع</h3>
           <p class="subtitle">
@@ -4321,6 +4484,17 @@ footer { text-align: center; padding: 35px; font-size: 0.85rem; color: #555; bor
             class="btn-price btn-outline">اطلب الباقة السينمائية VIP</a>
         </div>
       </div>
+
+        <!-- مؤشرات الانتقال السلس بين الباقات -->
+        <div class="packages-slider-dots" id="packagesDots">
+          <button type="button" class="package-dot" data-index="0" aria-label="الباقة الأولى"></button>
+          <button type="button" class="package-dot active" data-index="1" aria-label="الباقة الأكثر طلباً"></button>
+          <button type="button" class="package-dot" data-index="2" aria-label="الباقة الثالثة"></button>
+        </div>
+        <div class="packages-drag-hint">
+          <span>&#8668; اسحب أفقياً أو انقر للتنقل السلس بين الباقات &#8669;</span>
+        </div>
+      </div><!-- /.packages-slider-wrapper -->
 
       <!-- العرض 2: حاسبة الميزانية التفاعلية المخصصة -->
       <div class="pricing-view" id="estimatorView">
@@ -7137,6 +7311,153 @@ window.addEventListener('scroll', function() {
     // ========================================================
     // نظام التبديل بين الباقات الجاهزة وحاسبة التكلفة (Pricing Hub Switcher)
     // ========================================================
+
+    // ========================================================
+    // تحكم وسلاسة التمرير لباقات الإنتاج الشاملة (Smooth Interactive Packages Carousel)
+    // ========================================================
+    function initPackagesSlider() {
+        const slider = document.getElementById('packagesView');
+        if (!slider) return;
+
+        const cards = slider.querySelectorAll('.price-card');
+        const prevBtn = document.getElementById('pkgPrevBtn');
+        const nextBtn = document.getElementById('pkgNextBtn');
+        const dots = document.querySelectorAll('.package-dot');
+        if (!cards.length) return;
+
+        // دالة التمرير السلس لباقة محددة بالبكسل والتمركز الدقيق
+        function scrollToCard(index) {
+            if (index < 0 || index >= cards.length) return;
+            const card = cards[index];
+            const cardOffset = card.offsetLeft - (slider.clientWidth / 2) + (card.offsetWidth / 2);
+            slider.scrollTo({
+                left: cardOffset,
+                behavior: 'smooth'
+            });
+        }
+
+        // تحديث النقطة النشطة عند التمرير
+        function updateActiveDot() {
+            const scrollCenter = slider.scrollLeft + (slider.clientWidth / 2);
+            let closestIndex = 0;
+            let minDistance = Infinity;
+
+            cards.forEach((card, idx) => {
+                const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+                const distance = Math.abs(cardCenter - scrollCenter);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestIndex = idx;
+                }
+            });
+
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === closestIndex);
+            });
+        }
+
+        // أزرار التنقل السلس
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                let currentIdx = 0;
+                dots.forEach((dot, idx) => { if (dot.classList.contains('active')) currentIdx = idx; });
+                const nextTarget = currentIdx - 1 >= 0 ? currentIdx - 1 : cards.length - 1;
+                scrollToCard(nextTarget);
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                let currentIdx = 0;
+                dots.forEach((dot, idx) => { if (dot.classList.contains('active')) currentIdx = idx; });
+                const nextTarget = currentIdx + 1 < cards.length ? currentIdx + 1 : 0;
+                scrollToCard(nextTarget);
+            });
+        }
+
+        // النقر على نقاط المؤشر
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const idx = parseInt(dot.getAttribute('data-index'), 10);
+                scrollToCard(idx);
+            });
+        });
+
+        // رصد التمرير الحر لتحديث المؤشرات
+        let scrollTimer;
+        slider.addEventListener('scroll', () => {
+            if (!scrollTimer) {
+                scrollTimer = requestAnimationFrame(() => {
+                    updateActiveDot();
+                    scrollTimer = null;
+                });
+            }
+        }, { passive: true });
+
+        // تجربة سحب انسيابية بالماوس (Smooth Mouse Dragging)
+        let isDown = false;
+        let startX;
+        let scrollLeftPos;
+        let hasMoved = false;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            hasMoved = false;
+            slider.classList.add('is-dragging');
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeftPos = slider.scrollLeft;
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (!isDown) return;
+            isDown = false;
+            slider.classList.remove('is-dragging');
+            updateActiveDot();
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            if (!isDown) return;
+            isDown = false;
+            slider.classList.remove('is-dragging');
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 1.6; // استجابة سلسة وفائقة السرعة
+            if (Math.abs(walk) > 6) hasMoved = true;
+            slider.scrollLeft = scrollLeftPos - walk;
+        });
+
+        // منع فتح الرابط إذا كان المستخدم يقوم بسحب السلايدر
+        slider.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (hasMoved) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+        });
+
+        // دعم التمرير بعجلة الفأرة الأفقية (Trackpad / Shift + Wheel)
+        slider.addEventListener('wheel', (e) => {
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // التمرير الأفقي الطبيعي
+            if (e.shiftKey) return;
+            // دعم التمرير الأفقي بسلاسة
+            if (Math.abs(e.deltaY) > 0) {
+                slider.scrollLeft += e.deltaY;
+            }
+        }, { passive: true });
+
+        // بدء العرض متمركزاً على باقة "الأكثر طلباً" فور التحميل
+        setTimeout(() => {
+            const popularIdx = Array.from(cards).findIndex(c => c.classList.contains('popular'));
+            if (popularIdx !== -1) {
+                scrollToCard(popularIdx);
+            }
+        }, 300);
+    }
     function initPricingSwitcher() {
         const switchBtns = document.querySelectorAll('.pricing-switch-btn');
         const views = document.querySelectorAll('.pricing-view');
@@ -7658,6 +7979,7 @@ window.addEventListener('scroll', function() {
             ['ColorGradingSlider', initColorGradingSlider],
             ['PortfolioAndLightbox', initPortfolioAndLightbox],
             ['CostEstimator', initCostEstimator],
+            ['PackagesSlider', initPackagesSlider],
             ['PricingSwitcher', initPricingSwitcher],
             ['MreLanguageSwitcher', initMreLanguageSwitcher],
             ['DroneShootingMap', initDroneShootingMap]
